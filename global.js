@@ -17,18 +17,6 @@ const icon_by_name = {
     "waterfall": "Waterfall_icon",
     "hivetile": "Batfly_Hive_icon",
     "batfly": "Batfly_icon",
-    //## Slugcats
-    "SlugNPC": "Slugpup_icon",
-    "slugcat": "Slugcat_icon",
-    "white": "Survivor_icon",
-    "red": "Hunter_icon",
-    "yellow": "Monk_icon",
-    "gourmand": "Gourmand_icon",
-    "artificer": "Artificer_icon",
-    "rivulet": "Rivulet_icon",
-    "spear": "Spearmaster_icon",
-    "saint": "Saint_icon",
-    "inv": "Sofanthiel_icon",
     //## Creatures
     "Green": "Green_Lizard_icon",
     "Pink": "Pink_Lizard_icon",
@@ -347,6 +335,18 @@ const icon_by_name = {
     "su": "Pearl_su_icon",
     "uw": "Pearl_uw_icon",
     "vs": "Pearl_vs_icon",
+    //## Slugcats
+    "SlugNPC": "Slugpup_icon",
+    "slugcat": "Slugcat_icon",
+    "white": "Survivor_icon",
+    "red": "Hunter_icon",
+    "yellow": "Monk_icon",
+    "gourmand": "Gourmand_icon",
+    "artificer": "Artificer_icon",
+    "rivulet": "Rivulet_icon",
+    "spear": "Spearmaster_icon",
+    "saint": "Saint_icon",
+    "inv": "Sofanthiel_icon",
 }
 const hidden_placed_objects = {
     //## MSC
