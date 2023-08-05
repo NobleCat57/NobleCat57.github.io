@@ -333,6 +333,10 @@
 
         }
 
+        .span {
+
+        }
+
         /* UI stuff */
         .side-panel {
             position: absolute;
@@ -536,10 +540,10 @@
             var html = "";
             for (var r of region_order) {
                 html += `
-<label>
+<label class="label">
     <div class="region-btn">
         <input type="radio" id="regionbutton" class="rw-ui" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off">
-        <span class="label">${regions[r].toUpperCase()} (${r})</span>
+        <span class="span">${regions[r].toUpperCase()} (${r})</span>
     </div>
 </label>`
             }
