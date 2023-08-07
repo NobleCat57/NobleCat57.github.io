@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>(Experimental) Rain World Map</title>
+    <title>Rain World Downpour Map</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
-    <meta property="og:image" content="https://NobleCat57.github.io/embed.jpg" />
+    <meta property="og:image" content="https://rain-world-downpour-map.github.io/embed.jpg" />
     <meta property="og:type" content="object" />
-    <meta property="og:title" content="Rain World Map" />
-    <meta property="og:url" content="https://NobleCat57.github.io" />
+    <meta property="og:title" content="Rain World Downpour Map" />
+    <meta property="og:url" content="https://rain-world-downpour-map.github.io" />
     <meta property="og:description"
-          content="An online interactive map that includes every region and every slugcat in Rain World: Downpour. - github.com/rain-world-map" />
+          content="An online interactive map that includes every region and slugcat in Rain World: Downpour. - github.com/rain-world-downpour-map" />
     <link rel="stylesheet" href="./rw.css" />
     <link rel="stylesheet" href="./leaflet/leaflet.css" />
     <!-- Always up to date Lealet build:
@@ -128,8 +128,8 @@
 
         .object-tooltip {
             position: absolute;
-            margin-left: -100px;
-            margin-top: -20px;
+            margin-left: 0px;
+            margin-top: 0px;
             font-weight: 900;
             font-size: 150%;
             color: white;
@@ -172,8 +172,8 @@
 
         .roomtag-tooltip {
             position: absolute;
-            margin-left: -100px;
-            margin-top: -20px;
+            margin-left: 0px;
+            margin-top: 10px;
             font-weight: 900;
             font-size: 150%;
             color: white;
@@ -185,8 +185,8 @@
 
         .roomtag-image {
             position: absolute;
-            margin-left: -25px;
-            margin-top: -25px;
+            margin-left: -45px;
+            margin-top: 0px;
         }
 
         .batblockage-divs {
@@ -204,7 +204,7 @@
         .batblockage-label {
             position: absolute;
             margin-left: 0px;
-            margin-top: -5px;
+            margin-top: 10px;
             font-weight: 900;
             font-size: 140%;
             color: white;
@@ -216,8 +216,8 @@
 
         .batblockage-tooltip {
             position: absolute;
-            margin-left: -100px;
-            margin-top: -20px;
+            margin-left: 0px;
+            margin-top: 10px;
             font-weight: 900;
             font-size: 100%;
             color: white;
@@ -229,23 +229,23 @@
 
         .batblockage-image {
             position: absolute;
-            margin-left: -25px;
-            margin-top: -25px;
+            margin-left: -45px;
+            margin-top: 0px;
         }
 
-        .shortcut-divs {
+        .tilenode-divs {
             display: flex;
             justify-content: center;
         }
 
-        .shortcut-entry {
+        .tilenode-entry {
             display: none;
             /* to be overwritten */
             margin-left: 16px;
             margin-right: 16px;
         }
 
-        .shortcut-label {
+        .tilenode-label {
             position: absolute;
             margin-left: 0px;
             margin-top: -5px;
@@ -258,7 +258,7 @@
             -webkit-text-stroke-color: black;
         }
 
-        .shortcut-tooltip {
+        .tilenode-tooltip {
             position: absolute;
             margin-left: -100px;
             margin-top: -20px;
@@ -271,7 +271,7 @@
             -webkit-text-stroke-color: black;
         }
 
-        .shortcut-image {
+        .tilenode-image {
             position: absolute;
             margin-left: -25px;
             margin-top: -25px;
@@ -327,14 +327,6 @@
             height: 36px;
             margin-top: 11px;
             margin-bottom: 11px;
-        }
-
-        .label {
-
-        }
-
-        .span {
-
         }
 
         /* UI stuff */
@@ -456,8 +448,8 @@
         }
     </style>
 
-    <style id="shortcutfilters">
-        .shortcut-filter {
+    <style id="tilenodefilters">
+        .tilenode-filter {
             display: initial
         }
     </style>
@@ -486,25 +478,21 @@
         <form name="difficulty" class="difficulty-select" id="scug-selector">
         </form>
 
-        <div>Settings</div>
-        <form name="configuration" id="settings-select" class="scroll-ish"></form>
-        <input type="checkbox" id="selection-ckb" name="persistentselection" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="selectDifficulty(difficulty, this.checked);" />
-        <label for="selection-ckb" class="rw-text">Persistent Selection</label>
-        <input type="checkbox" id="outlines-ckb" name="brightoutlines" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="" />
-        <label for="outlines-ckb" class="rw-text">Bright Outlines</label>
+        <div>Object Settings</div>
+        <form name="configuration" id="settings-select" class="scroll-ish">
+            <input type="checkbox" id="collectable-objects" name="collectable" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="this.checked;" />
+            <label for="collectable-objects" class="rw-text">Collectable</label>
+            <input type="checkbox" id="decorative-objects" name="decorative" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="this.checked;" />
+            <label for="decorative-objects" class="rw-text">Decorative</label>
+            <input type="checkbox" id="mechanical-objects" name="mechanical" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="this.checked;" />
+            <label for="mechanical-objects" class="rw-text">Mechanical</label>
+        </form>
 
         <div>Layers</div>
         <div id="layer-content" class="scroll-ish"></div>
     </div>
 
     <script>
-        //function GeoOutlines() {
-         //   document.getElementById('outlines-ckb').checked = checked;
-        //    if (checked) {
-         //   var geocolor = 'rgb(' + json["geocolor"].join(',') + ')';
-          //  } else var geocolor = 'rgb(0,0,255)';
-          //  return geocolor;
-      //  };
         'use strict';
         // misc iconography but mostly Creatures
 
@@ -540,10 +528,10 @@
             var html = "";
             for (var r of region_order) {
                 html += `
-<label class="label">
+<label>
     <div class="region-btn">
-        <input type="radio" id="regionbutton" class="rw-ui" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off">
-        <span class="span">${regions[r].toUpperCase()} (${r})</span>
+        <input type="radio" class="rw-ui" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off">
+        <span>${regions[r].toUpperCase()} (${r})</span>
     </div>
 </label>`
             }
@@ -563,7 +551,6 @@
         }
 
         function selectDifficulty(n, checked) {
-            document.getElementById('selection-ckb').checked = checked;
             for (var i = 0; i < document.difficulty.difficulties.length; i++) {
                 if (document.difficulty.difficulties[i].value == n) {
                     document.difficulty.difficulties[i].checked = true;
@@ -658,20 +645,17 @@
         var modded;
         var difficulty;
         var room;
-        var persel;
         function pushState(noNavigation) {
             let changes = false;
             let modded_param = params.get("modded") == 'on';
             let difficulty_param = params.get("slugcat");
             let region_param = params.get("region");
             let room_param = params.get("room");
-            let persel_param = params.get("persel");
 
             params.delete("modded");
             params.delete("slugcat");
             params.delete("region");
             params.delete("room");
-            params.delete("persel");
 
             if (modded)
                 params.set("modded", "on");
@@ -679,9 +663,6 @@
             params.set("region", region);
             if (room)
                 params.set("room", room);
-
-            if (persel)
-                params.set("persel", "on");
 
             if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param) {
                 // actually changed anything
@@ -701,12 +682,11 @@
                 window.location.href = "index.html";
                 return;
             }
-            persel = params.get("persel") == 'on';
             modded = params.get("modded") == 'on';
             room = params.get("room");
             updateRegionList(difficulty, modded);
             loadRegion(difficulty, region, modded);
-            selectDifficulty(difficulty, persel);
+            selectDifficulty(difficulty);
         }
 
         window.onpopstate = newState;
@@ -825,10 +805,10 @@
         document.getElementById('layer-content').appendChild(overlays.getContainer());
 
         // New additions
-        var shortcutsLayer;
+        var placedObjectsLayer;
+        var tileNodesLayer;
         var roomTagsLayer;
         var batMigrationBlockagesLayer;
-        var placedObjectsLayer;
         // Region stuff
         var tileLayer;
         var roomsLayer;
@@ -955,79 +935,6 @@
                 });
                 if (hadConnections) connectionsLayer.addTo(map);
                 overlays.addOverlay(connectionsLayer, "Connections");
-
-                // Shortcuts
-                let hadShortcuts = map.hasLayer(shortcutsLayer) || loadedRegion == null;
-                if (shortcutsLayer != null) {
-                    overlays.removeLayer(shortcutsLayer);
-                    map.removeLayer(shortcutsLayer);
-                }
-                shortcutsLayer = L.geoJSON(json["shortcut_features"], {
-                    pointToLayer: function (feature, latlng) {
-                        let shortcuthtml = "";
-                        let shortcut_filter = " shortcut-filter";
-                        let roomtile = feature.properties.roomtile
-                        let shortcut = roomtile.shortcut;
-                        var icon = "";
-                        var tooltip = "";
-                        if (shortcut in icon_by_name) {
-                            icon = icon_by_name[shortcut];
-                        } else {
-                            console.log("missing icon for " + shortcut);
-                        }
-                        if (roomtile.garbagehole != null && roomtile.garbagehole) {
-                            icon = "Garbage_Worm_icon";
-                        }
-                        if (roomtile.wormgrass != null && roomtile.wormgrass) {
-                            icon = "Worm_Grass_icon";
-                        }
-                        if (roomtile.waterfall != null && roomtile.waterfall) {
-                            icon = "Waterfall_icon";
-                        }
-                        if (roomtile.hivetile != null && roomtile.hivetile) {
-                            icon = "Batfly_Hive_icon";
-                        }
-                        if (shortcut != null) {
-                            if (shortcut == "DeadEnd") {
-                                icon = "Shortcut_Dead_End_icon";
-                                tooltip = "DeadEnd";
-                            }
-                            if (shortcut == "Normal") {
-                                icon = "Shortcut_Normal_icon";
-                            }
-                            if (shortcut == "RoomExit") {
-                                icon = "Shortcut_Room_Exit_icon";
-                                tooltip = "Room Exit";
-                            }
-                            if (shortcut == "CreatureHole") {
-                                icon = "Shortcut_Creature_Hole_icon";
-                                tooltip = "Creature Hole";
-                            }
-                            if (shortcut == "NPCTransportation") {
-                                icon = "Shortcut_NPC_Transportation_icon";
-                                tooltip = "NPC Transport";
-                            }
-                            if (shortcut == "RegionTransportation") {
-                                icon = "Shortcut_Region_Transportation_icon";
-                                tooltip = " Region Transport";
-                            }
-                        }
-                        shortcuthtml += `<div class="shortcut-entry${shortcut_filter}">
-                                <img class="shortcut-image" src="./resources/icons/${icon}.png"/>
-                                <div class="shortcut-label"></div>
-                                <div class="shortcut-tooltip">${tooltip}</div>
-                                </div>`;
-                        return L.marker(latlng, {
-                            icon: L.divIcon({
-                                className: 'shortcut-divs',
-                                html: shortcuthtml,
-                            }),
-                            interactive: false,
-                        });
-                    },
-                });
-                //if (hadShortcuts) shortcutsLayer.addTo(map);
-                overlays.addOverlay(shortcutsLayer, "Tile Nodes");
 
                 // Geometry
                 let hadGeometry = map.hasLayer(geometryLayer) || loadedRegion == null;
@@ -1228,43 +1135,84 @@
                         var tooltip = "";
                         var attribute = "";
                         var icon = "72_unknown";
-                        if (object in icon_by_name && !(object in hidden_placed_objects)) {
-                            icon = icon_by_name[object];
+                        if (object in standard_placed_object_icons) {
+                            icon = standard_placed_object_icons[object];
+                        } else if (object in token_icons) {
+                            if (document.getElementById('collectable-objects').checked) {
+                                icon = token_icons[object];
+                                if (object == "WhiteToken") {
+                                    if (data.tokenString != null) {
+                                        if (data.tokenString in broadcast_icons) {
+                                            icon = broadcast_icons[data.tokenString];
+                                            tooltip = data.tokenString;
+                                        } else {
+                                            console.log("missing broadcast icon for " + data.tokenString);
+                                        }
+                                    }
+                                } else if (data.tokenString != null) {
+                                    if (data.tokenString in icon_by_name) {
+                                        attribute = icon_by_name[data.tokenString];
+                                        tooltip = data.tokenString;
+                                    } else if (data.tokenString in standard_placed_object_icons) {
+                                        attribute = standard_placed_object_icons[data.tokenString];
+                                        tooltip = data.tokenString;
+                                    } else if (data.tokenString == "DataPearl") {
+                                        attribute = "Pearl_misc_icon";
+                                        tooltip = data.tokenString;
+                                    } else {
+                                        console.log("missing token item icon for " + data.tokenString);
+                                    }
+                                }
+                            } else {
+                                icon = "null_icon";
+                                object_filter = "";
+                            }
+                        } else if (object in pearl_icons) {
+                            if (document.getElementById('collectable-objects').checked) {
+                                icon = pearl_icons[object];
+                                if (data.pearlType != null) {
+                                    if (data.pearlType in pearl_icons) {
+                                        icon = pearl_icons[data.pearlType];
+                                        tooltip = data.pearlType;
+                                    } else {
+                                        console.log("missing pearlType icon for " + data.pearlType);
+                                    }
+                                }
+                            } else {
+                                icon = "null_icon";
+                                object_filter = "";
+                            }
+                        } else if (object in decorative_placed_object_icons) {
+                            if (document.getElementById('decorative-objects').checked) {
+                                icon = decorative_placed_object_icons[object];
+                            } else {
+                                icon = "null_icon";
+                                object_filter = "";
+                            }
+                        } else if (object in mechanical_placed_object_icons) {
+                            if (document.getElementById('mechanical-objects').checked) {
+                                icon = mechanical_placed_object_icons[object];
+                            } else {
+                                icon = "null_icon";
+                                object_filter = "";
+                            }
                         } else {
                             console.log("missing icon for " + object);
-                        }
-                        if (object == "UniqueDataPearl") {
-                            icon = icon_by_name[data.pearlType.toLowerCase()];
-                            tooltip = data.pearlType;
-                        }
-                        if (object == "WhiteToken" && data.tokenString != null) {
-                            icon = icon_by_name[data.tokenString.toLowerCase()];
-                            tooltip = data.tokenString;
-                        }
-                        if (object == "BlueToken" || object == "GoldToken" || object == "RedToken" || object == "DevToken" || object == "GreenToken") {
-                            if (data.tokenString != null) {
-                                if (data.tokenString in icon_by_name) {
-                                    attribute = icon_by_name[data.tokenString]
-                                }
-                                tooltip = data.tokenString;
-                            }
-                        }
-                        if (object in hidden_placed_objects) {
                             icon = "null_icon";
                             var object_filter = "";
                             objecthtml += `<div>
                                     </div>`;
-                        } else if (attribute != "") {
+                        }
+
+                        if (attribute != "") {
                             objecthtml += `<div class="object-entry${object_filter}">
                                     <img class="object-image" src="./resources/icons/${icon}.png"/>
-                                    <div class="object-label"></div>
-                                    <img class="icon-attribute" src="./resources/icons/${attribute}_icon.png"/>
+                                    <img class="icon-attribute" src="./resources/icons/${attribute}.png"/>
                                     <div class="object-tooltip">${tooltip}</div>
                                     </div>`;
                         } else {
                             objecthtml += `<div class="object-entry${object_filter}">
                                     <img class="object-image" src="./resources/icons/${icon}.png"/>
-                                    <div class="object-label"></div>
                                     <div class="object-tooltip">${tooltip}</div>
                                     </div>`;
                         }
@@ -1278,37 +1226,71 @@
                         });
                     },
                 });
-                //if (hadPlacedObjects) placedObjectsLayer.addTo(map);
                 overlays.addOverlay(placedObjectsLayer, "Placed Objects");
-
-                // Bat Migration Blockages
-                let hadBatMigration = map.hasLayer(batMigrationBlockagesLayer) || loadedRegion == null;
-                if (batMigrationBlockagesLayer != null) {
-                    overlays.removeLayer(batMigrationBlockagesLayer);
-                    map.removeLayer(batMigrationBlockagesLayer);
+                
+                // Tile Nodes
+                let hadTileNodes = map.hasLayer(tileNodesLayer) || loadedRegion == null;
+                if (tileNodesLayer != null) {
+                    overlays.removeLayer(tileNodesLayer);
+                    map.removeLayer(tileNodesLayer);
                 }
-                batMigrationBlockagesLayer = L.geoJSON(json["batmigrationblockages_features"], {
+                tileNodesLayer = L.geoJSON(json["tilenode_features"], {
                     pointToLayer: function (feature, latlng) {
-                        let bathtml = "";
-                        let batblockage_filter = " batblockage-filter";
+                        let tilenodehtml = "";
+                        let tilenode_filter = " tilenode-filter";
+                        let roomtile = feature.properties.roomtile
+                        let shortcut = roomtile.shortcut;
                         var icon = "";
-                        icon = "Batfly_icon";
-                        bathtml += `<div class="batblockage-entry${batblockage_filter}">
-                                <img class="batblockage-image" src="./resources/icons/${icon}.png"/>
-                                <div class="batblockage-label">Bat Migration Blockage</div>
-                                <div class="batblockage-tooltip"></div>
+                        if (shortcut in icon_by_name) {
+                            icon = icon_by_name[shortcut];
+                        } else {
+                            console.log("missing icon for " + shortcut);
+                        }
+                        if (roomtile.garbagehole != null && roomtile.garbagehole) {
+                            icon = "Garbage_Worm_icon";
+                        }
+                        if (roomtile.wormgrass != null && roomtile.wormgrass) {
+                            icon = "Worm_Grass_icon";
+                        }
+                        if (roomtile.waterfall != null && roomtile.waterfall) {
+                            icon = "Waterfall_icon";
+                        }
+                        if (roomtile.hivetile != null && roomtile.hivetile) {
+                            icon = "Batfly_Hive_icon";
+                        }
+                        if (shortcut != null) {
+                            if (shortcut == "DeadEnd") {
+                                icon = "Shortcut_Dead_End_icon";
+                            }
+                            if (shortcut == "Normal") {
+                            }
+                            if (shortcut == "RoomExit") {
+                                icon = "Shortcut_Room_Exit_icon";
+                            }
+                            if (shortcut == "CreatureHole") {
+                                icon = "Shortcut_Creature_Hole_icon";
+                            }
+                            if (shortcut == "NPCTransportation") {
+                                icon = "Shortcut_NPC_Transportation_icon";
+                            }
+                            if (shortcut == "RegionTransportation") {
+                                icon = "Shortcut_Region_Transportation_icon";
+                            }
+                        }
+                        tilenodehtml += `<div class="tilenode-entry${tilenode_filter}">
+                                <img class="tilenode-image" src="./resources/icons/${icon}.png"/>
+                                <div class="tilenode-label"></div>
                                 </div>`;
                         return L.marker(latlng, {
                             icon: L.divIcon({
-                                className: 'batblockage-divs',
-                                html: bathtml,
+                                className: 'tilenode-divs',
+                                html: tilenodehtml,
                             }),
                             interactive: false,
                         });
                     },
                 });
-                //if (hadBatMigration) batMigrationBlockagesLayer.addTo(map);
-                overlays.addOverlay(batMigrationBlockagesLayer, "Bat Migration Blockages");
+                overlays.addOverlay(tileNodesLayer, "Tile Nodes");
 
                 // Room Tags
                 let hadRoomTags = map.hasLayer(roomTagsLayer) || loadedRegion == null;
@@ -1379,8 +1361,35 @@
                         });
                     },
                 });
-                //if (hadRoomTags) roomTagsLayer.addTo(map);
                 overlays.addOverlay(roomTagsLayer, "Room Tags");
+
+                // Bat Migration Blockages
+                let hadBatMigration = map.hasLayer(batMigrationBlockagesLayer) || loadedRegion == null;
+                if (batMigrationBlockagesLayer != null) {
+                    overlays.removeLayer(batMigrationBlockagesLayer);
+                    map.removeLayer(batMigrationBlockagesLayer);
+                }
+                batMigrationBlockagesLayer = L.geoJSON(json["batmigrationblockages_features"], {
+                    pointToLayer: function (feature, latlng) {
+                        let bathtml = "";
+                        let batblockage_filter = " batblockage-filter";
+                        var icon = "";
+                        icon = "Batfly_icon";
+                        bathtml += `<div class="batblockage-entry${batblockage_filter}">
+                                <img class="batblockage-image" src="./resources/icons/${icon}.png"/>
+                                <div class="batblockage-label">Bat Migration Blockage</div>
+                                <div class="batblockage-tooltip"></div>
+                                </div>`;
+                        return L.marker(latlng, {
+                            icon: L.divIcon({
+                                className: 'batblockage-divs',
+                                html: bathtml,
+                            }),
+                            interactive: false,
+                        });
+                    },
+                });
+                overlays.addOverlay(batMigrationBlockagesLayer, "Bat Migration Blockages");
 
                 // Zoom to room on rooms loaded
                 let foundRoom = false;
