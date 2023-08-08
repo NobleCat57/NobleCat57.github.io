@@ -418,6 +418,7 @@
                 font-size: 1rem;
             }
 
+
         .region-btn {
             font-size: 0.8rem;
             width: 200px;
@@ -505,14 +506,20 @@
         </form>
 
         <div>Object Settings</div>
-        <form name="configuration" id="settings-ckb-group" class="scroll-ish ">
-            <input type="checkbox" id="collectable-objects" name="collectable" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
-            <label for="collectable-objects" class="rw-text">Collectable</label>
-            <input type="checkbox" id="decorative-objects" name="decorative" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
-            <label for="decorative-objects" class="rw-text">Decorative</label>
-            <input type="checkbox" id="mechanical-objects" name="mechanical" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
-            <label for="mechanical-objects" class="rw-text">Mechanical</label>
-        </form>
+        <div id="modded-ckb-group">
+            <span id="settings-ckb">
+                <input type="checkbox" id="collectable-ckb" name="collectable" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
+                <label for="collectable-ckb" class="rw-text">Collectable</label>
+            </span>
+            <span id="settings-ckb">
+                <input type="checkbox" id="decorative-ckb" name="decorative" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
+                <label for="decorative-ckb" class="rw-text">Decorative</label>
+            </span>
+            <span id="settings-ckb">
+                <input type="checkbox" id="mechanical-ckb" name="mechanical" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
+                <label for="mechanical-ckb" class="rw-text">Mechanical</label>
+            </span>
+        </div>
 
         <div>Layers</div>
         <div id="layer-content" class="scroll-ish"></div>
@@ -705,7 +712,8 @@
             if (room)
                 params.set("room", room);
 
-            if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param || collectable != collectable_param || decorative != decorative_param || mechanical != mechanical_param) {
+            if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param) {
+                // || collectable != collectable_param || decorative != decorative_param || mechanical != mechanical_param
                 // actually changed anything
                 let newstr = params.toString();
                 if (dynamicNavigation) {
