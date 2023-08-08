@@ -1191,7 +1191,7 @@
                         if (object in standard_placed_object_icons) {
                             icon = standard_placed_object_icons[object];
                         } else if (object in token_icons) {
-                            if (collectableobject) {
+                            if (collectable) {
                                 icon = token_icons[object];
                                 if (object == "WhiteToken") {
                                     if (data.tokenString != null) {
@@ -1221,7 +1221,7 @@
                                 object_filter = "";
                             }
                         } else if (object in pearl_icons) {
-                            if (collectableobject) {
+                            if (collectable) {
                                 icon = pearl_icons[object];
                                 if (data.pearlType != null) {
                                     if (data.pearlType in pearl_icons) {
@@ -1236,14 +1236,14 @@
                                 object_filter = "";
                             }
                         } else if (object in decorative_placed_object_icons) {
-                            if (decorativeobject) {
+                            if (decorative) {
                                 icon = decorative_placed_object_icons[object];
                             } else {
                                 icon = "null_icon";
                                 object_filter = "";
                             }
                         } else if (object in mechanical_placed_object_icons) {
-                            if (mechanicalobject) {
+                            if (mechanical) {
                                 icon = mechanical_placed_object_icons[object];
                             } else {
                                 icon = "null_icon";
