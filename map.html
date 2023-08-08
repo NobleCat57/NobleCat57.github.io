@@ -503,23 +503,7 @@
     <div class="side-panel right-panel rw-text">
         <div>Slugcat</div>
         <form name="difficulty" class="difficulty-select" id="scug-selector">
-        </form>1
-
-        <div>Object Settings</div>
-        <div id="modded-ckb-group">
-            <span id="settings-ckb">
-                <input type="checkbox" id="collectable-ckb" name="collectable" class="rw-ui" autocomplete="off" onclick="loadRegion(pdifficulty, pregion, pmodded, this.checked, pdecorative, pmechanical);" />
-                <label for="collectable-ckb" class="rw-text">Collectable</label>
-            </span>
-            <span id="settings-ckb">
-                <input type="checkbox" id="decorative-ckb" name="decorative" class="rw-ui" autocomplete="off" onclick="loadRegion(pdifficulty, pregion, pmodded, pcollectable, this.checked, pmechanical);" />
-                <label for="decorative-ckb" class="rw-text">Decorative</label>
-            </span>
-            <span id="settings-ckb">
-                <input type="checkbox" id="mechanical-ckb" name="mechanical" class="rw-ui" autocomplete="off" onclick="loadRegion(pdifficulty, pregion, pmodded, pcollectable, pdecorative, this.checked);" />
-                <label for="mechanical-ckb" class="rw-text">Mechanical</label>
-            </span>
-        </div>
+        </form>
 
         <div>Layers</div>
         <div id="layer-content" class="scroll-ish"></div>
@@ -687,32 +671,20 @@
             let difficulty_param = params.get("slugcat");
             let region_param = params.get("region");
             let room_param = params.get("room");
-            let collectable_param = params.get("collectable") == 'on';
-            let decorative_param = params.get("decorative") == 'on';
-            let mechanical_param = params.get("mechanical") == 'on';
 
             params.delete("modded");
             params.delete("slugcat");
             params.delete("region");
             params.delete("room");
-            params.delete("collectable");
-            params.delete("decorative");
-            params.delete("mechanical");
 
             if (modded)
                 params.set("modded", "on");
-            if (collectable)
-                params.set("collectable", "on");
-            if (decorative)
-                params.set("decorative", "on");
-            if (mechanical)
-                params.set("mechanical", "on");
             params.set("slugcat", difficulty);
             params.set("region", region);
             if (room)
                 params.set("room", room);
 
-            if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param || collectable != collectable_param || decorative != decorative_param || mechanical != mechanical_param) {
+            if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param) {
                 // actually changed anything
                 let newstr = params.toString();
                 if (dynamicNavigation) {
@@ -731,12 +703,9 @@
                 return;
             }
             modded = params.get("modded") == 'on';
-            collectable = params.get("collectable") == 'on';
-            decorative = params.get("decorative") == 'on';
-            mechanical = params.get("mechanical") == 'on';
             room = params.get("room");
             updateRegionList(difficulty, modded);
-            loadRegion(difficulty, region, modded, collectable, decorative, mechanical);
+            loadRegion(difficulty, region, modded);
             selectDifficulty(difficulty);
         }
 
@@ -860,6 +829,11 @@
         var tileNodesLayer;
         var roomTagsLayer;
         var batMigrationBlockagesLayer;
+        // Settings?
+        var standard = true;
+        var collectable = true;
+        var decorative = false;
+        var mechanical = false;
         // Region stuff
         var tileLayer;
         var roomsLayer;
@@ -868,16 +842,10 @@
         var connectionsLayer;
         var geometryLayer;
         var densLayer;
-        var loadedCollectableObject = {};
-        var loadedDecorativeObject = {};
-        var loadedMechanicalObject = {};
         var loadedDifficulty = null;
         var loadedRegion = null;
         var loadedModded = {};
-        function loadRegion(pdifficulty, pregion, pmodded, pcollectable, pdecorative, pmechanical) {
-            document.getElementById('collectable-objects').checked = pcollectable;
-            document.getElementById('decorative-objects').checked = pdecorative;
-            document.getElementById('mechanical-objects').checked = pmechanical;
+        function loadRegion(pdifficulty, pregion, pmodded) {
             if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded) {
                 // Region isn't changing, double-check focused room
                 let foundRoom = false;
@@ -900,13 +868,8 @@
             }
             region = pregion; // chaos
             modded = pmodded;
-            // && loadedCollectableObject == pcollectable && loadedDecorativeObject == pdecorative && loadedMechanicalObject == pmechanical
-            collectable = pcollectable;
-            decorative = pdecorative;
-            mechanical = pmechanical;
 
             console.log("Loading: region {" + region + "} on slugcat {" + pdifficulty + "}, modded {" + modded + "}");
-            //, collectable {" + collectable + "}, decorative {" + decorative + "}, mechanical {" + mechanical + "}"
             var slugcat_url = {
                 "artificer": "https://raw.githubusercontent.com/NobleCat57/msc-1.9.07b/v1.9.07b/artificer",
                 "gourmand": "https://raw.githubusercontent.com/NobleCat57/msc-1.9.07b/v1.9.07b/gourmand",
@@ -1190,10 +1153,6 @@
                 }
                 placedObjectsLayer = L.geoJSON(json["placedobject_features"], {
                     pointToLayer: function (feature, latlng) {
-                        var standard = true;
-                        //var collectable = true;
-                        //var decorative = false;
-                        //var mechanical = false;
                         let objecthtml = "";
                         var object_filter = " object-filter";
                         var object = feature.properties.object;
@@ -1487,9 +1446,6 @@
                 loadedDifficulty = pdifficulty;
                 loadedRegion = pregion;
                 loadedModded = pmodded;
-                loadedCollectableObject = pcollectable;
-                loadedDecorativeObject = pdecorative;
-                loadedMechanicalObject = pmechanical;
             }, true);
         }
 
