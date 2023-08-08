@@ -396,6 +396,28 @@
                 font-size: 1rem;
             }
 
+        #settings-ckb-group {
+            position: relative;
+            top: 6px;
+            padding-left: 6px;
+            margin-left: auto;
+        }
+
+        #settings-ckb {
+            position: relative;
+            width: 24px;
+            height: 24px;
+        }
+
+            #settings-ckb ~ label {
+                left: 4px;
+                top: -6px;
+            }
+
+            #settings-ckb::before {
+                font-size: 1rem;
+            }
+
         .region-btn {
             font-size: 0.8rem;
             width: 200px;
@@ -434,6 +456,10 @@
         .object-filter {
             display: initial
         }
+        .standard-object-filter {}
+        .collectable-object-filter {}
+        .decorative-object-filter {}
+        .mechanical-object-filter {}
     </style>
 
     <style id="roomtagfilters">
@@ -479,12 +505,12 @@
         </form>
 
         <div>Object Settings</div>
-        <form name="configuration" id="settings-select" class="scroll-ish">
-            <input type="checkbox" id="collectable-objects" name="collectable" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="this.checked;" />
+        <form name="configuration" id="settings-ckb-group" class="scroll-ish ">
+            <input type="checkbox" id="collectable-objects" name="collectable" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
             <label for="collectable-objects" class="rw-text">Collectable</label>
-            <input type="checkbox" id="decorative-objects" name="decorative" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="this.checked;" />
+            <input type="checkbox" id="decorative-objects" name="decorative" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
             <label for="decorative-objects" class="rw-text">Decorative</label>
-            <input type="checkbox" id="mechanical-objects" name="mechanical" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="this.checked;" />
+            <input type="checkbox" id="mechanical-objects" name="mechanical" class="rw-ui rw-ui-ckb" autocomplete="off" onclick="loadRegion(this.checked);" />
             <label for="mechanical-objects" class="rw-text">Mechanical</label>
         </form>
 
@@ -645,26 +671,41 @@
         var modded;
         var difficulty;
         var room;
+        var collectable;
+        var decorative;
+        var mechanical;
         function pushState(noNavigation) {
             let changes = false;
             let modded_param = params.get("modded") == 'on';
             let difficulty_param = params.get("slugcat");
             let region_param = params.get("region");
             let room_param = params.get("room");
+            let collectable_param = params.get("collectable") == 'on';
+            let decorative_param = params.get("decorative") == 'on';
+            let mechanical_param = params.get("mechanical") == 'on';
 
             params.delete("modded");
             params.delete("slugcat");
             params.delete("region");
             params.delete("room");
+            params.delete("collectable");
+            params.delete("decorative");
+            params.delete("mechanical");
 
             if (modded)
                 params.set("modded", "on");
+            if (collectable)
+                params.set("collectable", "on");
+            if (decorative)
+                params.set("decorative", "on");
+            if (mechanical)
+                params.set("mechanical", "on");
             params.set("slugcat", difficulty);
             params.set("region", region);
             if (room)
                 params.set("room", room);
 
-            if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param) {
+            if (modded != modded_param || difficulty != difficulty_param || region != region_param || room != room_param || collectable != collectable_param || decorative != decorative_param || mechanical != mechanical_param) {
                 // actually changed anything
                 let newstr = params.toString();
                 if (dynamicNavigation) {
@@ -683,9 +724,12 @@
                 return;
             }
             modded = params.get("modded") == 'on';
+            collectable = params.get("collectable") == 'on';
+            decorative = params.get("decorative") == 'on';
+            mechanical = params.get("mechanical") == 'on';
             room = params.get("room");
             updateRegionList(difficulty, modded);
-            loadRegion(difficulty, region, modded);
+            loadRegion(difficulty, region, modded, collectable, decorative, mechanical);
             selectDifficulty(difficulty);
         }
 
@@ -817,11 +861,17 @@
         var connectionsLayer;
         var geometryLayer;
         var densLayer;
+        var loadedCollectableObject = {};
+        var loadedDecorativeObject = {};
+        var loadedMechanicalObject = {};
         var loadedDifficulty = null;
         var loadedRegion = null;
         var loadedModded = {};
-        function loadRegion(pdifficulty, pregion, pmodded) {
-            if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded) {
+        function loadRegion(pdifficulty, pregion, pmodded, pcollectable, pdecorative, pmechanical) {
+            document.getElementById('collectable-objects').checked = pcollectable;
+            document.getElementById('decorative-objects').checked = pdecorative;
+            document.getElementById('mechanical-objects').checked = pmechanical;
+            if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded && loadedCollectableObject == pcollectable && loadedDecorativeObject == pdecorative && loadedMechanicalObject == pmechanical) {
                 // Region isn't changing, double-check focused room
                 let foundRoom = false;
                 if (room != null && roomsLayer != null) {
@@ -843,6 +893,9 @@
             }
             region = pregion; // chaos
             modded = pmodded;
+            collectable = pcollectable;
+            decorative = pdecorative;
+            mechanical = pmechanical;
 
             console.log("Loading: region {" + region + "} on slugcat {" + pdifficulty + "}, modded {" + modded + "}");
             var slugcat_url = {
@@ -1138,7 +1191,7 @@
                         if (object in standard_placed_object_icons) {
                             icon = standard_placed_object_icons[object];
                         } else if (object in token_icons) {
-                            if (document.getElementById('collectable-objects').checked) {
+                            if (collectableobject) {
                                 icon = token_icons[object];
                                 if (object == "WhiteToken") {
                                     if (data.tokenString != null) {
@@ -1168,7 +1221,7 @@
                                 object_filter = "";
                             }
                         } else if (object in pearl_icons) {
-                            if (document.getElementById('collectable-objects').checked) {
+                            if (collectableobject) {
                                 icon = pearl_icons[object];
                                 if (data.pearlType != null) {
                                     if (data.pearlType in pearl_icons) {
@@ -1183,14 +1236,14 @@
                                 object_filter = "";
                             }
                         } else if (object in decorative_placed_object_icons) {
-                            if (document.getElementById('decorative-objects').checked) {
+                            if (decorativeobject) {
                                 icon = decorative_placed_object_icons[object];
                             } else {
                                 icon = "null_icon";
                                 object_filter = "";
                             }
                         } else if (object in mechanical_placed_object_icons) {
-                            if (document.getElementById('mechanical-objects').checked) {
+                            if (mechanicalobject) {
                                 icon = mechanical_placed_object_icons[object];
                             } else {
                                 icon = "null_icon";
@@ -1416,6 +1469,9 @@
                 loadedDifficulty = pdifficulty;
                 loadedRegion = pregion;
                 loadedModded = pmodded;
+                loadedCollectableObject = pcollectable;
+                loadedDecorativeObject = pdecorative;
+                loadedMechanicalObject = pmechanical;
             }, true);
         }
 
