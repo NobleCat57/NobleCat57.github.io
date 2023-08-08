@@ -687,26 +687,26 @@
             let difficulty_param = params.get("slugcat");
             let region_param = params.get("region");
             let room_param = params.get("room");
-            let collectable_param = params.get("collectable") == 'on';
-            let decorative_param = params.get("decorative") == 'on';
-            let mechanical_param = params.get("mechanical") == 'on';
+            //let collectable_param = params.get("collectable") == 'on';
+            //let decorative_param = params.get("decorative") == 'on';
+            //let mechanical_param = params.get("mechanical") == 'on';
 
             params.delete("modded");
             params.delete("slugcat");
             params.delete("region");
             params.delete("room");
-            params.delete("collectable");
-            params.delete("decorative");
-            params.delete("mechanical");
+            //params.delete("collectable");
+            //params.delete("decorative");
+            //params.delete("mechanical");
 
             if (modded)
                 params.set("modded", "on");
-            if (collectable)
-                params.set("collectable", "on");
-            if (decorative)
-                params.set("decorative", "on");
-            if (mechanical)
-                params.set("mechanical", "on");
+            //if (collectable)
+            //    params.set("collectable", "on");
+            //if (decorative)
+            //    params.set("decorative", "on");
+            //if (mechanical)
+            //    params.set("mechanical", "on");
             params.set("slugcat", difficulty);
             params.set("region", region);
             if (room)
@@ -732,12 +732,13 @@
                 return;
             }
             modded = params.get("modded") == 'on';
-            collectable = params.get("collectable") == 'on';
-            decorative = params.get("decorative") == 'on';
-            mechanical = params.get("mechanical") == 'on';
+            //collectable = params.get("collectable") == 'on';
+            //decorative = params.get("decorative") == 'on';
+            //mechanical = params.get("mechanical") == 'on';
             room = params.get("room");
             updateRegionList(difficulty, modded);
-            loadRegion(difficulty, region, modded, collectable, decorative, mechanical);
+            loadRegion(difficulty, region, modded);
+            //, collectable, decorative, mechanical
             selectDifficulty(difficulty);
         }
 
@@ -869,16 +870,17 @@
         var connectionsLayer;
         var geometryLayer;
         var densLayer;
-        var loadedCollectableObject = {};
-        var loadedDecorativeObject = {};
-        var loadedMechanicalObject = {};
+        //var loadedCollectableObject = {};
+        //var loadedDecorativeObject = {};
+        //var loadedMechanicalObject = {};
         var loadedDifficulty = null;
         var loadedRegion = null;
         var loadedModded = {};
-        function loadRegion(pdifficulty, pregion, pmodded, pcollectable, pdecorative, pmechanical) {
-            document.getElementById('collectable-objects').checked = pcollectable;
-            document.getElementById('decorative-objects').checked = pdecorative;
-            document.getElementById('mechanical-objects').checked = pmechanical;
+        function loadRegion(pdifficulty, pregion, pmodded) {
+            //, pcollectable, pdecorative, pmechanical
+            //document.getElementById('collectable-objects').checked = pcollectable;
+            //document.getElementById('decorative-objects').checked = pdecorative;
+            //document.getElementById('mechanical-objects').checked = pmechanical;
             if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded) {
                 // Region isn't changing, double-check focused room
                 let foundRoom = false;
@@ -902,11 +904,12 @@
             region = pregion; // chaos
             modded = pmodded;
             // && loadedCollectableObject == pcollectable && loadedDecorativeObject == pdecorative && loadedMechanicalObject == pmechanical
-            collectable = pcollectable;
-            decorative = pdecorative;
-            mechanical = pmechanical;
+            //collectable = pcollectable;
+            //decorative = pdecorative;
+            //mechanical = pmechanical;
 
-            console.log("Loading: region {" + region + "} on slugcat {" + pdifficulty + "}, modded {" + modded + "}, collectable {" + collectable + "}, decorative {" + decorative + "}, mechanical {" + mechanical + "}");
+            console.log("Loading: region {" + region + "} on slugcat {" + pdifficulty + "}, modded {" + modded + "}");
+            //, collectable {" + collectable + "}, decorative {" + decorative + "}, mechanical {" + mechanical + "}"
             var slugcat_url = {
                 "artificer": "https://raw.githubusercontent.com/NobleCat57/msc-1.9.07b/v1.9.07b/artificer",
                 "gourmand": "https://raw.githubusercontent.com/NobleCat57/msc-1.9.07b/v1.9.07b/gourmand",
@@ -1190,6 +1193,10 @@
                 }
                 placedObjectsLayer = L.geoJSON(json["placedobject_features"], {
                     pointToLayer: function (feature, latlng) {
+                        var standard = true;
+                        var collectable = true;
+                        var decorative = false;
+                        var mechanical = false;
                         let objecthtml = "";
                         var object_filter = " object-filter";
                         var object = feature.properties.object;
@@ -1198,7 +1205,12 @@
                         var attribute = "";
                         var icon = "72_unknown";
                         if (object in standard_placed_object_icons) {
-                            icon = standard_placed_object_icons[object];
+                            if (standard) {
+                                icon = standard_placed_object_icons[object];
+                            } else {
+                                icon = "null_icon";
+                                object_filter = "";
+                            } 
                         } else if (object in token_icons) {
                             if (collectable) {
                                 icon = token_icons[object];
