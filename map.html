@@ -871,7 +871,7 @@
             document.getElementById('collectable-objects').checked = pcollectable;
             document.getElementById('decorative-objects').checked = pdecorative;
             document.getElementById('mechanical-objects').checked = pmechanical;
-            if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded && loadedCollectableObject == pcollectable && loadedDecorativeObject == pdecorative && loadedMechanicalObject == pmechanical) {
+            if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded) {
                 // Region isn't changing, double-check focused room
                 let foundRoom = false;
                 if (room != null && roomsLayer != null) {
@@ -893,6 +893,7 @@
             }
             region = pregion; // chaos
             modded = pmodded;
+            // && loadedCollectableObject == pcollectable && loadedDecorativeObject == pdecorative && loadedMechanicalObject == pmechanical
             collectable = pcollectable;
             decorative = pdecorative;
             mechanical = pmechanical;
