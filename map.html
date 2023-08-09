@@ -805,8 +805,8 @@
         // Settings?
         var standard = true;
         var collectable = true;
-        var decorative = false;
-        var mechanical = false;
+        var decorative = true;
+        var mechanical = true;
         // Region stuff
         var tileLayer;
         var roomsLayer;
@@ -1145,24 +1145,36 @@
                                 icon = token_icons[object];
                                 if (object == "WhiteToken") {
                                     if (data.tokenString != null) {
-                                        tooltip = data.tokenString;
-                                        if (data.tokenString in broadcast_icons) {
-                                            icon = broadcast_icons[data.tokenString];
+                                        if (data.tokenString != "") {
+                                            tooltip = data.tokenString;
+                                            if (data.tokenString in broadcast_icons) {
+                                                icon = broadcast_icons[data.tokenString];
+                                            } else {
+                                                console.log("missing broadcast icon for " + data.tokenString);
+                                            }
                                         } else {
-                                            console.log("missing broadcast icon for " + data.tokenString);
+                                            console.log("empty tokenString for " + object);
                                         }
+                                    } else {
+                                        console.log("null tokenString for " + object);
                                     }
                                 } else if (data.tokenString != null) {
-                                    tooltip = data.tokenString;
-                                    if (data.tokenString in icon_by_name) {
-                                        attribute = icon_by_name[data.tokenString];
-                                    } else if (data.tokenString in standard_placed_object_icons) {
-                                        attribute = standard_placed_object_icons[data.tokenString];
-                                    } else if (data.tokenString == "DataPearl") {
-                                        attribute = "Pearl_misc_icon";
+                                    if (data.tokenString != "") {
+                                        tooltip = data.tokenString;
+                                        if (data.tokenString in icon_by_name) {
+                                            attribute = icon_by_name[data.tokenString];
+                                        } else if (data.tokenString in standard_placed_object_icons) {
+                                            attribute = standard_placed_object_icons[data.tokenString];
+                                        } else if (data.tokenString == "DataPearl") {
+                                            attribute = "Pearl_misc_icon";
+                                        } else {
+                                            console.log("missing token item icon for " + data.tokenString);
+                                        }
                                     } else {
-                                        console.log("missing token item icon for " + data.tokenString);
+                                        console.log("empty tokenString for " + object);
                                     }
+                                } else {
+                                    console.log("null tokenString for " + object);
                                 }
                             } else {
                                 icon = "null_icon";
@@ -1172,12 +1184,18 @@
                             if (collectable) {
                                 icon = pearl_icons[object];
                                 if (data.pearlType != null) {
-                                    tooltip = data.pearlType;
-                                    if (data.pearlType in pearl_icons) {
-                                        icon = pearl_icons[data.pearlType];
+                                    if (data.pearlType != "") {
+                                        tooltip = data.pearlType;
+                                        if (data.pearlType in pearl_icons) {
+                                            icon = pearl_icons[data.pearlType];
+                                        } else {
+                                            console.log("missing pearlType icon for " + data.pearlType);
+                                        }
                                     } else {
-                                        console.log("missing pearlType icon for " + data.pearlType);
+                                        console.log("empty pearlType for " + object);
                                     }
+                                } else {
+                                    console.log("null pearlType for " + object);
                                 }
                             } else {
                                 icon = "null_icon";
@@ -1244,40 +1262,33 @@
                         var icon = "";
                         if (shortcut in icon_by_name) {
                             icon = icon_by_name[shortcut];
-                        } else {
-                            console.log("missing icon for " + shortcut);
-                        }
-                        if (roomtile.garbagehole != null && roomtile.garbagehole) {
+                        } else if (roomtile.garbagehole != null && roomtile.garbagehole) {
                             icon = "Garbage_Worm_icon";
-                        }
-                        if (roomtile.wormgrass != null && roomtile.wormgrass) {
+                        } else if (roomtile.wormgrass != null && roomtile.wormgrass) {
                             icon = "Worm_Grass_icon";
-                        }
-                        if (roomtile.waterfall != null && roomtile.waterfall) {
+                        } else if (roomtile.waterfall != null && roomtile.waterfall) {
                             icon = "Waterfall_icon";
-                        }
-                        if (roomtile.hivetile != null && roomtile.hivetile) {
+                        } else if (roomtile.hivetile != null && roomtile.hivetile) {
                             icon = "Batfly_Hive_icon";
-                        }
-                        if (shortcut != null) {
+                        } else if (shortcut != null) {
                             if (shortcut == "DeadEnd") {
                                 icon = "Shortcut_Dead_End_icon";
-                            }
-                            if (shortcut == "Normal") {
-                            }
-                            if (shortcut == "RoomExit") {
+                            } else if (shortcut == "Normal") {
+                            } else if (shortcut == "RoomExit") {
                                 icon = "Shortcut_Room_Exit_icon";
-                            }
-                            if (shortcut == "CreatureHole") {
+                            } else if (shortcut == "CreatureHole") {
                                 icon = "Shortcut_Creature_Hole_icon";
-                            }
-                            if (shortcut == "NPCTransportation") {
+                            } else if (shortcut == "NPCTransportation") {
                                 icon = "Shortcut_NPC_Transportation_icon";
-                            }
-                            if (shortcut == "RegionTransportation") {
+                            } else if (shortcut == "RegionTransportation") {
                                 icon = "Shortcut_Region_Transportation_icon";
+                            } else {
+                                console.log("missing shortcut node icon for " + shortcut);
                             }
+                        } else {
+                            console.log("missing tile node icon for " + roomtile);
                         }
+
                         tilenodehtml += `<div class="tilenode-entry${tilenode_filter}">
                                     <img class="tilenode-image" src="./resources/icons/${icon}.png"/>
                                     <div class="tilenode-label"></div>
