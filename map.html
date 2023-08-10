@@ -374,6 +374,11 @@
             left: 24px;
         }
 
+        /* Button back to index */
+        .top-panel {
+            top: 24px;
+        }
+
         #modded-ckb-group {
             position: relative;
             top: 6px;
@@ -422,6 +427,7 @@
             padding-right: 24px !important;
             margin-right: -16px !important;
         }
+
     </style>
 
     <style id="creaturefilters">
@@ -464,6 +470,10 @@
 
 <body>
     <div id="mapid"></div>
+
+    <div class="side-panel top-panel rw-text">
+        <a href="index.html" class="rw-ui">Index</a>
+    </div>
 
     <div class="side-panel left-panel rw-text">
         <div style="padding-left: 8px; padding-bottom: 8px;">
@@ -805,8 +815,8 @@
         // Settings?
         var standard = true;
         var collectable = true;
-        var decorative = true;
-        var mechanical = true;
+        var decorative = false;
+        var mechanical = false;
         // Region stuff
         var tileLayer;
         var roomsLayer;
