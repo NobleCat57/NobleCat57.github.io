@@ -521,6 +521,7 @@
     </div>
 
     <script>
+        var loadedCount = 1;
         'use strict';
         // misc iconography but mostly Creatures
 
@@ -856,7 +857,6 @@
         var loadedDifficulty = null;
         var loadedRegion = null;
         var loadedModded = {};
-        var loadedCount = 1;
         function loadRegion(pdifficulty, pregion, pmodded) {
             if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded) {
                 // Region isn't changing, double-check focused room
@@ -1472,7 +1472,7 @@
                 loadedModded = pmodded;
             }, true);
             // Don't enable certain layers when loaded for the first time
-            if (loadedCount == 0) {
+            if (loadedCount == 1) {
                 map.removeLayer(placedObjectsLayer);
                 map.removeLayer(tileNodesLayer);
                 map.removeLayer(roomTagsLayer);
