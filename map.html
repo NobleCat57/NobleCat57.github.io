@@ -376,8 +376,17 @@
 
         /* Button back to index */
         .top-panel {
-            top: 24px;
             align-content: center;
+            position: absolute;
+            top: 24px;
+            max-height: calc(100vh - 54px);
+            left: 50%;
+            display: flex;
+            flex-direction: row;
+            padding: 8px;
+            background: #0c0c0c;
+            z-index: 1000;
+            color: #cccccc;
         }
 
         #modded-ckb-group {
@@ -473,7 +482,10 @@
     <div id="mapid"></div>
 
     <div class="top-panel rw-text">
-        <button type="button" class="rw-ui" onclick="window.location.href = `index.html`;">Index</button>
+        <form name="index" class="difficulty-select" id="index-nav">
+            <input type="button" class="rw-ui" name="indexbutton" onclick="window.location.href = `index.html`;">
+            <label for="indexbutton" class="rw-text">Index</label>
+        </form>
     </div>
 
     <div class="side-panel left-panel rw-text">
