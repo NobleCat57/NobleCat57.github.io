@@ -1284,7 +1284,7 @@
                         });
                     },
                 });
-                if (hadPlacedObjects) densLayer.addTo(map);
+                if (hadPlacedObjects && loadedCount != 1) densLayer.addTo(map);
                 overlays.addOverlay(placedObjectsLayer, "Placed Objects");
 
                 // Tile Nodes
@@ -1342,7 +1342,7 @@
                         });
                     },
                 });
-                if (hadTileNodes) densLayer.addTo(map);
+                if (hadTileNodes && loadedCount != 1) densLayer.addTo(map);
                 overlays.addOverlay(tileNodesLayer, "Tile Nodes");
 
                 // Room Tags
@@ -1413,7 +1413,7 @@
                         });
                     },
                 });
-                if (hadRoomTags) densLayer.addTo(map);
+                if (hadRoomTags && loadedCount != 1) densLayer.addTo(map);
                 overlays.addOverlay(roomTagsLayer, "Room Tags");
 
                 // Bat Migration Blockages
@@ -1442,7 +1442,7 @@
                         });
                     },
                 });
-                if (hadBatMigration) densLayer.addTo(map);
+                if (hadBatMigration && loadedCount != 1) densLayer.addTo(map);
                 overlays.addOverlay(batMigrationBlockagesLayer, "Bat Migration Blockages");
 
                 // Zoom to room on rooms loaded
