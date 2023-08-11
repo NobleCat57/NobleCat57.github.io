@@ -1471,15 +1471,11 @@
                 loadedRegion = pregion;
                 loadedModded = pmodded;
             }, true);
-            if (loadedCount != 1) {
-                overlays.removeLayer(placedObjectsLayer);
+            if (loadedCount == 1) {
                 map.removeLayer(placedObjectsLayer);
-                overlays.removeLayer(tileNodesLayer);
                 map.removeLayer(tileNodesLayer);
                 overlays.removeLayer(roomTagsLayer);
-                map.removeLayer(roomTagsLayer);
                 overlays.removeLayer(batMigrationBlockagesLayer);
-                map.removeLayer(batMigrationBlockagesLayer);
             };
             // Don't enable certain layers when loaded for the first time
             console.log("A total of " + loadedCount + " regions have been loaded");
