@@ -1470,17 +1470,17 @@
                 loadedDifficulty = pdifficulty;
                 loadedRegion = pregion;
                 loadedModded = pmodded;
+                // Don't enable certain layers when loaded for the first time
+                if (loadedCount == 1) {
+                    map.removeLayer(placedObjectsLayer);
+                    map.removeLayer(tileNodesLayer);
+                    map.removeLayer(roomTagsLayer);
+                    map.removeLayer(batMigrationBlockagesLayer);
+                    console.log("Map has been loaded for the first time; not showing Placed Objects, Tile Nodes, Room Tags, or Bat Migration Blockages")
+                };
+                console.log("A total of " + loadedCount + " regions have been loaded");
+                loadedCount += 1;
             }, true);
-            // Don't enable certain layers when loaded for the first time
-            if (loadedCount == 1) {
-                map.removeLayer(placedObjectsLayer);
-                map.removeLayer(tileNodesLayer);
-                map.removeLayer(roomTagsLayer);
-                map.removeLayer(batMigrationBlockagesLayer);
-                console.log("Map has been loaded for the first time; not showing Placed Objects, Tile Nodes, Room Tags, or Bat Migration Blockages")
-            };
-            console.log("A total of " + loadedCount + " regions have been loaded");
-            loadedCount += 1;
         }
 
     </script>
