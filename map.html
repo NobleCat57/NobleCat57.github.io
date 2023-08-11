@@ -1472,7 +1472,7 @@
                 loadedModded = pmodded;
             }, true);
             // Don't enable certain layers when loaded for the first time
-            if (loadedCount == 1) {
+            if (loadedCount == 0) {
                 map.removeLayer(placedObjectsLayer);
                 map.removeLayer(tileNodesLayer);
                 map.removeLayer(roomTagsLayer);
