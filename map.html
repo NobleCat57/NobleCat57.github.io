@@ -1471,7 +1471,7 @@
                 loadedRegion = pregion;
                 loadedModded = pmodded;
             }, true);
-            if (loadedCount == 1) {
+            if (loadedCount != 1) {
                 overlays.removeLayer(placedObjectsLayer);
                 map.removeLayer(placedObjectsLayer);
                 overlays.removeLayer(tileNodesLayer);
