@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>(Experimental) Rain World Map</title>
+    <title>Rain World Downpour Map</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
-    <meta property="og:image" content="https://NobleCat57.github.io/embed.jpg" />
+    <meta property="og:image" content="https://rain-world-downpour-map.github.io/embed.jpg" />
     <meta property="og:type" content="object" />
     <meta property="og:title" content="Rain World Map" />
-    <meta property="og:url" content="https://NobleCat57.github.io" />
+    <meta property="og:url" content="https://rain-world-downpour-map.github.io" />
     <meta property="og:description"
-          content="An online interactive map that includes every region and every slugcat in Rain World: Downpour. - github.com/rain-world-map" />
+          content="An online interactive map that includes every region and slugcat in Rain World: Downpour. - github.com/rain-world-downpour-map" />
     <link rel="stylesheet" href="./rw.css" />
 
     <script src="./global.js"></script>
@@ -125,20 +125,26 @@
             height: 36px;
         }
 
-        .index {
-        }
-
-        .indexitem {
+        .difficulty-btn {
             display: inline-block;
+            width: 38px;
+            height: 38px;
+            margin: 4px;
+            position: relative;
         }
 
-        .indexcaption {
+        #indexcontents {
             text-align: center;
             font-family: 'Segoe UI';
             font-weight: 500;
             color: #A9A4B2;
             /* menu lightgray */
             background-color: black;
+            margin-left: 15%;
+            margin-right: 15%;
+            border-radius: 8px;
+            border: 2px solid #A9A4B200;
+            border-color: white;
         }
 
         .indexgroup {
@@ -147,33 +153,91 @@
             color: #A9A4B2;
             /* menu lightgray */
             background-color: black;
-            padding-left: 10%;
-            padding-right: 10%;
+            margin: 5%;
+            border-radius: 8px;
+            border: 2px solid #A9A4B200;
+            border-color: white;
         }
 
-        .rw-text-content {
-            text-align: center;
-            font-family: 'Segoe UI';
-            font-weight: 500;
-            color: #A9A4B2;
-            /* menu lightgray */
-            background-color: black;
+            .indexgroup figure {
+                display: inline-block;
+                border-radius: 8px;
+                border: 2px solid #A9A4B200;
+                border-color: white;
+            }
+
+            .indexgroup figcaption {
+                text-align: center;
+                font-family: 'Segoe UI';
+                font-weight: 500;
+                color: #A9A4B2;
+                padding: 10px;
+            }
+
+            .indexgroup content {
+                max-width: 200px;
+                display: flex;
+                text-align: center;
+                font-family: 'Segoe UI';
+                font-weight: 500;
+                color: #A9A4B2;
+                padding: 10px;
+                flex-wrap: wrap;
+            }
+
+        .index-sidebar {
+            top: 24px;
+            max-height: calc(100vh - 54px);
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+            background: #0c0c0c;
+            color: #cccccc;
+            position: fixed !important;
+            z-index: 1;
+            overflow: auto
         }
 
-        .difficulty-btn {
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            margin: 4px;
-            position: relative;
+        #sidenav h2 {
+            font-size: 21px;
+            padding-left: 16px;
+            margin: -4px 0 4px 0;
+            width: 204px;
         }
+
+        #sidenav a {
+            text-decoration: none;
+            display: block;
+            padding: 2px 1px 1px 16px;
+        }
+
+            #sidenav a:hover, #sidenav a:focus {
+                color: #000000;
+                background-color: #cccccc;
+            }
+
+            #sidenav a.active {
+                background-color: #04AA6D !important;
+                color: #ffffff !important;
+            }
+
+            #sidenav a.activesub:link, #sidenav a.activesub:visited {
+                background-color: #ddd;
+                color: #000;
+            }
+
+            #sidenav a.activesub:hover, #sidenav a.activesub:active {
+                background-color: #ccc;
+                color: #000;
+            }
+
     </style>
 
 </head>
 
 <body>
     <form id="main-menu">
-        <div class="rw-title">(Experimental)<br>Rain World:<br>Downpour</div>
+        <div class="rw-title">Rain World:<br>Downpour</div>
         <div class="rw-bigtext" style="text-align: center; margin-top:0.5em;">I'm lost as...</div>
         <div id="scuglist-group">
             <div id="scuglist-vanilla"></div>
@@ -195,7 +259,7 @@
                     html += `
 <label class="difficulty-btn">
             <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}');" autocomplete="off">
-            <img class="index" src="./resources/icons/${icon}.png">
+            <img src="./resources/icons/${icon}.png">
 </label>`;
                     document.getElementById('scuglist-vanilla').innerHTML = html;
                 }
@@ -207,1090 +271,1360 @@
         </script>
 
     </form>
-    <div class="rw-text-content">
-        <h2>Index</h2>
+
+    <aside id="sidenav" class="index-sidebar rw-ui">
+        <a href="#indextop">Index</a>
+        <a href="#tilenodes">Tile Nodes</a>
+        <a href="#roomtags">Room Tags</a>
+        <a href="#slugcats">Slugcats</a>
+        <a href="#creatures">Creatures</a>
+        <a href="#lizards">Lizards</a>
+        <a href="#centipedes">Centipedes</a>
+        <a href="#rot">The Rot</a>
+        <a href="#spiders">Spiders</a>
+        <a href="#creatureattributes">Creature Attributes</a>
+        <a href="#placedobjects">Placed Objects</a>
+        <a href="#placedcreatures">Placed Creatures</a>
+        <a href="#edible">Edible</a>
+        <a href="#non-edible">Non-Edible</a>
+        <a href="#decorative">Decorative</a>
+        <a href="#mechanical">Mechanical</a>
+    </aside>
+
+    <div id="indexcontents">
+        <h2 id="indextop">Index</h2>
         <div class="indexgroup">
-            <h3>Random Icons</h3>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/00_clear.png" />
-                <figcaption class="indexcaption">Clear</figcaption>
+            <h3 id="random">Random Icons</h3>
+            <figure>
+                <img src="./resources/icons/00_clear.png" />
+                <figcaption>Clear</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/63_none.png" />
-                <figcaption class="indexcaption">None</figcaption>
+            <figure>
+                <img src="./resources/icons/63_none.png" />
+                <figcaption>None</figcaption>
+                <content>Used for lineage spawns with no Creatures</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/60_randomitems_inactive.png" />
-                <figcaption class="indexcaption">Random Items</figcaption>
+            <figure>
+                <img src="./resources/icons/60_randomitems_inactive.png" />
+                <figcaption>Random Items</figcaption>
+                <content></content>
             </figure>
         </div>
         <br>
         <div class="indexgroup">
-            <h3>Tile Nodes</h3>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shortcut_Dead_End_icon.png" />
-                <figcaption class="indexcaption">Dead End</figcaption>
+            <h3 id="tilenodes">Tile Nodes</h3>
+            <figure>
+                <img src="./resources/icons/Shortcut_Dead_End_icon.png" />
+                <figcaption>Dead End</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shortcut_Normal_icon.png" />
-                <figcaption class="indexcaption">Normal Shortcut</figcaption>
+            <figure>
+                <img src="./resources/icons/Shortcut_Normal_icon.png" />
+                <figcaption>Normal Shortcut</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shortcut_Room_Exit_icon.png" />
-                <figcaption class="indexcaption">Room Exit</figcaption>
+            <figure>
+                <img src="./resources/icons/Shortcut_Room_Exit_icon.png" />
+                <figcaption>Room Exit</figcaption>
+                <content>Leads to another room</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shortcut_Creature_Hole_icon.png" />
-                <figcaption class="indexcaption">Creature Hole</figcaption>
+            <figure>
+                <img src="./resources/icons/Shortcut_Creature_Hole_icon.png" />
+                <figcaption>Creature Hole</figcaption>
+                <content>Also known as a den; where a Creature spawns and goes inside to hibernate / eat</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shortcut_NPC_Transportation_icon.png" />
-                <figcaption class="indexcaption">NPC Transportation</figcaption>
+            <figure>
+                <img src="./resources/icons/Shortcut_NPC_Transportation_icon.png" />
+                <figcaption>NPC Transportation</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shortcut_Region_Transportation_icon.png" />
-                <figcaption class="indexcaption">Region Transportation</figcaption>
+            <figure>
+                <img src="./resources/icons/Shortcut_Region_Transportation_icon.png" />
+                <figcaption>Region Transportation</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Garbage_Worm_icon.png" />
-                <figcaption class="indexcaption">Garbage Worm</figcaption>
+            <figure>
+                <img src="./resources/icons/Garbage_Worm_icon.png" />
+                <figcaption>Garbage Worm</figcaption>
+                <content>Creates a Garbage Worm</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Worm_Grass_icon.png" />
-                <figcaption class="indexcaption">Worm Grass</figcaption>
+            <figure>
+                <img src="./resources/icons/Worm_Grass_icon.png" />
+                <figcaption>Worm Grass</figcaption>
+                <content>Worm Grass occupies this tile</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Waterfall_icon.png" />
-                <figcaption class="indexcaption">Waterfall</figcaption>
+            <figure>
+                <img src="./resources/icons/Waterfall_icon.png" />
+                <figcaption>Waterfall</figcaption>
+                <content>Water will drip from this tile</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Batfly_Hive_icon.png" />
-                <figcaption class="indexcaption">Batfly Hive</figcaption>
-            </figure>
-        </div>
-        <br>
-        <div class="indexgroup">
-            <h3>Room Tags</h3>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Shelter_icon.png" />
-                <figcaption class="indexcaption">Shelter</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/AncientShelter_icon.png" />
-                <figcaption class="indexcaption">Ancient Shelter</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Gate_icon.png" />
-                <figcaption class="indexcaption">Gate</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/SwarmRoom_icon.png" />
-                <figcaption class="indexcaption">Swarm Room</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Perf_Heavy_icon.png" />
-                <figcaption class="indexcaption">Performance Heavy</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/ScavOutpost_icon.png" />
-                <figcaption class="indexcaption">Scavenger Toll / Outpost</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/ScavTrader_icon.png" />
-                <figcaption class="indexcaption">Scavenger Merchant / Trader</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/NoTrackers_icon.png" />
-                <figcaption class="indexcaption">No Trackers</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Arena_icon.png" />
-                <figcaption class="indexcaption">Arena</figcaption>
+            <figure>
+                <img src="./resources/icons/Batfly_Hive_icon.png" />
+                <figcaption>Batfly Hive</figcaption>
+                <content>Where Batflies spawn from and can enter to travel between them as if they were shortcuts</content>
             </figure>
         </div>
         <br>
         <div class="indexgroup">
-            <h3>Slugcats</h3>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Monk_icon.png" />
-                <figcaption class="indexcaption">Monk</figcaption>
+            <h3 id="roomtags">Room Tags</h3>
+            <figure>
+                <img src="./resources/icons/Shelter_icon.png" />
+                <figcaption>Shelter</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Survivor_icon.png" />
-                <figcaption class="indexcaption">Survivor</figcaption>
+            <figure>
+                <img src="./resources/icons/AncientShelter_icon.png" />
+                <figcaption>Ancient Shelter</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Hunter_icon.png" />
-                <figcaption class="indexcaption">Hunter</figcaption>
+            <figure>
+                <img src="./resources/icons/Gate_icon.png" />
+                <figcaption>Gate</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Gourmand_icon.png" />
-                <figcaption class="indexcaption">Gourmand</figcaption>
+            <figure>
+                <img src="./resources/icons/SwarmRoom_icon.png" />
+                <figcaption>Swarm Room</figcaption>
+                <content>Enables Batflies to spawn from placed Batfly Hives within the room</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Artificer_icon.png" />
-                <figcaption class="indexcaption">Artificer</figcaption>
+            <figure>
+                <img src="./resources/icons/Perf_Heavy_icon.png" />
+                <figcaption>Performance Heavy</figcaption>
+                <content>The Room and the Entities inside are abstractized (a state of simplified simulation) as soon as the player exits the room, as opposed to the normal behavior of adjacent rooms remaining realized (fully simulated)</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Rivulet_icon.png" />
-                <figcaption class="indexcaption">Rivulet</figcaption>
+            <figure>
+                <img src="./resources/icons/ScavOutpost_icon.png" />
+                <figcaption>Scavenger Toll / Outpost</figcaption>
+                <content>A Scavenger Toll is defined where an outpost object is placed</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Spearmaster_icon.png" />
-                <figcaption class="indexcaption">Spearmaster</figcaption>
+            <figure>
+                <img src="./resources/icons/ScavTrader_icon.png" />
+                <figcaption>Scavenger Merchant / Trader</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Saint_icon.png" />
-                <figcaption class="indexcaption">Saint</figcaption>
+            <figure>
+                <img src="./resources/icons/NoTrackers_icon.png" />
+                <figcaption>No Trackers</figcaption>
+                <content>Key Items do not retain their tracked state when inside the room</content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Sofanthiel_icon.png" />
-                <figcaption class="indexcaption">Sofanthiel / Inv / ???</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Slugpup_icon.png" />
-                <figcaption class="indexcaption">Slugpup</figcaption>
-            </figure>
-        </div>
-        <br>
-        <div class="indexgroup">
-            <h3>Creatures</h3>
-            <div class="indexgroup">
-                <h4>Lizards</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Green_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Green Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pink_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Pink Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Blue_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Blue Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/White_Lizard_icon.png" />
-                    <figcaption class="indexcaption">White Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Black_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Black Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Yellow_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Yellow Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Cyan_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Cyan Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Red_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Red Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Salamander_icon.png" />
-                    <figcaption class="indexcaption">Salamander</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Caramel_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Caramel Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Strawberry_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Strawberry Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Eel_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Eel Lizard</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Train_Lizard_icon.png" />
-                    <figcaption class="indexcaption">Train Lizard</figcaption>
-                </figure>
-            </div>
-            <div class="indexgroup">
-                <h4>Centipedes</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Infant_Centipede_icon.png" />
-                    <figcaption class="indexcaption">Infant Centipede</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Infant_Centipede_AlternateForm_icon.png" />
-                    <figcaption class="indexcaption">Infant Centipede (Alternate Form)</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Adult_Centipede_icon.png" />
-                    <figcaption class="indexcaption">Adult Centipede</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Overgrown_Centipede_icon.png" />
-                    <figcaption class="indexcaption">Overgrown Centipede</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Red_Centipede_icon.png" />
-                    <figcaption class="indexcaption">Red Centipede</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Centiwing_icon.png" />
-                    <figcaption class="indexcaption">Centiwing</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Aquapede_icon.png" />
-                    <figcaption class="indexcaption">Aquapede</figcaption>
-                </figure>
-            </div>
-            <div class="indexgroup">
-                <h4>The Rot / Corruption</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Brother_Long_Legs_icon.png" />
-                    <figcaption class="indexcaption">Brother Long Legs</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Daddy_Long_Legs_icon.png" />
-                    <figcaption class="indexcaption">Daddy Long Legs</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Mother_Long_Legs_icon.png" />
-                    <figcaption class="indexcaption">Mother Long Legs</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Hunter_Long_Legs_icon.png" />
-                    <figcaption class="indexcaption">Hunter Long Legs</figcaption>
-                </figure>
-            </div>
-            <div class="indexgroup">
-                <h4>Spiders</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Coalescipede_icon.png" />
-                    <figcaption class="indexcaption">Coalescipede</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Big_Spider_icon.png" />
-                    <figcaption class="indexcaption">Big Spider</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Spitter_Spider_icon.png" />
-                    <figcaption class="indexcaption">Spitter Spider</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Mother_Spider_icon.png" />
-                    <figcaption class="indexcaption">Mother Spider</figcaption>
-                </figure>
-            </div>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/White_Squidcada_icon.png" />
-                <figcaption class="indexcaption">White Squidcada</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Black_Squidcada_icon.png" />
-                <figcaption class="indexcaption">Black Squidcada</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Snail_icon.png" />
-                <figcaption class="indexcaption">Snail</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Red_Leech_icon.png" />
-                <figcaption class="indexcaption">Red Leech</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Blue_Leech_icon.png" />
-                <figcaption class="indexcaption">Blue Leech / Sea Leech</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Jungle_Leech_icon.png" />
-                <figcaption class="indexcaption">Jungle Leech</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Pole_Plant_icon.png" />
-                <figcaption class="indexcaption">Pole Mimic</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Monster_Kelp_icon.png" />
-                <figcaption class="indexcaption">Monster Kelp</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Scavenger_icon.png" />
-                <figcaption class="indexcaption">Scavenger</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Elite_Scavenger_icon.png" />
-                <figcaption class="indexcaption">Elite Scavenger</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Chieftain_Scavenger_icon.png" />
-                <figcaption class="indexcaption">Scavenger King</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Vulture_icon.png" />
-                <figcaption class="indexcaption">Vulture</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/King_Vulture_icon.png" />
-                <figcaption class="indexcaption">King Vulture</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Miros_Bird_icon.png" />
-                <figcaption class="indexcaption">Miros Bird</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Miros_Vulture_icon.png" />
-                <figcaption class="indexcaption">Miros Vulture</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Grapple_Worm_icon.png" />
-                <figcaption class="indexcaption">Grapple Worm</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Lantern_Mouse_icon.png" />
-                <figcaption class="indexcaption">Lantern Mouse</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Rain_Deer_icon.png" />
-                <figcaption class="indexcaption">Rain Deer</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Eggbug_icon.png" />
-                <figcaption class="indexcaption">Eggbug</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Dropwig_icon.png" />
-                <figcaption class="indexcaption">Dropwig</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Adult_Noodlefly_icon.png" />
-                <figcaption class="indexcaption">Adult Noodlefly</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Infant_Noodlefly_icon.png" />
-                <figcaption class="indexcaption">Infant Noodlefly</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Jetfish_icon.png" />
-                <figcaption class="indexcaption">Jetfish</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Leviathan_icon.png" />
-                <figcaption class="indexcaption">Leviathan</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Overseer_icon.png" />
-                <figcaption class="indexcaption">Overseer</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Firebug_icon.png" />
-                <figcaption class="indexcaption">Firebug</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Inspector_icon.png" />
-                <figcaption class="indexcaption">Inspector</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Yeek_icon.png" />
-                <figcaption class="indexcaption">Yeek</figcaption>
-            </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Batfly_icon.png" />
-                <figcaption class="indexcaption">Batfly</figcaption>
+            <figure>
+                <img src="./resources/icons/Arena_icon.png" />
+                <figcaption>Arena</figcaption>
+                <content>Upon the player entering the room, exits will be blocked and Creatures will begin spawning, allowing for room exit upon killing the Creatures</content>
             </figure>
         </div>
         <br>
         <div class="indexgroup">
-            <h3>Creature Attributes</h3>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/PreCycle_icon.png" />
-                <figcaption class="indexcaption">Pre-Cycle</figcaption>
+            <h3 id="slugcats">Slugcats</h3>
+            <figure>
+                <img src="./resources/icons/Monk_icon.png" />
+                <figcaption>Monk</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Night_icon.png" />
-                <figcaption class="indexcaption">Night</figcaption>
+            <figure>
+                <img src="./resources/icons/Survivor_icon.png" />
+                <figcaption>Survivor</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/IgnoreCycle_icon.png" />
-                <figcaption class="indexcaption">Ignore Cycle</figcaption>
+            <figure>
+                <img src="./resources/icons/Hunter_icon.png" />
+                <figcaption>Hunter</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/TentacleImmune_icon.png" />
-                <figcaption class="indexcaption">Tentacle Immune</figcaption>
+            <figure>
+                <img src="./resources/icons/Gourmand_icon.png" />
+                <figcaption>Gourmand</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/AlternateForm_icon.png" />
-                <figcaption class="indexcaption">Alternate Form</figcaption>
+            <figure>
+                <img src="./resources/icons/Artificer_icon.png" />
+                <figcaption>Artificer</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/LavaSafe_icon.png" />
-                <figcaption class="indexcaption">Lava Safe</figcaption>
+            <figure>
+                <img src="./resources/icons/Rivulet_icon.png" />
+                <figcaption>Rivulet</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/VoidSea_icon.png" />
-                <figcaption class="indexcaption">Void Sea</figcaption>
+            <figure>
+                <img src="./resources/icons/Spearmaster_icon.png" />
+                <figcaption>Spearmaster</figcaption>
+                <content></content>
             </figure>
-            <figure class="indexitem">
-                <img class="index" src="./resources/icons/Winter_icon.png" />
-                <figcaption class="indexcaption">Winter</figcaption>
+            <figure>
+                <img src="./resources/icons/Saint_icon.png" />
+                <figcaption>Saint</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Sofanthiel_icon.png" />
+                <figcaption>Sofanthiel / Inv / ???</figcaption>
+                <content>Meme Cat</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Slugpup_icon.png" />
+                <figcaption>Slugpup</figcaption>
+                <content>bebe</content>
             </figure>
         </div>
         <br>
         <div class="indexgroup">
-            <h3>Placed Objects</h3>
+            <h3 id="creatures">Creatures</h3>
+            <div class="indexgroup">
+                <h4 id="lizards">Lizards</h4>
+                <figure>
+                    <img src="./resources/icons/Green_Lizard_icon.png" />
+                    <figcaption>Green Lizard</figcaption>
+                    <content>Hefty but slow. Has the ability to charge a dash towards prey</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Pink_Lizard_icon.png" />
+                    <figcaption>Pink Lizard</figcaption>
+                    <content>Moderate health with no special attributes</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Blue_Lizard_icon.png" />
+                    <figcaption>Blue Lizard</figcaption>
+                    <content>Low health with the ability to climb walls and has a short range tongue to pull objects towards itself</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/White_Lizard_icon.png" />
+                    <figcaption>White Lizard</figcaption>
+                    <content>Moderate health with the ability to climb walls and also camoflauge itself while stationary, with a long range tongue</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Black_Lizard_icon.png" />
+                    <figcaption>Black Lizard</figcaption>
+                    <content>Moderate Health and is blind, instead detecting the player by sound</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Yellow_Lizard_icon.png" />
+                    <figcaption>Yellow Lizard</figcaption>
+                    <content>Moderate health and always spawn in groups, with the hivemind like ability of communicating detected presence of the player between each other</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Cyan_Lizard_icon.png" />
+                    <figcaption>Cyan Lizard</figcaption>
+                    <content>Moderate health with the ability to climb walls, and high agility with a rapidly deployable leap that propels them through the air, with the distance depending on time charged</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Red_Lizard_icon.png" />
+                    <figcaption>Red Lizard</figcaption>
+                    <content>Very High health and agility, with the ability to rapidly spit globules at prey to push back and slow them. With the Remix option Alpha Red Lizards enabled, they also have a medium range tongue that can grab objects carried by the player, able to break spears that they grab</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Salamander_icon.png" />
+                    <figcaption>Salamander</figcaption>
+                    <content>Moderate health with low agility on land and high agility in water, often acting as an ambush predator, sitting motionless at the bottom of a pool of water until prey is detected</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Caramel_Lizard_icon.png" />
+                    <figcaption>Caramel Lizard</figcaption>
+                    <content>High Health with the bulkiness of a green lizard, able to charge a pounce through the air at prey, often stumbling along the way, and can spit globules like a red lizard</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Strawberry_Lizard_icon.png" />
+                    <figcaption>Strawberry Lizard</figcaption>
+                    <content>Low Health and low on the food chain, eating Batflies, with a long tongue it can extend to pull itself toward the grappled target</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Eel_Lizard_icon.png" />
+                    <figcaption>Eel Lizard</figcaption>
+                    <content>High Health and pathetic agility on land with excellent sight and agility underwater. Can be indentified underwater by its glowing head</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Train_Lizard_icon.png" />
+                    <figcaption>Train Lizard</figcaption>
+                    <content></content>
+                </figure>
+            </div>
+            <div class="indexgroup">
+                <h4 id="centipedes">Centipedes</h4>
+                <figure>
+                    <img src="./resources/icons/Infant_Centipede_icon.png" />
+                    <figcaption>Infant Centipede</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Infant_Centipede_AlternateForm_icon.png" />
+                    <figcaption>Infant Centipede (Alternate Form)</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Adult_Centipede_icon.png" />
+                    <figcaption>Adult Centipede</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Overgrown_Centipede_icon.png" />
+                    <figcaption>Overgrown Centipede</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Red_Centipede_icon.png" />
+                    <figcaption>Red Centipede</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Centiwing_icon.png" />
+                    <figcaption>Centiwing</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Aquapede_icon.png" />
+                    <figcaption>Aquapede</figcaption>
+                    <content>Moderate Health and insane underwater agility, with near-omnipotent underwater sight. Latches onto prey and shocks them to death, able to kill Leviathans if given the chance</content>
+                </figure>
+            </div>
+            <div class="indexgroup">
+                <h4 id="rot">The Rot / Corruption</h4>
+                <figure>
+                    <img src="./resources/icons/Brother_Long_Legs_icon.png" />
+                    <figcaption>Brother Long Legs</figcaption>
+                    <content>Abundant health and detects by touch only, with a lower agility, with shorter tentacles and a smaller cyst core</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Daddy_Long_Legs_icon.png" />
+                    <figcaption>Daddy Long Legs</figcaption>
+                    <content>Insane Health and detects by sound and touch only, with a moderate agility, with moderate length tentacles and a moderate sized cyst core</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Mother_Long_Legs_icon.png" />
+                    <figcaption>Mother Long Legs</figcaption>
+                    <content>Divine health and detects by sound and touch only, with a lower agility, with extremely long tentacles and a large cyst core</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Hunter_Long_Legs_icon.png" />
+                    <figcaption>Hunter Long Legs</figcaption>
+                    <content>Abundant health and detects by sound, sight, and touch, the smallest of the rot with fewer and shorter tentacles, and a hunter shaped cyst core</content>
+                </figure>
+            </div>
+            <div class="indexgroup">
+                <h4 id="spiders">Spiders</h4>
+                <figure>
+                    <img src="./resources/icons/Coalescipede_icon.png" />
+                    <figcaption>Coalescipede</figcaption>
+                    <content>Small but numerous. attacking prey by swarming them and killing them if they reach a greater cumulative mass than their prey</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Big_Spider_icon.png" />
+                    <figcaption>Big Spider</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Spitter_Spider_icon.png" />
+                    <figcaption>Spitter Spider</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Mother_Spider_icon.png" />
+                    <figcaption>Mother Spider</figcaption>
+                    <content>Releases a burst of Coalescipedes upon death</content>
+                </figure>
+            </div>
+            <figure>
+                <img src="./resources/icons/White_Squidcada_icon.png" />
+                <figcaption>White Squidcada</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Black_Squidcada_icon.png" />
+                <figcaption>Black Squidcada</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Snail_icon.png" />
+                <figcaption>Snail</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Red_Leech_icon.png" />
+                <figcaption>Red Leech</figcaption>
+                <content>attaches to prey and attempts to drown them with swarms. Squidcadas actively 'fish' for and eat Leeches</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Blue_Leech_icon.png" />
+                <figcaption>Blue Leech / Sea Leech</figcaption>
+                <content>A Longer Leech with greater mass and agility to pull down its prey</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Jungle_Leech_icon.png" />
+                <figcaption>Jungle Leech</figcaption>
+                <content>Instead of seeking to pull down and drown its prey, it instead has the ability to jump and is highly persistent in its latch ability, draining food pips from it the player periodically unless forcefully detatched</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Pole_Plant_icon.png" />
+                <figcaption>Pole Mimic</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Monster_Kelp_icon.png" />
+                <figcaption>Monster Kelp</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Scavenger_icon.png" />
+                <figcaption>Scavenger</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Elite_Scavenger_icon.png" />
+                <figcaption>Elite Scavenger</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Chieftain_Scavenger_icon.png" />
+                <figcaption>Scavenger King</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Vulture_icon.png" />
+                <figcaption>Vulture</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/King_Vulture_icon.png" />
+                <figcaption>King Vulture</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Miros_Bird_icon.png" />
+                <figcaption>Miros Bird</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Miros_Vulture_icon.png" />
+                <figcaption>Miros Vulture</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Grapple_Worm_icon.png" />
+                <figcaption>Grapple Worm</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Lantern_Mouse_icon.png" />
+                <figcaption>Lantern Mouse</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Rain_Deer_icon.png" />
+                <figcaption>Rain Deer</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Eggbug_icon.png" />
+                <figcaption>Eggbug</figcaption>
+                <content>Exceptionally low health and high agility, able to evade Spears thrown mid air. Drops the Eggbug Eggs that are attached to its body upon death</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Dropwig_icon.png" />
+                <figcaption>Dropwig</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Adult_Noodlefly_icon.png" />
+                <figcaption>Adult Noodlefly</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Infant_Noodlefly_icon.png" />
+                <figcaption>Infant Noodlefly</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Jetfish_icon.png" />
+                <figcaption>Jetfish</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Leviathan_icon.png" />
+                <figcaption>Leviathan</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Overseer_icon.png" />
+                <figcaption>Overseer</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Firebug_icon.png" />
+                <figcaption>Firebug</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Inspector_icon.png" />
+                <figcaption>Inspector</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Yeek_icon.png" />
+                <figcaption>Yeek</figcaption>
+                <content></content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Batfly_icon.png" />
+                <figcaption>Batfly</figcaption>
+                <content></content>
+            </figure>
+        </div>
+        <br>
+        <div class="indexgroup">
+            <h3 id="creatureattributes">Creature Attributes</h3>
+            <figure>
+                <img src="./resources/icons/PreCycle_icon.png" />
+                <figcaption>Pre-Cycle</figcaption>
+                <content>Spawns during a Pre-Cycle only</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Night_icon.png" />
+                <figcaption>Night</figcaption>
+                <content>Spawn during Night only, for areas with an applicable day / night cycle</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/IgnoreCycle_icon.png" />
+                <figcaption>Ignore Cycle</figcaption>
+                <content>Spawns at the start of the cycle normally, but does not attempt to hibernate at the end of a cycle, typically in areas / regions that do not have the normal rain threat</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/TentacleImmune_icon.png" />
+                <figcaption>Tentacle Immune</figcaption>
+                <content>Cannot be grabbed by Worm Grass or Rot Creatures</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/AlternateForm_icon.png" />
+                <figcaption>Alternate Form</figcaption>
+                <content>Modifies the standard attributes of certain Creatures to a predefined state, often cosmetic only</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/LavaSafe_icon.png" />
+                <figcaption>Lava Safe</figcaption>
+                <content>Does not take damage when in contact with death acid / void fluid</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/VoidSea_icon.png" />
+                <figcaption>Void Sea</figcaption>
+                <content>Creature becomes Lava Safe and for applicable Creatures, gives them a golden appearance and icon</content>
+            </figure>
+            <figure>
+                <img src="./resources/icons/Winter_icon.png" />
+                <figcaption>Winter</figcaption>
+                <content>Applies a snow-like effect and palette change to predefined Creatures</content>
+            </figure>
+        </div>
+        <br>
+        <div class="indexgroup">
+            <h3 id="placedobjects">Placed Objects</h3>
             <br>
             <div class="indexgroup">
-                <h4>Placed Creatures</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Jellyfish_icon.png" />
-                    <figcaption class="indexcaption">Jellyfish</figcaption>
+                <h4 id="placedcreatures">Placed Creatures</h4>
+                <figure>
+                    <img src="./resources/icons/Jellyfish_icon.png" />
+                    <figcaption>Jellyfish</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Giant_Jellyfish_icon.png" />
-                    <figcaption class="indexcaption">Giant Jellyfish</figcaption>
+                <figure>
+                    <img src="./resources/icons/Giant_Jellyfish_icon.png" />
+                    <figcaption>Giant Jellyfish</figcaption>
+                    <content>Stationary</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Stowaway_icon.png" />
-                    <figcaption class="indexcaption">Stowaway</figcaption>
+                <figure>
+                    <img src="./resources/icons/Stowaway_icon.png" />
+                    <figcaption>Stowaway</figcaption>
+                    <content>Ambush Predator</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Guardian_icon.png" />
-                    <figcaption class="indexcaption">Guardian</figcaption>
+                <figure>
+                    <img src="./resources/icons/Guardian_icon.png" />
+                    <figcaption>Guardian</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/HR_Guard_icon.png" />
-                    <figcaption class="indexcaption">HR Guardian</figcaption>
+                <figure>
+                    <img src="./resources/icons/HR_Guard_icon.png" />
+                    <figcaption>HR Guardian</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Vulture_Grub_icon.png" />
-                    <figcaption class="indexcaption">Vulture Grub</figcaption>
+                <figure>
+                    <img src="./resources/icons/Vulture_Grub_icon.png" />
+                    <figcaption>Vulture Grub</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Dead_Vulture_Grub_icon.png" />
-                    <figcaption class="indexcaption">Dead Vulture Grub</figcaption>
+                <figure>
+                    <img src="./resources/icons/Dead_Vulture_Grub_icon.png" />
+                    <figcaption>Dead Vulture Grub</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Hazer_icon.png" />
-                    <figcaption class="indexcaption">Hazer</figcaption>
+                <figure>
+                    <img src="./resources/icons/Hazer_icon.png" />
+                    <figcaption>Hazer</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Dead_Hazer_icon.png" />
-                    <figcaption class="indexcaption">Dead Hazer</figcaption>
+                <figure>
+                    <img src="./resources/icons/Dead_Hazer_icon.png" />
+                    <figcaption>Dead Hazer</figcaption>
+                    <content></content>
                 </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4>Edible</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Dandelion_Peach_icon.png" />
-                    <figcaption class="indexcaption">Dandelion Peach</figcaption>
+                <h4 id="edible">Edible</h4>
+                <figure>
+                    <img src="./resources/icons/Dandelion_Peach_icon.png" />
+                    <figcaption>Dandelion Peach</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Gooieduck_icon.png" />
-                    <figcaption class="indexcaption">Gooieduck</figcaption>
+                <figure>
+                    <img src="./resources/icons/Gooieduck_icon.png" />
+                    <figcaption>Gooieduck</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Lilypuck_icon.png" />
-                    <figcaption class="indexcaption">Lilypuck</figcaption>
+                <figure>
+                    <img src="./resources/icons/Lilypuck_icon.png" />
+                    <figcaption>Lilypuck</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Glow_Weed_icon.png" />
-                    <figcaption class="indexcaption">Glow Weed</figcaption>
+                <figure>
+                    <img src="./resources/icons/Glow_Weed_icon.png" />
+                    <figcaption>Glow Weed</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Blue_Fruit_icon.png" />
-                    <figcaption class="indexcaption">Blue Fruit / Dangle Fruit</figcaption>
+                <figure>
+                    <img src="./resources/icons/Blue_Fruit_icon.png" />
+                    <figcaption>Blue Fruit / Dangle Fruit</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Karma_Flower_icon.png" />
-                    <figcaption class="indexcaption">Karma Flower</figcaption>
+                <figure>
+                    <img src="./resources/icons/Karma_Flower_icon.png" />
+                    <figcaption>Karma Flower</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Mushroom_icon.png" />
-                    <figcaption class="indexcaption">Mushroom</figcaption>
+                <figure>
+                    <img src="./resources/icons/Mushroom_icon.png" />
+                    <figcaption>Mushroom</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Slime_Mold_icon.png" />
-                    <figcaption class="indexcaption">Slime Mold</figcaption>
+                <figure>
+                    <img src="./resources/icons/Slime_Mold_icon.png" />
+                    <figcaption>Slime Mold</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Colored_Popcorn_Plant_icon.png" />
-                    <figcaption class="indexcaption">Popcorn Plant</figcaption>
+                <figure>
+                    <img src="./resources/icons/Colored_Popcorn_Plant_icon.png" />
+                    <figcaption>Popcorn Plant</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Bubble_Fruit_icon.png" />
-                    <figcaption class="indexcaption">Bubble Fruit</figcaption>
+                <figure>
+                    <img src="./resources/icons/Bubble_Fruit_icon.png" />
+                    <figcaption>Bubble Fruit</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Noodlefly_Egg_icon.png" />
-                    <figcaption class="indexcaption">Noodlefly Egg</figcaption>
-                </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4>Non-Edible</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Bubble_Weed_icon.png" />
-                    <figcaption class="indexcaption">Bubble Grass / Bubble Weed</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Beehive_icon.png" />
-                    <figcaption class="indexcaption">Bee Hive</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Batnip_icon.png" />
-                    <figcaption class="indexcaption">Batnip / Fly Lure</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Cherrybomb_icon.png" />
-                    <figcaption class="indexcaption">Cherrybomb / Firecracker Plant</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Flashbang_icon.png" />
-                    <figcaption class="indexcaption">Flashbang</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Spore_Puff_icon.png" />
-                    <figcaption class="indexcaption">Spore Puff</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Lantern_icon.png" />
-                    <figcaption class="indexcaption">Lantern</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_misc_icon.png" />
-                    <figcaption class="indexcaption">Pearl (Misc)</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Rubbish_icon.png" />
-                    <figcaption class="indexcaption">Rubbish</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Grenade_icon.png" />
-                    <figcaption class="indexcaption">Grenade / Scavenger Bomb</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Spear_icon.png" />
-                    <figcaption class="indexcaption">Spear</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Explosive_Spear_icon.png" />
-                    <figcaption class="indexcaption">Explosive Spear</figcaption>
+                <figure>
+                    <img src="./resources/icons/Noodlefly_Egg_icon.png" />
+                    <figcaption>Noodlefly Egg</figcaption>
+                    <content></content>
                 </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4>Collectable Tokens</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Gold_Token_icon.png" />
-                    <figcaption class="indexcaption">Arena Region Maps</figcaption>
+                <h4 id="non-edible">Non-Edible</h4>
+                <figure>
+                    <img src="./resources/icons/Bubble_Weed_icon.png" />
+                    <figcaption>Bubble Grass / Bubble Weed</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Blue_Token_icon.png" />
-                    <figcaption class="indexcaption">Creature / Objects</figcaption>
+                <figure>
+                    <img src="./resources/icons/Beehive_icon.png" />
+                    <figcaption>Bee Hive</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Green_Token_icon.png" />
-                    <figcaption class="indexcaption">Arena Character</figcaption>
+                <figure>
+                    <img src="./resources/icons/Batnip_icon.png" />
+                    <figcaption>Batnip / Fly Lure</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Red_Token_icon.png" />
-                    <figcaption class="indexcaption">Safari Region</figcaption>
+                <figure>
+                    <img src="./resources/icons/Cherrybomb_icon.png" />
+                    <figcaption>Cherrybomb / Firecracker Plant</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Dev_Token_icon.png" />
-                    <figcaption class="indexcaption">Developer Commentary Token</figcaption>
+                <figure>
+                    <img src="./resources/icons/Flashbang_icon.png" />
+                    <figcaption>Flashbang</figcaption>
+                    <content></content>
                 </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4>Broadcasts</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_cc_icon.png" />
-                    <figcaption class="indexcaption">CC</figcaption>
+                <figure>
+                    <img src="./resources/icons/Spore_Puff_icon.png" />
+                    <figcaption>Spore Puff</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_dm_icon.png" />
-                    <figcaption class="indexcaption">DM</figcaption>
+                <figure>
+                    <img src="./resources/icons/Lantern_icon.png" />
+                    <figcaption>Lantern</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_ds_icon.png" />
-                    <figcaption class="indexcaption">DS</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_misc_icon.png" />
+                    <figcaption>Pearl (Misc)</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_gw_icon.png" />
-                    <figcaption class="indexcaption">GW</figcaption>
+                <figure>
+                    <img src="./resources/icons/Rubbish_icon.png" />
+                    <figcaption>Rubbish</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_hi_icon.png" />
-                    <figcaption class="indexcaption">HI</figcaption>
+                <figure>
+                    <img src="./resources/icons/Grenade_icon.png" />
+                    <figcaption>Grenade / Scavenger Bomb</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_lm_icon.png" />
-                    <figcaption class="indexcaption">LM</figcaption>
+                <figure>
+                    <img src="./resources/icons/Spear_icon.png" />
+                    <figcaption>Spear</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_sb_icon.png" />
-                    <figcaption class="indexcaption">SB</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_sh_icon.png" />
-                    <figcaption class="indexcaption">SH</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_si_icon.png" />
-                    <figcaption class="indexcaption">SI</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_pre-pebbles_icon.png" />
-                    <figcaption class="indexcaption">Pre-Pebbles Broadcast</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Broadcast_post-pebbles_icon.png" />
-                    <figcaption class="indexcaption">Post-Pebbles Broadcast</figcaption>
+                <figure>
+                    <img src="./resources/icons/Explosive_Spear_icon.png" />
+                    <figcaption>Explosive Spear</figcaption>
+                    <content></content>
                 </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4>Pearls</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_broadcastmisc_icon.png" />
-                    <figcaption class="indexcaption">broadcastMisc</figcaption>
+                <h4 id="collectabletokens">Collectable Tokens</h4>
+                <figure>
+                    <img src="./resources/icons/Gold_Token_icon.png" />
+                    <figcaption>Arena Region Maps</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_cc_icon.png" />
-                    <figcaption class="indexcaption">cc</figcaption>
+                <figure>
+                    <img src="./resources/icons/Blue_Token_icon.png" />
+                    <figcaption>Creature / Objects</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_cl_icon.png" />
-                    <figcaption class="indexcaption">cl</figcaption>
+                <figure>
+                    <img src="./resources/icons/Green_Token_icon.png" />
+                    <figcaption>Arena Character</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_dm_icon.png" />
-                    <figcaption class="indexcaption">dm</figcaption>
+                <figure>
+                    <img src="./resources/icons/Red_Token_icon.png" />
+                    <figcaption>Safari Region</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_ds_icon.png" />
-                    <figcaption class="indexcaption">ds</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_gw_icon.png" />
-                    <figcaption class="indexcaption">gw</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_hi_icon.png" />
-                    <figcaption class="indexcaption">hi</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_lc_icon.png" />
-                    <figcaption class="indexcaption">lc</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_lc_second_icon.png" />
-                    <figcaption class="indexcaption">lc_second</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_lf_bottom_icon.png" />
-                    <figcaption class="indexcaption">lf_bottom</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_lf_west_icon.png" />
-                    <figcaption class="indexcaption">lf_west</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_misc_icon.png" />
-                    <figcaption class="indexcaption">misc</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_misc2_icon.png" />
-                    <figcaption class="indexcaption">misc2</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_ms_icon.png" />
-                    <figcaption class="indexcaption">ms</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_oe_icon.png" />
-                    <figcaption class="indexcaption">oe</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_pebblespearl_-_icon.png" />
-                    <figcaption class="indexcaption">pebblespearl (moon)</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_pebblespearl_2_icon.png" />
-                    <figcaption class="indexcaption">pebblespearl (2)</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_pebblespearl_3_icon.png" />
-                    <figcaption class="indexcaption">pebblespearl (3)</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_red_stomach_icon.png" />
-                    <figcaption class="indexcaption">red_stomach</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_rivulet_stomach_icon.png" />
-                    <figcaption class="indexcaption">rivulet_stomach</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_rm_icon.png" />
-                    <figcaption class="indexcaption">rm</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_sb_filtration_icon.png" />
-                    <figcaption class="indexcaption">sb_filtration</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_sb_ravine_icon.png" />
-                    <figcaption class="indexcaption">sb_ravine</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_sh_icon.png" />
-                    <figcaption class="indexcaption">sh</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_si_chat3_icon.png" />
-                    <figcaption class="indexcaption">si_chat3</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_si_chat4_icon.png" />
-                    <figcaption class="indexcaption">si_chat4</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_si_chat5_icon.png" />
-                    <figcaption class="indexcaption">si_chat5</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_si_top_icon.png" />
-                    <figcaption class="indexcaption">si_top</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_si_west_icon.png" />
-                    <figcaption class="indexcaption">si_west</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_sl_bridge_icon.png" />
-                    <figcaption class="indexcaption">sl_bridge</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_sl_chimney_icon.png" />
-                    <figcaption class="indexcaption">cl_chimney</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_sl_moon_icon.png" />
-                    <figcaption class="indexcaption">sl_moon</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_spearmasterpearl_icon.png" />
-                    <figcaption class="indexcaption">spearmasterpearl</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_su_filt_icon.png" />
-                    <figcaption class="indexcaption">su_filt</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_su_icon.png" />
-                    <figcaption class="indexcaption">su</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_uw_icon.png" />
-                    <figcaption class="indexcaption">uw</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Pearl_vs_icon.png" />
-                    <figcaption class="indexcaption">vs</figcaption>
+                <figure>
+                    <img src="./resources/icons/Dev_Token_icon.png" />
+                    <figcaption>Developer Commentary Token</figcaption>
+                    <content></content>
                 </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4>Superstructure</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Coral_Stem_icon.png" />
-                    <figcaption class="indexcaption">Coral Stem</figcaption>
+                <h4 id="broadcasts">Broadcasts</h4>
+                <figure>
+                    <img src="./resources/icons/Broadcast_cc_icon.png" />
+                    <figcaption>CC</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Coral_Stem_With_Neurons_icon.png" />
-                    <figcaption class="indexcaption">Coral Stem with Neurons</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_dm_icon.png" />
+                    <figcaption>DM</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Coral_Neuron_icon.png" />
-                    <figcaption class="indexcaption">Coral Neuron</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_ds_icon.png" />
+                    <figcaption>DS</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Coral_Circuit_icon.png" />
-                    <figcaption class="indexcaption">Coral Circuit</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_gw_icon.png" />
+                    <figcaption>GW</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Projected_Stars_icon.png" />
-                    <figcaption class="indexcaption">Projected Stars</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_hi_icon.png" />
+                    <figcaption>HI</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Zap_Coil_icon.png" />
-                    <figcaption class="indexcaption">Zap Coil</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_lm_icon.png" />
+                    <figcaption>LM</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Gravity_Disruptor_icon.png" />
-                    <figcaption class="indexcaption">Gravity Disruptor</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_sb_icon.png" />
+                    <figcaption>SB</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Neuron_Fly_icon.png" />
-                    <figcaption class="indexcaption">Neuron Fly Spawner</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_sh_icon.png" />
+                    <figcaption>SH</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Deep_Processing_icon.png" />
-                    <figcaption class="indexcaption">Deep Processing</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_si_icon.png" />
+                    <figcaption>SI</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Energy_Swirl_icon.png" />
-                    <figcaption class="indexcaption">Energy Swirl</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_pre-pebbles_icon.png" />
+                    <figcaption>Pre-Pebbles Broadcast</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Lightning_Machine_icon.png" />
-                    <figcaption class="indexcaption">Lightning Machine</figcaption>
-                </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4>Corruption</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Corruption_icon.png" />
-                    <figcaption class="indexcaption">Corruption</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Corruption_Tube_icon.png" />
-                    <figcaption class="indexcaption">Corruption Tube</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Stuck_Daddy_icon.png" />
-                    <figcaption class="indexcaption">Stuck Daddy</figcaption>
-                </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Rot_Fly_Paper_icon.png" />
-                    <figcaption class="indexcaption">Rot Fly Paper</figcaption>
+                <figure>
+                    <img src="./resources/icons/Broadcast_post-pebbles_icon.png" />
+                    <figcaption>Post-Pebbles Broadcast</figcaption>
+                    <content></content>
                 </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4>Other</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Centipede_Attractor_icon.png" />
-                    <figcaption class="indexcaption">Centipede Attractor</figcaption>
+                <h4 id="pearls">Pearls</h4>
+                <figure>
+                    <img src="./resources/icons/Pearl_broadcastmisc_icon.png" />
+                    <figcaption>broadcastMisc</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/SkyDandelion.png" />
-                    <figcaption class="indexcaption">Sky Dandelion</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_cc_icon.png" />
+                    <figcaption>cc</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Echo_icon.png" />
-                    <figcaption class="indexcaption">Ghost Spot / Echo</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_cl_icon.png" />
+                    <figcaption>cl</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Void_Spawn_Egg_icon.png" />
-                    <figcaption class="indexcaption">Void Spawn Egg</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_dm_icon.png" />
+                    <figcaption>dm</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Super_Jump_Instruction_icon.png" />
-                    <figcaption class="indexcaption">Super Jump Instruction / Pounce Tutorial</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_ds_icon.png" />
+                    <figcaption>ds</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Projected_Image_Position_icon.png" />
-                    <figcaption class="indexcaption">Projected Image Position</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_gw_icon.png" />
+                    <figcaption>gw</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/No_Spear_Stick_Zone_icon.png" />
-                    <figcaption class="indexcaption">No Spear Stick Zone</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_hi_icon.png" />
+                    <figcaption>hi</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Lantern_on_Stick_icon.png" />
-                    <figcaption class="indexcaption">Lantern On Stick</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_lc_icon.png" />
+                    <figcaption>lc</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Scavenger_Outpost_icon.png" />
-                    <figcaption class="indexcaption">Scavenger Outpost</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_lc_second_icon.png" />
+                    <figcaption>lc_second</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Trade_Outpost_icon.png" />
-                    <figcaption class="indexcaption">Trade Outpost</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_lf_bottom_icon.png" />
+                    <figcaption>lf_bottom</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Scavenger_Treasury_icon.png" />
-                    <figcaption class="indexcaption">Scavenger Treasury</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_lf_west_icon.png" />
+                    <figcaption>lf_west</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Scav_Trade_Instruction_icon.png" />
-                    <figcaption class="indexcaption">Scavenger Trade Instruction</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_misc_icon.png" />
+                    <figcaption>misc</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Player_Pushback_icon.png" />
-                    <figcaption class="indexcaption">Player Pushback</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_misc2_icon.png" />
+                    <figcaption>misc2</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Multiplayer_Item_icon.png" />
-                    <figcaption class="indexcaption">Multiplayer Item</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_ms_icon.png" />
+                    <figcaption>ms</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/PreCycle_icon.png" />
-                    <figcaption class="indexcaption">Broken Shelter Water Level</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_oe_icon.png" />
+                    <figcaption>oe</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Reliable_Iggy_Direction_icon.png" />
-                    <figcaption class="indexcaption">Reliable Iggy (Overseer) Direction</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_pebblespearl_-_icon.png" />
+                    <figcaption>pebblespearl (moon)</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Rainbow_icon.png" />
-                    <figcaption class="indexcaption">Rainbow</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_pebblespearl_2_icon.png" />
+                    <figcaption>pebblespearl (2)</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/No_Leviathan_Stranding_Zone_icon.png" />
-                    <figcaption class="indexcaption">No Leviathan Stranding Zone</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_pebblespearl_3_icon.png" />
+                    <figcaption>pebblespearl (3)</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Vine_icon.png" />
-                    <figcaption class="indexcaption">Vine</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_red_stomach_icon.png" />
+                    <figcaption>red_stomach</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Vulture_Mask_icon.png" />
-                    <figcaption class="indexcaption">Vulture Mask</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_rivulet_stomach_icon.png" />
+                    <figcaption>rivulet_stomach</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Snow_Source_icon.png" />
-                    <figcaption class="indexcaption">Snow Source</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_rm_icon.png" />
+                    <figcaption>rm</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Death_Fall_Focus_icon.png" />
-                    <figcaption class="indexcaption">Death Fall Focus</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_sb_filtration_icon.png" />
+                    <figcaption>sb_filtration</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Cell_Distortion_icon.png" />
-                    <figcaption class="indexcaption">Cell Distortion</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_sb_ravine_icon.png" />
+                    <figcaption>sb_ravine</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Local_Blizzard_icon.png" />
-                    <figcaption class="indexcaption">Local Blizzard</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_sh_icon.png" />
+                    <figcaption>sh</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Hanging_Pearls_icon.png" />
-                    <figcaption class="indexcaption">Hanging Pearls</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_si_chat3_icon.png" />
+                    <figcaption>si_chat3</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/ShortcutShelter.png" />
-                    <figcaption class="indexcaption">Shelter Label</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_si_chat4_icon.png" />
+                    <figcaption>si_chat4</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/hiddenclose.png" />
-                    <figcaption class="indexcaption">Hidden Shortcut Label</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_si_chat5_icon.png" />
+                    <figcaption>si_chat5</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/ShortcutAShelter.png" />
-                    <figcaption class="indexcaption">Ancient Shelter Label</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_si_top_icon.png" />
+                    <figcaption>si_top</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Blinking_Flower_icon.png" />
-                    <figcaption class="indexcaption">Blinking Flower</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_si_west_icon.png" />
+                    <figcaption>si_west</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Germinator_icon.png" />
-                    <figcaption class="indexcaption">Germinator</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_sl_bridge_icon.png" />
+                    <figcaption>sl_bridge</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/OE_sphere_icon.png" />
-                    <figcaption class="indexcaption">OE Sphere</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_sl_chimney_icon.png" />
+                    <figcaption>cl_chimney</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Cloak_icon.png" />
-                    <figcaption class="indexcaption">Moon's Cloak</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_sl_moon_icon.png" />
+                    <figcaption>sl_moon</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Karma_Shrine_icon.png" />
-                    <figcaption class="indexcaption">Karma Shrine</figcaption>
+                <figure>
+                    <img src="./resources/icons/Pearl_spearmasterpearl_icon.png" />
+                    <figcaption>spearmasterpearl</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Pearl_su_filt_icon.png" />
+                    <figcaption>su_filt</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Pearl_su_icon.png" />
+                    <figcaption>SU</figcaption>
+                    <content>Outskirts; SU_</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Pearl_uw_icon.png" />
+                    <figcaption>UW</figcaption>
+                    <content>The Exterior, The Wall; UW_H01</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Pearl_vs_icon.png" />
+                    <figcaption>VS</figcaption>
+                    <content>Pipeyard; VS_C03</content>
                 </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4>Hidden Objects</h4>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/MS_Artery_Push_icon.png" />
-                    <figcaption class="indexcaption">MS Artery Push</figcaption>
+                <h4 id="superstructure">Superstructure</h4>
+                <figure>
+                    <img src="./resources/icons/Coral_Stem_icon.png" />
+                    <figcaption>Coral Stem</figcaption>
+                    <content>A length of climbable rope attached to a wall at one end and freely floating on the other, consisting of bone colored segments with blue glowing lights that taper off in size, and a puff of mycelia at the tip of the end segment</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Super_Structure_Fuses_icon.png" />
-                    <figcaption class="indexcaption">Superstructure Fuses</figcaption>
+                <figure>
+                    <img src="./resources/icons/Coral_Stem_With_Neurons_icon.png" />
+                    <figcaption>Coral Stem with Neurons</figcaption>
+                    <content>A Coral Stem accompanied by a short free floating Coral Neuron</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Wall_Mycelia_icon.png" />
-                    <figcaption class="indexcaption">Wall Mycelia</figcaption>
+                <figure>
+                    <img src="./resources/icons/Coral_Neuron_icon.png" />
+                    <figcaption>Coral Neuron</figcaption>
+                    <content>A length of thin red spine like climbable rope with numerous red hairs tapering off to thin blue tips. Can either be a rather long segment attached to a wall at one end and free floating at the other, or a shorter freely suspended segment that gravitates backs towards a single point upon being impacted</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Light_Source_icon.png" />
-                    <figcaption class="indexcaption">Light Source</figcaption>
+                <figure>
+                    <img src="./resources/icons/Coral_Circuit_icon.png" />
+                    <figcaption>Coral Circuit</figcaption>
+                    <content>A suspended red brittle lattice with several organisms contained within that reconstruct it upon being shattered into pieces upon contact with outside objects, which can be partially climbed on to manuever oneself</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Light_Fixture_icon.png" />
-                    <figcaption class="indexcaption">Light Fixture</figcaption>
+                <figure>
+                    <img src="./resources/icons/Projected_Stars_icon.png" />
+                    <figcaption>Projected Stars</figcaption>
+                    <content>Array of blue holograms and geometry that are projected within Iterator Superstructures</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Spot_Light_icon.png" />
-                    <figcaption class="indexcaption">Spot Light</figcaption>
+                <figure>
+                    <img src="./resources/icons/Zap_Coil_icon.png" />
+                    <figcaption>Zap Coil</figcaption>
+                    <content>Resizable rectangle of electric coils, that glow blue when active and shock objects that come in contact with it, emitting a loud violent discharge that kills the player and quickly propels objects away</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Corruption_Darkness_icon.png" />
-                    <figcaption class="indexcaption">Corruption Darkness</figcaption>
+                <figure>
+                    <img src="./resources/icons/Gravity_Disruptor_icon.png" />
+                    <figcaption>Gravity Disruptor</figcaption>
+                    <content>Swirling Distortion effect that pulls in and repels nearby objects within its radius</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/SS_Light_Rod_icon.png" />
-                    <figcaption class="indexcaption">SS Light Rod</figcaption>
+                <figure>
+                    <img src="./resources/icons/Neuron_Fly_icon.png" />
+                    <figcaption>Neuron Fly Spawner</figcaption>
+                    <content>Spawns Neuron Flies</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Dead_Popcorn_Plant_icon.png" />
-                    <figcaption class="indexcaption">Dead Popcorn Plant</figcaption>
+                <figure>
+                    <img src="./resources/icons/Deep_Processing_icon.png" />
+                    <figcaption>Deep Processing</figcaption>
+                    <content>Unknown</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Cosmetic_Slime_Mold_icon.png" />
-                    <figcaption class="indexcaption">Cosmetic Slime Mold</figcaption>
+                <figure>
+                    <img src="./resources/icons/Energy_Swirl_icon.png" />
+                    <figcaption>Energy Swirl</figcaption>
+                    <content>Visual effect seen inside of an active Rarefaction Cell Core</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Cosmetic_Slime_Mold_2_icon.png" />
-                    <figcaption class="indexcaption">Cosmetic Slime Mold 2</figcaption>
+                <figure>
+                    <img src="./resources/icons/Lightning_Machine_icon.png" />
+                    <figcaption>Lightning Machine</figcaption>
+                    <content>Harmless intermittent visual strikes of green lightning</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Custom_Decal_icon.png" />
-                    <figcaption class="indexcaption">Custom Decal</figcaption>
+            </div>
+            <br>
+            <div class="indexgroup">
+                <h4 id="corruption">Corruption</h4>
+                <figure>
+                    <img src="./resources/icons/Corruption_icon.png" />
+                    <figcaption>Corruption</figcaption>
+                    <content>A stationary lump of cysts that pull in nearby Creatures like Worm Grass when in physical contact, with short hanging tentacles that can grab Creatures and pull them towards the cysts to be consumed</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Insect_Group_icon.png" />
-                    <figcaption class="indexcaption">Insect Group</figcaption>
+                <figure>
+                    <img src="./resources/icons/Corruption_Tube_icon.png" />
+                    <figcaption>Corruption Tube</figcaption>
+                    <content>A length of climbable rope, does not attack the player</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Dead_Token_Stalk_icon.png" />
-                    <figcaption class="indexcaption">Dead Token Stalk</figcaption>
+                <figure>
+                    <img src="./resources/icons/Stuck_Daddy_icon.png" />
+                    <figcaption>Stuck Daddy</figcaption>
+                    <content>An immobile Daddy Long Legs like cyst, attached to nearby surfaces with tentacles</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Light_Beam_icon.png" />
-                    <figcaption class="indexcaption">Light Beam</figcaption>
+                <figure>
+                    <img src="./resources/icons/Rot_Fly_Paper_icon.png" />
+                    <figcaption>Rot Fly Paper</figcaption>
+                    <content>A harmless and inactive variant of Corruption with several Neuron Flies attached to their tentacles</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Filter_icon.png" />
-                    <figcaption class="indexcaption">Filter</figcaption>
+            </div>
+            <br>
+            <div class="indexgroup">
+                <h4 id="other">Other</h4>
+                <figure>
+                    <img src="./resources/icons/Centipede_Attractor_icon.png" />
+                    <figcaption>Centipede Attractor</figcaption>
+                    <content>Attracts nearby Centipedes towards the area inside of the radius</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Fairy_Particle_Settings_icon.png" />
-                    <figcaption class="indexcaption">Fairy Particle Settings</figcaption>
+                <figure>
+                    <img src="./resources/icons/SkyDandelion.png" />
+                    <figcaption>Sky Dandelion</figcaption>
+                    <content>A field of Sky Dandelion particles</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Day_Night_Settings_icon.png" />
-                    <figcaption class="indexcaption">Day Night Settings</figcaption>
+                <figure>
+                    <img src="./resources/icons/Echo_icon.png" />
+                    <figcaption>Ghost Spot / Echo</figcaption>
+                    <content>Defines where an Echo is placed</content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Steam_Pipe_icon.png" />
-                    <figcaption class="indexcaption">Steam Pipe</figcaption>
+                <figure>
+                    <img src="./resources/icons/Void_Spawn_Egg_icon.png" />
+                    <figcaption>Void Spawn Egg</figcaption>
+                    <content></content>
                 </figure>
-                <figure class="indexitem">
-                    <img class="index" src="./resources/icons/Wall_Steamer_icon.png" />
-                    <figcaption class="indexcaption">Wall Steamer</figcaption>
+                <figure>
+                    <img src="./resources/icons/Super_Jump_Instruction_icon.png" />
+                    <figcaption>Super Jump Instruction / Pounce Tutorial</figcaption>
+                    <content>Hologram illustrating how to perform a pounce maneuver</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Projected_Image_Position_icon.png" />
+                    <figcaption>Projected Image Position</figcaption>
+                    <content>Overseer Projected Holograms</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/No_Spear_Stick_Zone_icon.png" />
+                    <figcaption>No Spear Stick Zone</figcaption>
+                    <content>Prevents Spears from sticking into walls within a defined radius. Also stops Saint's tongue and Tube Worms from grappling onto surfaces after a short period</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Lantern_on_Stick_icon.png" />
+                    <figcaption>Lantern On Stick</figcaption>
+                    <content>A Lantern on a pike, providing illumination, and heat as Saint</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Scavenger_Outpost_icon.png" />
+                    <figcaption>Scavenger Outpost</figcaption>
+                    <content>A painted Rain Deer skull on a pike with Pearls hanging from the antlers</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Trade_Outpost_icon.png" />
+                    <figcaption>Trade Outpost</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Scavenger_Treasury_icon.png" />
+                    <figcaption>Scavenger Treasury</figcaption>
+                    <content>A random trove of Pearls, Lanterns, Grenades, Spears, and Explosive Spears that respawn every cycle</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Scav_Trade_Instruction_icon.png" />
+                    <figcaption>Scavenger Trade Instruction</figcaption>
+                    <content>Projection of Slugcat giving a Pearl to a Scavenger in exchange for passage, as seen in GW_A22</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Player_Pushback_icon.png" />
+                    <figcaption>Player Pushback</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Multiplayer_Item_icon.png" />
+                    <figcaption>Multiplayer Item</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/PreCycle_icon.png" />
+                    <figcaption>Broken Shelter Water Level</figcaption>
+                    <content>The water level within a flooding shelter during a Pre-Cycle</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Reliable_Iggy_Direction_icon.png" />
+                    <figcaption>Reliable Iggy (Overseer) Direction</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Rainbow_icon.png" />
+                    <figcaption>Rainbow</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/No_Leviathan_Stranding_Zone_icon.png" />
+                    <figcaption>No Leviathan Stranding Zone</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Vine_icon.png" />
+                    <figcaption>Vine</figcaption>
+                    <content>A climbable length of rope, found in OE</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Vulture_Mask_icon.png" />
+                    <figcaption>Vulture Mask</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Snow_Source_icon.png" />
+                    <figcaption>Snow Source</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Death_Fall_Focus_icon.png" />
+                    <figcaption>Death Fall Focus</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Cell_Distortion_icon.png" />
+                    <figcaption>Cell Distortion</figcaption>
+                    <content>Visual bubble distortion and fractalization</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Local_Blizzard_icon.png" />
+                    <figcaption>Local Blizzard</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Hanging_Pearls_icon.png" />
+                    <figcaption>Hanging Pearls</figcaption>
+                    <content>A Collection of hanging strings with Pearls attached to them at various points</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/ShortcutShelter.png" />
+                    <figcaption>Shelter Label</figcaption>
+                    <content>Shortcut Label for a Shelter</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/hiddenclose.png" />
+                    <figcaption>Hidden Shortcut Label</figcaption>
+                    <content>Overrides the appearance of any present shortcut label</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/ShortcutAShelter.png" />
+                    <figcaption>Ancient Shelter Label</figcaption>
+                    <content>Shorcut Label for an Ancient Shelter</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Blinking_Flower_icon.png" />
+                    <figcaption>Blinking Flower</figcaption>
+                    <content>Flowers that close when approached, found in OE and UG</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Germinator_icon.png" />
+                    <figcaption>Germinator</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/OE_sphere_icon.png" />
+                    <figcaption>OE Sphere</figcaption>
+                    <content>The large purple and brown bulbs with a glowing orange center, seen in many of the rooms of OE within the background</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Cloak_icon.png" />
+                    <figcaption>Moon's Cloak</figcaption>
+                    <content>Found in MS_FARSIDE as Survivor, Monk, and Hunter, and is worn by Looks to the Moon automatically during Rivulet and Saint</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Karma_Shrine_icon.png" />
+                    <figcaption>Karma Shrine</figcaption>
+                    <content>A Karma symbol that provides max karma when in front of, emitting particles</content>
+                </figure>
+            </div>
+            <br>
+            <div class="indexgroup">
+                <h4 id="hiddenobjects">Hidden Objects</h4>
+                <figure>
+                    <img src="./resources/icons/MS_Artery_Push_icon.png" />
+                    <figcaption>MS Artery Push</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Super_Structure_Fuses_icon.png" />
+                    <figcaption>Superstructure Fuses</figcaption>
+                    <content>A resizable metal grid of socket-like indents</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Wall_Mycelia_icon.png" />
+                    <figcaption>Wall Mycelia</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Light_Source_icon.png" />
+                    <figcaption>Light Source</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Light_Fixture_icon.png" />
+                    <figcaption>Light Fixture</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Spot_Light_icon.png" />
+                    <figcaption>Spot Light</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Corruption_Darkness_icon.png" />
+                    <figcaption>Corruption Darkness</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/SS_Light_Rod_icon.png" />
+                    <figcaption>SS Light Rod</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Dead_Popcorn_Plant_icon.png" />
+                    <figcaption>Dead Popcorn Plant</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Cosmetic_Slime_Mold_icon.png" />
+                    <figcaption>Cosmetic Slime Mold</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Cosmetic_Slime_Mold_2_icon.png" />
+                    <figcaption>Cosmetic Slime Mold 2</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Custom_Decal_icon.png" />
+                    <figcaption>Custom Decal</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Insect_Group_icon.png" />
+                    <figcaption>Insect Group</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Dead_Token_Stalk_icon.png" />
+                    <figcaption>Dead Token Stalk</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Light_Beam_icon.png" />
+                    <figcaption>Light Beam</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Filter_icon.png" />
+                    <figcaption>Filter</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Fairy_Particle_Settings_icon.png" />
+                    <figcaption>Fairy Particle Settings</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Day_Night_Settings_icon.png" />
+                    <figcaption>Day Night Settings</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Steam_Pipe_icon.png" />
+                    <figcaption>Steam Pipe</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Wall_Steamer_icon.png" />
+                    <figcaption>Wall Steamer</figcaption>
+                    <content></content>
                 </figure>
             </div>
         </div>
     </div>
     <div id="main-menu-footer">
-        Code on <a href="https://github.com/rain-world-map/">GitHub</a> | <a href="https://henpemaz.github.io/Rain-World-Interactive-Map/">Original</a> by <a href="https://github.com/henpemaz/">Henpemaz</a> | Ported by <a href="https://github.com/Dual-Iron/">Dual</a> | Favicon and embed by <a href="https://twitter.com/liszhuk/">lis</a> | <a href="https://store.steampowered.com/app/312520/Rain_World/">Rain World</a> is property of <a href="https://twitter.com/VideocultMedia">Videocult</a>
+        Code on <a href="https://github.com/rain-world-map/">GitHub</a> | <a href="https://henpemaz.github.io/Rain-World-Interactive-Map/">Original</a> by <a href="https://github.com/henpemaz/">Henpemaz</a> | <a href="https://github.com/Rain-World-Downpour-Map/rain-world-downpour-map.github.io/tree/Release">Front-End Code</a> | Ported to 1.9 by <a href="https://github.com/Dual-Iron/">Dual</a> | Favicon and embed by <a href="https://twitter.com/liszhuk/">lis</a> | <a href="https://store.steampowered.com/app/312520/Rain_World/">Rain World</a> is property of <a href="https://twitter.com/VideocultMedia">Videocult</a>
     </div>
 </body>
 

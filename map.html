@@ -448,7 +448,7 @@
         }
 
         input[type='button'].rw-ui {
-            background-color: black;
+            background-color: #0c0c0c;
         }
 
     </style>
@@ -856,6 +856,7 @@
         var loadedDifficulty = null;
         var loadedRegion = null;
         var loadedModded = {};
+        var loadedCount = 1;
         function loadRegion(pdifficulty, pregion, pmodded) {
             if (loadedDifficulty == pdifficulty && loadedRegion == pregion && loadedModded == pmodded) {
                 // Region isn't changing, double-check focused room
@@ -1283,6 +1284,7 @@
                         });
                     },
                 });
+                if (hadPlacedObjects) densLayer.addTo(map);
                 overlays.addOverlay(placedObjectsLayer, "Placed Objects");
 
                 // Tile Nodes
@@ -1340,6 +1342,7 @@
                         });
                     },
                 });
+                if (hadTileNodes) densLayer.addTo(map);
                 overlays.addOverlay(tileNodesLayer, "Tile Nodes");
 
                 // Room Tags
@@ -1348,7 +1351,6 @@
                     overlays.removeLayer(roomTagsLayer);
                     map.removeLayer(roomTagsLayer);
                 }
-
                 roomTagsLayer = L.geoJSON(json["roomtag_features"], {
                     pointToLayer: function (feature, latlng) {
                         let roomtag_filter = " roomtag-filter";
@@ -1411,6 +1413,7 @@
                         });
                     },
                 });
+                if (hadRoomTags) densLayer.addTo(map);
                 overlays.addOverlay(roomTagsLayer, "Room Tags");
 
                 // Bat Migration Blockages
@@ -1439,6 +1442,7 @@
                         });
                     },
                 });
+                if (hadBatMigration) densLayer.addTo(map);
                 overlays.addOverlay(batMigrationBlockagesLayer, "Bat Migration Blockages");
 
                 // Zoom to room on rooms loaded
@@ -1467,6 +1471,10 @@
                 loadedRegion = pregion;
                 loadedModded = pmodded;
             }, true);
+
+            // Don't enable certain layers when loaded for the first time
+            console.log("A total of " + loadedCount + " regions have been loaded");
+            loadedCount += 1;
         }
 
     </script>
