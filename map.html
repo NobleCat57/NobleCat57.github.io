@@ -467,6 +467,10 @@
             background-color: #0c0c0c;
         }
 
+        .hidebutton {
+            appearance: none;
+        }
+
     </style>
 
     <style id="creaturefilters">
@@ -584,7 +588,7 @@
             for (var r of region_order) {
                 html += `
 <label class="region-button">
-        <input type="radio" class="rw-ui" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off">
+        <input type="radio" class="hidebutton" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off">
         <span class="rw-ui rw-text">${regions[r].toUpperCase()} (${r})</span>
 </label>`
             }
