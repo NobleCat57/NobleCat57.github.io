@@ -444,6 +444,16 @@
             color: #cccccc;
         }
 
+        .region-btn {
+            font-size: 0.8rem;
+            width: 200px;
+            height: 24px;
+            position: relative;
+            word-wrap: anywhere;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
         .index-button {
             width: 200px;
             height: 24px;
@@ -562,7 +572,7 @@
             var html = "";
             for (var r of region_order) {
                 html += `
-<label class="region-btn">
+<label class="index-button">
         <input type="radio" class="rw-ui" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off">
         <span>${regions[r].toUpperCase()} (${r})</span>
 </label>`
