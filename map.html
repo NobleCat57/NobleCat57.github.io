@@ -406,9 +406,15 @@
             margin-bottom: 8px;
         }
 
-        input[type='radio'].rw-ui + span {
+        input[type='radio'].rw-ui+span {
             top: calc(50% - 10px);
             /* proof that CSS is stupid, cant fucking vertical center text */
+        }
+        input[type='button'].rw-ui + span {
+            color: #cccccc;
+        }
+        input[type='button'].rw-ui:checked + span {
+            color: white;
         }
         
         #region-select {
@@ -497,8 +503,7 @@
     <div class="top-panel rw-text">
         <div class="index-button">
             <label>
-                <input type="button" class="rw-ui" name="indexbutton" onclick="window.location.href = `index.html`;" autocomplete="off">
-                <span>Index</span>
+                <button class="rw-ui" name="indexbutton" onclick="window.location.href = `index.html`;" autocomplete="off">Index</button>
             </label>
         </div>
     </div>
@@ -513,10 +518,6 @@
 
     <div class="side-panel right-panel rw-text">
         <div>Slugcat</div>
-        <label class="difficulty-btn">
-            <input type="button" class="rw-ui" name="loadspawn" onclick="selectDifficulty(slugcatName,true);" value="(slugcatName,false);" autocomplete="off">
-            <span>Spawn</span>
-        </label>
         <form name="difficulty" class="difficulty-select" id="scug-selector">
         </form>
 
@@ -526,6 +527,7 @@
 
     <script>
         var loadedCount = 1;
+        var tospawn = false;
         'use strict';
         // misc iconography but mostly Creatures
 
@@ -545,7 +547,7 @@
             }
             html += `
 <label class="difficulty-btn">
-            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}','${false}');" value="(${slugcatName},${false});" autocomplete="off">
+            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}','${tospawn}');" value="(${slugcatName},${tospawn});" autocomplete="off">
             <img src="./resources/icons/${icon}.png">
 </label>`;
             document.getElementById('scug-selector').innerHTML = html;
@@ -583,7 +585,7 @@
             }
         }
 
-        function selectDifficulty(n, tospawn) {
+        function selectDifficulty(n, alt) {
             for (var i = 0; i < document.difficulty.difficulties.length; i++) {
                 if (document.difficulty.difficulties[i].value == n) {
                     document.difficulty.difficulties[i].checked = true;
@@ -591,7 +593,7 @@
             }
             if (difficulty != n) {
                 difficulty = n;
-                if (tospawn == true) {
+                if (alt == true) {
                     region = slugcats[difficulty].startingRegion;
                     room = slugcats[difficulty].startingRoom;
                     
