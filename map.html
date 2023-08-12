@@ -514,7 +514,7 @@
     <div class="side-panel right-panel rw-text">
         <div>Slugcat</div>
         <label class="difficulty-btn">
-            <input type="button" class="rw-ui" name="loadspawn" onclick="tospawn = true;" value="${tospawn = false;}" autocomplete="off">
+            <input type="button" class="rw-ui" name="loadspawn" onclick="selectDifficulty(slugcatName,true);" value="(slugcatName,false);" autocomplete="off">
             <span>Spawn</span>
         </label>
         <form name="difficulty" class="difficulty-select" id="scug-selector">
@@ -545,7 +545,7 @@
             }
             html += `
 <label class="difficulty-btn">
-            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}','${tospawn}');" value="(${slugcatName},${tospawn});" autocomplete="off">
+            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}','${false}');" value="(${slugcatName},${false});" autocomplete="off">
             <img src="./resources/icons/${icon}.png">
 </label>`;
             document.getElementById('scug-selector').innerHTML = html;
