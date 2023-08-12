@@ -42,7 +42,8 @@
 /* RW UI START */
 
 /* BUTTON */
-button.rw-ui {
+button.rw-ui,
+span.rw-ui {
     appearance: none;
     cursor: pointer;
     position: relative;
@@ -59,38 +60,42 @@ button.rw-ui {
     transition: color 0.3s;
 }
 
-button.rw-ui:hover {
-    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
-    color: white;
-}
+    button.rw-ui:hover,
+    span.rw-ui:hover {
+        animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+        color: white;
+    }
 
-button.rw-ui::before {
-    /* outline that expands */
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    margin: -2px;
-    /* undo parent border */
-    border-radius: 8px;
-    border: 2px solid #A9A4B2;
-    /* menu lightgray */
-    transition: padding 0.3s, border-color 0.3s, margin 0.3s;
-}
+    button.rw-ui::before,
+    span.rw-ui::before {
+        /* outline that expands */
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: -2px;
+        /* undo parent border */
+        border-radius: 8px;
+        border: 2px solid #A9A4B2;
+        /* menu lightgray */
+        transition: padding 0.3s, border-color 0.3s, margin 0.3s;
+    }
 
-button.rw-ui:hover::before {
-    border-color: white;
-    padding: 4px;
-    margin: -6px;
-}
+    button.rw-ui:hover::before,
+    span.rw-ui:hover::before {
+        border-color: white;
+        padding: 4px;
+        margin: -6px;
+    }
 
-button.rw-ui:active::before {
-    border-color: white;
-    padding: unset;
-    margin: -2px;
-}
+    button.rw-ui:active::before,
+    span.rw-ui:active::before {
+        border-color: white;
+        padding: unset;
+        margin: -2px;
+    }
 
 /* BUTTON END */
 
