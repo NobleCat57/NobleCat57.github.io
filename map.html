@@ -541,7 +541,7 @@
             }
             html += `
 <label class="difficulty-btn">
-            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}');" value="${slugcatName}" autocomplete="off">
+            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName, false}');" ondblclick="selectDifficulty('${slugcatName, true}')" value="${slugcatName, false}" autocomplete="off">
             <img src="./resources/icons/${icon}.png">
 </label>`;
             document.getElementById('scug-selector').innerHTML = html;
@@ -579,20 +579,27 @@
             }
         }
 
-        function selectDifficulty(n, checked) {
+        function selectDifficulty(n, tospawn) {
             for (var i = 0; i < document.difficulty.difficulties.length; i++) {
                 if (document.difficulty.difficulties[i].value == n) {
                     document.difficulty.difficulties[i].checked = true;
                 }
             }
-
             if (difficulty != n) {
                 difficulty = n;
-                region = loadedRegion;
-                if (room != null) {
-                    room = focusedroom;
+                if (tospawn) {
+                    region = slugcats[difficulty].startingRegion;
+                    room = slugcats[difficulty].startingRoom;
+                    
                 } else {
-                    room = null;
+                    region = loadedRegion;
+                    if (room != null) {
+                        if (focusedroom != null) {
+                            room = focusedroom;
+                        }
+                    } else {
+                        room = null;
+                    }
                 }
                 pushState();
             }
