@@ -136,76 +136,78 @@ span.rw-ui {
         transition: padding 0.3s, border-color 0.3s, margin 0.3s;
     }
 
-/* inserted span */
-input[type='checkbox'].rw-ui+span,
-input[type='radio'].rw-ui+span,
-input[type='button'].rw-ui+span {
-    cursor: pointer;
-    position: absolute;
-    left: 0px;
-    top: calc(50% - 12px);
-    /* proof that CSS is stupid, cant fucking vertical center text */
-    width: 100%;
-    text-align: center;
-    color: #4B4653;
-    /* darkgray */
-    user-select: none;
-    transition: color 0.3s;
-}
+    /* inserted span */
+    input[type='checkbox'].rw-ui + span,
+    input[type='radio'].rw-ui + span,
+    input[type='button'].rw-ui + span {
+        cursor: pointer;
+        position: absolute;
+        left: 0px;
+        top: calc(50% - 12px);
+        /* proof that CSS is stupid, cant fucking vertical center text */
+        width: 100%;
+        text-align: center;
+        color: #4B4653;
+        /* darkgray */
+        user-select: none;
+        transition: color 0.3s;
+    }
 
-/* inserted 50x50 image */
-input[type='checkbox'].rw-ui+img,
-input[type='radio'].rw-ui+img,
-input[type='button'].rw-ui+img {
-    position: absolute;
-    cursor: pointer;
-    opacity: 0.72;
-    top: calc(50% - 25px);
-    left: calc(50% - 25px);
-    user-select: none;
-    transition: opacity 0.3s, transform 0.3s;
-}
+    /* inserted 50x50 image */
+    input[type='checkbox'].rw-ui + img,
+    input[type='radio'].rw-ui + img,
+    input[type='button'].rw-ui + img {
+        position: absolute;
+        cursor: pointer;
+        opacity: 0.72;
+        top: calc(50% - 25px);
+        left: calc(50% - 25px);
+        user-select: none;
+        transition: opacity 0.3s, transform 0.3s;
+    }
 
-/* checked */
-input[type='checkbox'].rw-ui:checked::before,
-input[type='radio'].rw-ui:checked::before,
-input[type='button'].rw-ui:checked::before {
-    border-color: #A9A4B2;
-    /* lightgray */
-}
+    /* checked */
+    input[type='checkbox'].rw-ui:checked::before,
+    input[type='radio'].rw-ui:checked::before,
+    input[type='button'].rw-ui:checked::before,
+    span.rw-ui:checked::before {
+        border-color: #A9A4B2;
+        /* lightgray */
+    }
 
-input[type='checkbox'].rw-ui:checked::after,
-input[type='radio'].rw-ui:checked::after,
-input[type='button'].rw-ui:checked::after {
-    /* extra outline */
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    margin: -6px;
-    padding: 4px;
-    border-radius: 8px;
-    border: 2px solid #A9A4B2;
-    /* lightgray */
-    transition: padding 0.3s, border-color 0.3s, margin 0.3s;
-}
+    input[type='checkbox'].rw-ui:checked::after,
+    input[type='radio'].rw-ui:checked::after,
+    input[type='button'].rw-ui:checked::after,
+    span.rw-ui:checked::after {
+        /* extra outline */
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: -6px;
+        padding: 4px;
+        border-radius: 8px;
+        border: 2px solid #A9A4B2;
+        /* lightgray */
+        transition: padding 0.3s, border-color 0.3s, margin 0.3s;
+    }
 
-input[type='checkbox'].rw-ui:checked+span,
-input[type='radio'].rw-ui:checked+span,
-input[type='button'].rw-ui:checked+span {
-    color: #A9A4B2;
-    /* lightgray */
-}
+    input[type='checkbox'].rw-ui:checked + span,
+    input[type='radio'].rw-ui:checked + span,
+    input[type='button'].rw-ui:checked + span {
+        color: #A9A4B2;
+        /* lightgray */
+    }
 
-input[type='checkbox'].rw-ui:checked+img,
-input[type='radio'].rw-ui:checked+img,
-input[type='button'].rw-ui:checked+img {
-    opacity: 1.0;
-}
+    input[type='checkbox'].rw-ui:checked + img,
+    input[type='radio'].rw-ui:checked + img,
+    input[type='button'].rw-ui:checked + img {
+        opacity: 1.0;
+    }
 
-/* hover */
+    /* hover */
     input[type='checkbox'].rw-ui:hover,
     input[type='radio'].rw-ui:hover,
     input[type='button'].rw-ui:hover,
@@ -222,28 +224,29 @@ input[type='button'].rw-ui:checked+img {
             border-color: white;
         }
 
-input[type='checkbox'].rw-ui:checked:hover::after,
-input[type='radio'].rw-ui:checked:hover::after,
-input[type='button'].rw-ui:checked:hover::after {
-    margin: -10px;
-    padding: 8px;
-    border-color: white;
-}
+    input[type='checkbox'].rw-ui:checked:hover::after,
+    input[type='radio'].rw-ui:checked:hover::after,
+    input[type='button'].rw-ui:checked:hover::after,
+    span.rw-ui:checked:hover::after {
+        margin: -10px;
+        padding: 8px;
+        border-color: white;
+    }
 
-input[type='checkbox'].rw-ui:hover+span,
-input[type='radio'].rw-ui:hover+span,
-input[type='button'].rw-ui:hover+span {
-    color: white;
-}
+    input[type='checkbox'].rw-ui:hover + span,
+    input[type='radio'].rw-ui:hover + span,
+    input[type='button'].rw-ui:hover + span {
+        color: white;
+    }
 
-input[type='checkbox'].rw-ui:hover+img,
-input[type='radio'].rw-ui:hover+img,
-input[type='button'].rw-ui:hover+img {
-    opacity: 1.0;
-    transform: scaleX(1.2) scaleY(1.2);
-}
+    input[type='checkbox'].rw-ui:hover + img,
+    input[type='radio'].rw-ui:hover + img,
+    input[type='button'].rw-ui:hover + img {
+        opacity: 1.0;
+        transform: scaleX(1.2) scaleY(1.2);
+    }
 
-/* active */
+    /* active */
     input[type='checkbox'].rw-ui:active,
     input[type='radio'].rw-ui:active,
     input[type='button'].rw-ui:active,
@@ -260,20 +263,20 @@ input[type='button'].rw-ui:hover+img {
             border-color: white;
         }
 
-        input[type='checkbox'].rw-ui:checked:active::after,
-        input[type='radio'].rw-ui:checked:active::after,
-        input[type='button'].rw-ui:checked:active::after,
-        span.rw-ui:active::after {
-            margin: -6px;
-            padding: 4px;
-            border-color: white;
-        }
+    input[type='checkbox'].rw-ui:checked:active::after,
+    input[type='radio'].rw-ui:checked:active::after,
+    input[type='button'].rw-ui:checked:active::after,
+    span.rw-ui:checked:active::after {
+        margin: -6px;
+        padding: 4px;
+        border-color: white;
+    }
 
-input[type='checkbox'].rw-ui:active+img,
-input[type='radio'].rw-ui:active+img,
-input[type='button'].rw-ui:active+img {
-    transform: none;
-}
+    input[type='checkbox'].rw-ui:active + img,
+    input[type='radio'].rw-ui:active + img,
+    input[type='button'].rw-ui:active + img {
+        transform: none;
+    }
 
 /* TOGGLES END */
 
@@ -304,7 +307,7 @@ input[type='checkbox'].rw-ui-ckb:active::before {
     color: white;
 }
 
-input[type='checkbox'].rw-ui-ckb+label {
+input[type='checkbox'].rw-ui-ckb + label {
     position: relative;
     left: 10px;
     top: -10px;
@@ -313,19 +316,19 @@ input[type='checkbox'].rw-ui-ckb+label {
     transition: color 0.3s;
 }
 
-input[type='checkbox'].rw-ui-ckb:hover+label {
+input[type='checkbox'].rw-ui-ckb:hover + label {
     color: #A9A4B2;
 }
 
-input[type='checkbox'].rw-ui-ckb:checked+label {
+input[type='checkbox'].rw-ui-ckb:checked + label {
     color: #A9A4B2;
 }
 
-input[type='checkbox'].rw-ui-ckb:checked:hover+label {
+input[type='checkbox'].rw-ui-ckb:checked:hover + label {
     color: white;
 }
 
-input[type='checkbox'].rw-ui-ckb:active+label {
+input[type='checkbox'].rw-ui-ckb:active + label {
     color: white;
 }
 
