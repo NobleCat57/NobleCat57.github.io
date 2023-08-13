@@ -322,13 +322,7 @@
             -webkit-text-stroke-color: black;
         }
 
-        .overlay-label {
-            position: relative;
-            width: 150px;
-            height: 36px;
-            margin-top: 11px;
-            margin-bottom: 11px;
-        }
+
 
         /* UI stuff */
         .side-panel {
@@ -402,13 +396,15 @@
             /* proof that CSS is stupid, cant fucking vertical center text */
         }
 
-        input[type='radio'].region-radio {
-            top: 1px;
+        input[type='radio'].region-radio,
+        input[type='checkbox'].rw-ui {
+            top: 2px;
         }
 
-        input[type='radio'].region-radio + span {
-            color: #4B4653;
-        }
+            input[type='radio'].region-radio + span,
+            input[type='checkbox'].rw-ui + span {
+                color: #4B4653;
+            }
 
         #region-select {
             padding-left: 8px;
@@ -436,6 +432,25 @@
             z-index: 1000;
             color: #cccccc;
         }
+
+        .overlay-label {
+            position: relative;
+            margin-top: 11px;
+            margin-bottom: 11px;
+            word-wrap: break-word;
+            max-width: 300px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .overlay-label span {
+                display: block;
+                max-width: 140px;
+                padding: 7px;
+                padding-left: 6px;
+                padding-right: 6px;
+            }
 
         .region-label {
             position: relative;
