@@ -649,13 +649,15 @@
                     sectionClass: "",
                     overlaysListClass: "",
                     overlayInputClass: "",
+                    overlayInputDivClass: "",
                     overlayInputLabelClass: "",
                     hideBaseLayers: true
                 },
                 _addItem: function (obj) {
                     let h = L.Control.Layers.prototype._addItem.call(this, obj);
                     h.className = this.options.overlayInputLabelClass;
-                    h.children[0].className = this.options.overlayInputClass;
+                    h.children[0].className = this.options.overlayInputDivClass;
+                    h.children[0].children[0].className = this.options.overlayInputClass;
                     return h;
                 },
                 _initLayout: function () {
