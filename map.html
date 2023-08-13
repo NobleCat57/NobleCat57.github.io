@@ -23,6 +23,7 @@
     <script src="./beziero.js"></script>
 
     <style id="mapstyle">
+
         body,
         html {
             height: 100%;
@@ -406,17 +407,15 @@
             margin-bottom: 8px;
         }
 
-        input[type='radio'].rw-ui+span {
+        input[type='radio'].rw-ui + span {
             top: calc(50% - 10px);
             /* proof that CSS is stupid, cant fucking vertical center text */
         }
-        input[type='button'].region-radio + span {
-            color: #cccccc;
+
+        input[type='radio'].region-radio {
+            top: 1px;
         }
-        input[type='button'].region-radio:checked + span {
-            color: white;
-        }
-        
+
         #region-select {
             padding-left: 8px;
             padding-right: 8px;
@@ -456,13 +455,14 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            padding: 4px;
+            padding: 2px;
         }
 
         .region-span {
             display: block;
             max-width: 200px;
             font-size: 0.8rem;
+            padding: 2px;
         }
 
         .index-button {
@@ -481,6 +481,10 @@
 
         .region-radio {
             appearance: none;
+        }
+
+        input[type='radio'].region-radio + span {
+            color: #4B4653;
         }
 
     </style>
