@@ -410,10 +410,10 @@
             top: calc(50% - 10px);
             /* proof that CSS is stupid, cant fucking vertical center text */
         }
-        input[type='button'].rw-ui + span {
+        input[type='button'].region-radio + span {
             color: #cccccc;
         }
-        input[type='button'].rw-ui:checked + span {
+        input[type='button'].region-radio:checked + span {
             color: white;
         }
         
@@ -444,7 +444,7 @@
             color: #cccccc;
         }
 
-        .region-button {
+        .region-label {
             position: relative;
             word-wrap: break-word;
             margin-top: 8px;
@@ -459,7 +459,7 @@
             padding: 4px;
         }
 
-        span.rw-ui {
+        .region-span {
             display: block;
             max-width: 200px;
             font-size: 0.8rem;
@@ -479,7 +479,7 @@
             background-color: #0c0c0c;
         }
 
-        .hidebutton {
+        .region-radio {
             appearance: none;
         }
 
@@ -586,7 +586,7 @@
 
             var html = "";
             for (var r of region_order) {
-                html += `<label class="region-button"><input type="radio" class="hidebutton" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off"><span class="rw-ui rw-text">${regions[r].toUpperCase()} (${r})</span></label>`
+                html += `<label class="region-label"><input type="radio" class="region-radio" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off"><span class="region-span">${regions[r].toUpperCase()} (${r})</span></label>`
             }
             document.getElementById('region-select').innerHTML = html;
         }

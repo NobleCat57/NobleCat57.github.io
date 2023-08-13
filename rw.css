@@ -96,7 +96,7 @@ button.rw-ui {
 
 /* TOGGLES */
 input[type='checkbox'].rw-ui,
-input[type='radio'].hidebutton,
+input[type='radio'].region-radio,
 input[type='radio'].rw-ui,
 input[type='button'].rw-ui {
     appearance: none;
@@ -113,7 +113,7 @@ input[type='button'].rw-ui {
 }
 
     input[type='checkbox'].rw-ui::before,
-    input[type='radio'].hidebutton::before,
+    input[type='radio'].region-radio::before,
     input[type='radio'].rw-ui::before,
     input[type='button'].rw-ui::before {
         /* outline that expands */
@@ -134,7 +134,7 @@ input[type='button'].rw-ui {
     /* inserted span */
     input[type='checkbox'].rw-ui + span,
     input[type='radio'].rw-ui + span,
-    input[type='radio'].hidebutton,
+    input[type='radio'].region-radio,
     input[type='button'].rw-ui + span {
         cursor: pointer;
         position: absolute;
@@ -164,7 +164,7 @@ input[type='button'].rw-ui {
 
     /* checked */
     input[type='checkbox'].rw-ui:checked::before,
-    input[type='radio'].hidebutton:checked::before,
+    input[type='radio'].region-radio:checked::before,
     input[type='radio'].rw-ui:checked::before,
     input[type='button'].rw-ui:checked::before {
         border-color: #A9A4B2;
@@ -172,7 +172,7 @@ input[type='button'].rw-ui {
     }
 
     input[type='checkbox'].rw-ui:checked::after,
-    input[type='radio'].hidebutton:checked::after,
+    input[type='radio'].region-radio:checked::after,
     input[type='radio'].rw-ui:checked::after,
     input[type='button'].rw-ui:checked::after {
         /* extra outline */
@@ -191,7 +191,7 @@ input[type='button'].rw-ui {
     }
 
     input[type='checkbox'].rw-ui:checked + span,
-    input[type='radio'].hidebutton:checked + span,
+    input[type='radio'].region-radio:checked + span,
     input[type='radio'].rw-ui:checked + span,
     input[type='button'].rw-ui:checked + span {
         color: #A9A4B2;
@@ -206,14 +206,14 @@ input[type='button'].rw-ui {
 
     /* hover */
     input[type='checkbox'].rw-ui:hover,
-    input[type='radio'].hidebutton:hover,
+    input[type='radio'].region-radio:hover,
     input[type='radio'].rw-ui:hover,
     input[type='button'].rw-ui:hover {
         animation: border-blinker 0.8s linear infinite, flasher 0.3s;
     }
 
         input[type='checkbox'].rw-ui:hover::before,
-        input[type='radio'].hidebutton:hover::before,
+        input[type='radio'].region-radio:hover::before,
         input[type='radio'].rw-ui:hover::before,
         input[type='button'].rw-ui:hover::before {
             margin: -6px;
@@ -222,7 +222,7 @@ input[type='button'].rw-ui {
         }
 
     input[type='checkbox'].rw-ui:checked:hover::after,
-    input[type='radio'].hidebutton:checked:hover::after,
+    input[type='radio'].region-radio:checked:hover::after,
     input[type='radio'].rw-ui:checked:hover::after,
     input[type='button'].rw-ui:checked:hover::after {
         margin: -10px;
@@ -232,7 +232,7 @@ input[type='button'].rw-ui {
 
     input[type='checkbox'].rw-ui:hover + span,
     input[type='radio'].rw-ui:hover + span,
-    input[type='radio'].hidebutton:hover + span,
+    input[type='radio'].region-radio:hover + span,
     input[type='button'].rw-ui:hover + span {
         color: white;
     }
@@ -247,13 +247,13 @@ input[type='button'].rw-ui {
     /* active */
     input[type='checkbox'].rw-ui:active,
     input[type='radio'].rw-ui:active,
-    input[type='radio'].hidebutton:active,
+    input[type='radio'].region-radio:active,
     input[type='button'].rw-ui:active {
         animation: border-blinker 0.8s linear infinite, flasher 0.3s;
     }
 
         input[type='checkbox'].rw-ui:active::before,
-        input[type='radio'].hidebutton:active::before,
+        input[type='radio'].region-radio:active::before,
         input[type='radio'].rw-ui:active::before,
         input[type='button'].rw-ui:active::before {
             margin: -2px;
@@ -262,7 +262,7 @@ input[type='button'].rw-ui {
         }
 
     input[type='checkbox'].rw-ui:checked:active::after,
-    input[type='radio'].hidebutton:checked:active::after,
+    input[type='radio'].region-radio:checked:active::after,
     input[type='radio'].rw-ui:checked:active::after,
     input[type='button'].rw-ui:checked:active::after {
         margin: -6px;
