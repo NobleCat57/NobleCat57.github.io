@@ -582,7 +582,7 @@
 
             var html = "";
             for (var r of region_order) {
-                html += `<label class="region-button"><input type="radio" class="hidebutton rw-ui" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off"><span class="rw-ui rw-text">${regions[r].toUpperCase()} (${r})</span></label>`
+                html += `<label class="region-button"><input type="radio" class="hidebutton" name="regions" onclick="selectRegion(this.value);" value="${r}"${r == region ? ' checked="checked"' : ''} autocomplete = "off"><span class="rw-ui rw-text">${regions[r].toUpperCase()} (${r})</span></label>`
             }
             document.getElementById('region-select').innerHTML = html;
         }
