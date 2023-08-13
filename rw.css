@@ -102,7 +102,8 @@ span.rw-ui {
 /* TOGGLES */
 input[type='checkbox'].rw-ui,
 input[type='radio'].rw-ui,
-input[type='button'].rw-ui {
+input[type='button'].rw-ui,
+span.rw-ui {
     appearance: none;
     cursor: pointer;
     position: relative;
@@ -116,23 +117,24 @@ input[type='button'].rw-ui {
     margin: 0px;
 }
 
-input[type='checkbox'].rw-ui::before,
-input[type='radio'].rw-ui::before,
-input[type='button'].rw-ui::before {
-    /* outline that expands */
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    margin: -2px;
-    /* undo parent border */
-    border-radius: 8px;
-    border: 2px solid #4B4653;
-    /* darkgray */
-    transition: padding 0.3s, border-color 0.3s, margin 0.3s;
-}
+    input[type='checkbox'].rw-ui::before,
+    input[type='radio'].rw-ui::before,
+    input[type='button'].rw-ui::before,
+    span.rw-ui::before {
+        /* outline that expands */
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: -2px;
+        /* undo parent border */
+        border-radius: 8px;
+        border: 2px solid #4B4653;
+        /* darkgray */
+        transition: padding 0.3s, border-color 0.3s, margin 0.3s;
+    }
 
 /* inserted span */
 input[type='checkbox'].rw-ui+span,
@@ -204,19 +206,21 @@ input[type='button'].rw-ui:checked+img {
 }
 
 /* hover */
-input[type='checkbox'].rw-ui:hover,
-input[type='radio'].rw-ui:hover,
-input[type='button'].rw-ui:hover {
-    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
-}
+    input[type='checkbox'].rw-ui:hover,
+    input[type='radio'].rw-ui:hover,
+    input[type='button'].rw-ui:hover,
+    span.rw-ui:hover {
+        animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+    }
 
-input[type='checkbox'].rw-ui:hover::before,
-input[type='radio'].rw-ui:hover::before,
-input[type='button'].rw-ui:hover::before {
-    margin: -6px;
-    padding: 4px;
-    border-color: white;
-}
+        input[type='checkbox'].rw-ui:hover::before,
+        input[type='radio'].rw-ui:hover::before,
+        input[type='button'].rw-ui:hover::before,
+        span.rw-ui:hover::before {
+            margin: -6px;
+            padding: 4px;
+            border-color: white;
+        }
 
 input[type='checkbox'].rw-ui:checked:hover::after,
 input[type='radio'].rw-ui:checked:hover::after,
@@ -240,27 +244,30 @@ input[type='button'].rw-ui:hover+img {
 }
 
 /* active */
-input[type='checkbox'].rw-ui:active,
-input[type='radio'].rw-ui:active,
-input[type='button'].rw-ui:active {
-    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
-}
+    input[type='checkbox'].rw-ui:active,
+    input[type='radio'].rw-ui:active,
+    input[type='button'].rw-ui:active,
+    span.rw-ui:active {
+        animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+    }
 
-input[type='checkbox'].rw-ui:active::before,
-input[type='radio'].rw-ui:active::before,
-input[type='button'].rw-ui:active::before {
-    margin: -2px;
-    padding: 0px;
-    border-color: white;
-}
+        input[type='checkbox'].rw-ui:active::before,
+        input[type='radio'].rw-ui:active::before,
+        input[type='button'].rw-ui:active::before,
+        span.rw-ui:active::before {
+            margin: -2px;
+            padding: 0px;
+            border-color: white;
+        }
 
-input[type='checkbox'].rw-ui:checked:active::after,
-input[type='radio'].rw-ui:checked:active::after,
-input[type='button'].rw-ui:checked:active::after {
-    margin: -6px;
-    padding: 4px;
-    border-color: white;
-}
+        input[type='checkbox'].rw-ui:checked:active::after,
+        input[type='radio'].rw-ui:checked:active::after,
+        input[type='button'].rw-ui:checked:active::after,
+        span.rw-ui:active::after {
+            margin: -6px;
+            padding: 4px;
+            border-color: white;
+        }
 
 input[type='checkbox'].rw-ui:active+img,
 input[type='radio'].rw-ui:active+img,
