@@ -1232,8 +1232,10 @@
                                 if (visibleFilter) {
                                     console.log("Showing " + object + " Due to Availability");
                                     if (collectable) {
-                                        icon = token_icons[object];
-                                        if (object == "WhiteToken") {
+                                        if (object != "WhiteToken") {
+                                            icon = token_icons[object];
+                                        }
+                                        if (object == "WhiteToken" && difficulty == "spear") {
                                             if (data.tokenString != null) {
                                                 if (data.tokenString != "") {
                                                     tooltip = data.tokenString;
@@ -1248,7 +1250,7 @@
                                             } else {
                                                 console.log("null tokenString for " + object);
                                             }
-                                        } else if (data.tokenString != null) {
+                                        } else if (object != "WhiteToken" && data.tokenString != null) {
                                             if (data.tokenString != "") {
                                                 tooltip = data.tokenString;
                                                 if (data.tokenString in icon_by_name) {
@@ -1359,8 +1361,10 @@
                                         if (visibleInFilter) {
                                             console.log("Showing filter item " + object + " Due to Availability");
                                             if (collectable) {
-                                                icon = token_icons[object];
-                                                if (object == "WhiteToken") {
+                                                if (object != "WhiteToken") {
+                                                    icon = token_icons[object];
+                                                }
+                                                if (object == "WhiteToken" && difficulty == "spear") {
                                                     if (data.tokenString != null) {
                                                         if (data.tokenString != "") {
                                                             tooltip = data.tokenString;
@@ -1375,7 +1379,7 @@
                                                     } else {
                                                         console.log("null tokenString for " + object);
                                                     }
-                                                } else if (data.tokenString != null) {
+                                                } else if (object != "WhiteToken" && data.tokenString != null) {
                                                     if (data.tokenString != "") {
                                                         tooltip = data.tokenString;
                                                         if (data.tokenString in icon_by_name) {
