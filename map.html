@@ -1210,7 +1210,7 @@
                         var object_filter = " object-filter";
                         var object = feature.properties.object;
                         var data = feature.properties.data;
-                        var visibleFilter = false;
+                        var visibleFilter = true;
                         var tooltip = "";
                         var attribute = "";
                         var icon = "72_unknown";
@@ -1226,11 +1226,8 @@
                                 var availableToPlayers = feature.properties.data.availableToPlayers
                                 for (let slugcat in availableToPlayers) {
                                     if (slugcat.toLowerCase() == difficulty) {
-                                        visibleFilter = true;
+                                        visibleFilter = false;
                                     }
-                                }
-                                if (availableToPlayers == "") {
-                                    visibleFilter = true;
                                 }
                                 if (visibleFilter) {
                                     console.log("Showing " + object + " Due to Availability");
@@ -1334,14 +1331,11 @@
                             }
 
                         } else if (object == "Filter") {
-                            var availableToPlayers = feature.properties.data.availableToPlayers
+                            var availableToPlayers = feature.properties.data.availableToPlayers;
                             for (let slugcat in availableToPlayers) {
                                 if (slugcat.toLowerCase() == difficulty) {
-                                    visibleFilter = true;
+                                    visibleFilter = false;
                                 }
-                            }
-                            if (availableToPlayers == "") {
-                                visibleFilter = true;
                             }
                             if (visibleFilter) {
                                 console.log("Showing Objects in " + object + " Due to Availability");
@@ -1355,17 +1349,15 @@
                                             object_filter = "";
                                         }
                                     } else if (object in token_icons) {
-                                        var availableToPlayers = feature.properties.data.availableToPlayers
+                                        var availableToPlayers = feature.properties.data.availableToPlayers;
+                                        var visibleInFilter = true;
                                         for (let slugcat in availableToPlayers) {
                                             if (slugcat.toLowerCase() == difficulty) {
-                                                visibleFilter = true;
+                                                visibleInFilter = false;
                                             }
                                         }
-                                        if (availableToPlayers == "") {
-                                            visibleFilter = true;
-                                        }
-                                        if (visibleFilter) {
-                                            console.log("Showing " + object + " Due to Availability");
+                                        if (visibleInFilter) {
+                                            console.log("Showing filter item " + object + " Due to Availability");
                                             if (collectable) {
                                                 icon = token_icons[object];
                                                 if (object == "WhiteToken") {
@@ -1406,7 +1398,7 @@
                                                 object_filter = "";
                                             }
                                         } else {
-                                            console.log("Not showing " + object + " Due to Availability");
+                                            console.log("Not showing filter item " + object + " Due to Availability");
                                             icon = "null_icon";
                                             object_filter = "";
                                         }
