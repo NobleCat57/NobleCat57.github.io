@@ -1224,8 +1224,8 @@
                                     object_filter = "";
                                 }
                             } else if (object in token_icons) {
-                                let hiddenSlugcats = feature.properties.data.availableToPlayers.toString().toLowerCase();
-                                if (!hiddenSlugcats.search(difficulty)) {
+                                let hiddenSlugcats = feature.properties.data.availableToPlayers.join(" , ").toLowerCase();
+                                if (hiddenSlugcats.search(difficulty) == false) {
                                     if (collectable) {
                                         // WhiteToken (Broadcasts)
                                         if (object == "WhiteToken") {
@@ -1236,7 +1236,7 @@
                                                     tooltip = data.tokenString;
                                                     if (data.tokenString in broadcast_icons) {
                                                         icon = broadcast_icons[data.tokenString];
-                                                        console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + hiddenSlugcats);
+                                                        console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + hiddenSlugcats + " current difficulty: " + difficulty);
                                                     } else {
                                                         console.log("missing broadcast icon for " + data.tokenString);
                                                     }
@@ -1251,7 +1251,7 @@
                                             icon = token_icons[object];
                                             if (data.tokenString != "") {
                                                 tooltip = data.tokenString;
-                                                console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + hiddenSlugcats);
+                                                console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + hiddenSlugcats + " current difficulty: " + difficulty);
                                                 /* RedToken's just use region acronyms and GoldToken's use that plus subregion strings for multiple tokens in one region:
                                                 (CC (gutter) and SB (filter), plus that one DevToken in MS with the "Default" tokenString */
                                                 if (object == "BlueToken" || object == "GreenToken") {
@@ -1284,7 +1284,7 @@
                                         object_filter = "";
                                     }
                                 } else {
-                                    console.log("Hiding " + object + " Due to Availability: " + hiddenSlugcats);
+                                    console.log("Hiding " + object + " Due to Availability: " + hiddenSlugcats + " current difficulty: " + difficulty);
                                     icon = "null_icon";
                                     object_filter = "";
                                 }
