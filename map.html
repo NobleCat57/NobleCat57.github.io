@@ -1214,6 +1214,7 @@
                         var tooltip = "";
                         var attribute = "";
                         var icon = "72_unknown";
+                        // Normal code for objects not a part of a filter
                         if (object != "Filter") {
                             if (object in standard_placed_object_icons) {
                                 if (standard) {
@@ -1223,7 +1224,7 @@
                                     object_filter = "";
                                 }
                             } else if (object in token_icons) {
-                                var availableToPlayers = feature.properties.data.availableToPlayers
+                                var availableToPlayers = feature.properties.data.availableToPlayers;
                                 for (let slugcat in availableToPlayers) {
                                     if (slugcat.toLowerCase() == difficulty) {
                                         visibleFilter = false;
@@ -1232,11 +1233,10 @@
                                 if (visibleFilter) {
                                     console.log("Showing " + object + " Due to Availability");
                                     if (collectable) {
-                                        if (object != "WhiteToken") {
-                                            icon = token_icons[object];
-                                        }
-                                        if (object == "WhiteToken" && difficulty == "spear") {
-                                            if (data.tokenString != null) {
+                                        if (object == "WhiteToken") {
+                                            if (difficulty != "spear") { 
+                                                icon = "null_icon";
+                                            } else if (data.tokenString != null) {
                                                 if (data.tokenString != "") {
                                                     tooltip = data.tokenString;
                                                     if (data.tokenString in broadcast_icons) {
@@ -1251,6 +1251,7 @@
                                                 console.log("null tokenString for " + object);
                                             }
                                         } else if (object != "WhiteToken" && data.tokenString != null) {
+                                            icon = token_icons[object];
                                             if (data.tokenString != "") {
                                                 tooltip = data.tokenString;
                                                 if (data.tokenString in icon_by_name) {
@@ -1331,7 +1332,7 @@
                                             <div class="object-tooltip">${tooltip}</div>
                                             </div>`;
                             }
-
+                        // Filter Objects
                         } else if (object == "Filter") {
                             var availableToPlayers = feature.properties.data.availableToPlayers;
                             for (let slugcat in availableToPlayers) {
@@ -1340,18 +1341,19 @@
                                 }
                             }
                             if (visibleFilter) {
-                                console.log("Showing Objects in " + object + " Due to Availability");
+                                console.log("Showing Objects in " + objectInFilter + " Due to Availability");
                                 var objectsInFilter = feature.properties.objectsInFilter
-                                for (object of objectsInFilter) {
-                                    if (object in standard_placed_object_icons) {
+                                // Objects Within a Filter
+                                for (let objectInFilter of objectsInFilter) {
+                                    if (objectInFilter in standard_placed_object_icons) {
                                         if (standard) {
-                                            icon = standard_placed_object_icons[object];
+                                            icon = standard_placed_object_icons[objectInFilter];
                                         } else {
                                             icon = "null_icon";
                                             object_filter = "";
                                         }
-                                    } else if (object in token_icons) {
-                                        var availableToPlayers = feature.properties.data.availableToPlayers;
+                                    } else if (objectInFilter in token_icons) {
+                                        var availableToPlayers = feature.properties.dataInFilter.availableToPlayers;
                                         var visibleInFilter = true;
                                         for (let slugcat in availableToPlayers) {
                                             if (slugcat.toLowerCase() == difficulty) {
@@ -1359,94 +1361,107 @@
                                             }
                                         }
                                         if (visibleInFilter) {
-                                            console.log("Showing filter item " + object + " Due to Availability");
+                                            console.log("Showing filter item " + objectInFilter + " Due to Availability");
                                             if (collectable) {
-                                                if (object != "WhiteToken") {
-                                                    icon = token_icons[object];
-                                                }
-                                                if (object == "WhiteToken" && difficulty == "spear") {
-                                                    if (data.tokenString != null) {
-                                                        if (data.tokenString != "") {
-                                                            tooltip = data.tokenString;
-                                                            if (data.tokenString in broadcast_icons) {
-                                                                icon = broadcast_icons[data.tokenString];
+                                                if (objectInFilter == "WhiteToken") {
+                                                    if (difficulty != "spear") {
+                                                        icon = "null_icon";
+                                                    } else if (dataInFilter.tokenString != null) {
+                                                        if (dataInFilter.tokenString != "") {
+                                                            tooltip = dataInFilter.tokenString;
+                                                            if (dataInFilter.tokenString in broadcast_icons) {
+                                                                icon = broadcast_icons[dataInFilter.tokenString];
                                                             } else {
-                                                                console.log("missing broadcast icon for " + data.tokenString);
+                                                                console.log("missing broadcast icon for filter item " + dataInFilter.tokenString);
                                                             }
                                                         } else {
-                                                            console.log("empty tokenString for " + object);
+                                                            console.log("empty tokenString for filter item " + objectInFilter);
                                                         }
                                                     } else {
-                                                        console.log("null tokenString for " + object);
+                                                        console.log("null tokenString for filter item " + objectInFilter);
                                                     }
-                                                } else if (object != "WhiteToken" && data.tokenString != null) {
-                                                    if (data.tokenString != "") {
-                                                        tooltip = data.tokenString;
-                                                        if (data.tokenString in icon_by_name) {
-                                                            attribute = icon_by_name[data.tokenString];
-                                                        } else if (data.tokenString in standard_placed_object_icons) {
-                                                            attribute = standard_placed_object_icons[data.tokenString];
-                                                        } else if (data.tokenString == "DataPearl") {
+                                                } else if (objectInFilter != "WhiteToken" && dataInFilter.tokenString != null) {
+                                                    icon = token_icons[objectInFilter];
+                                                    if (dataInFilter.tokenString != "") {
+                                                        tooltip = dataInFilter.tokenString;
+                                                        if (dataInFilter.tokenString in icon_by_name) {
+                                                            attribute = icon_by_name[dataInFilter.tokenString];
+                                                        } else if (dataInFilter.tokenString in standard_placed_object_icons) {
+                                                            attribute = standard_placed_object_icons[dataInFilter.tokenString];
+                                                        } else if (dataInFilter.tokenString == "DataPearl") {
                                                             attribute = "Pearl_misc_icon";
                                                         } else {
-                                                            console.log("missing token item icon for " + data.tokenString);
+                                                            console.log("missing token item icon for filter item " + dataInFilter.tokenString);
                                                         }
                                                     } else {
-                                                        console.log("empty tokenString for " + object);
+                                                        console.log("empty tokenString for filter item " + objectInFilter);
                                                     }
                                                 } else {
-                                                    console.log("null tokenString for " + object);
+                                                    console.log("null tokenString for filter item " + objectInFilter);
                                                 }
                                             } else {
                                                 icon = "null_icon";
                                                 object_filter = "";
                                             }
                                         } else {
-                                            console.log("Not showing filter item " + object + " Due to Availability");
+                                            console.log("Not showing filter item " + objectInFilter + " Due to Availability");
                                             icon = "null_icon";
                                             object_filter = "";
                                         }
-                                    } else if (object in pearl_icons) {
+                                    } else if (objectInFilter in pearl_icons) {
                                         if (collectable) {
-                                            icon = pearl_icons[object];
-                                            if (data.pearlType != null) {
-                                                if (data.pearlType != "") {
-                                                    tooltip = data.pearlType;
-                                                    if (data.pearlType in pearl_icons) {
-                                                        icon = pearl_icons[data.pearlType];
+                                            icon = pearl_icons[objectInFilter];
+                                            if (dataInFilter.pearlType != null) {
+                                                if (dataInFilter.pearlType != "") {
+                                                    tooltip = dataInFilter.pearlType;
+                                                    if (dataInFilter.pearlType in pearl_icons) {
+                                                        icon = pearl_icons[dataInFilter.pearlType];
                                                     } else {
-                                                        console.log("missing pearlType icon for " + data.pearlType);
+                                                        console.log("missing pearlType icon for filter item " + dataInFilter.pearlType);
                                                     }
                                                 } else {
-                                                    console.log("empty pearlType for " + object);
+                                                    console.log("empty pearlType for filter item " + objectInFilter);
                                                 }
                                             } else {
-                                                console.log("null pearlType for " + object);
+                                                console.log("null pearlType for filter item " + objectInFilter);
                                             }
                                         } else {
                                             icon = "null_icon";
                                             object_filter = "";
                                         }
-                                    } else if (object in decorative_placed_object_icons) {
+                                    } else if (objectInFilter in decorative_placed_object_icons) {
                                         if (decorative) {
-                                            icon = decorative_placed_object_icons[object];
+                                            icon = decorative_placed_object_icons[objectInFilter];
                                         } else {
                                             icon = "null_icon";
                                             object_filter = "";
                                         }
-                                    } else if (object in mechanical_placed_object_icons) {
+                                    } else if (objectInFilter in mechanical_placed_object_icons) {
                                         if (mechanical) {
-                                            icon = mechanical_placed_object_icons[object];
+                                            icon = mechanical_placed_object_icons[objectInFilter];
                                         } else {
                                             icon = "null_icon";
                                             object_filter = "";
                                         }
                                     } else {
-                                        console.log("missing icon for " + object);
+                                        console.log("missing icon for filter item " + objectInFilter);
                                         icon = "null_icon";
                                         object_filter = "";
                                         objecthtml += ``;
                                     }
+                                }
+
+                                if (attribute != "") {
+                                    objecthtml += `<div class="objectInFilter-entry${object_filter}">
+                                                <img class="objectInFilter-image" src="./resources/icons/${icon}.png"/>
+                                                <img class="icon-attribute" src="./resources/icons/${attribute}.png"/>
+                                                <div class="objectInFilter-tooltip">${tooltip}</div>
+                                                </div>`;
+                                } else {
+                                    objecthtml += `<div class="objectInFilter-entry${object_filter}">
+                                                <img class="objectInFilter-image" src="./resources/icons/${icon}.png"/>
+                                                <div class="objectInFilter-tooltip">${tooltip}</div>
+                                                </div>`;
                                 }
                             } else {
                                 console.log("Not showing anything in " + object + " Due to Availability");
