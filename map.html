@@ -1228,8 +1228,9 @@
                                 var availableToPlayers = feature.properties.data.availableToPlayers;
                                 for (let slugcat in availableToPlayers) {
                                     if (slugcat.toLowerCase() == difficulty) {
-                                        var visibleFilter = false;
+                                        visibleFilter = false;
                                     }
+                                    return visibleFilter;
                                 }
                                 if (visibleFilter) {
                                     if (collectable) {
