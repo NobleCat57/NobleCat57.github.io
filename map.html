@@ -1347,8 +1347,8 @@
                         } else if (object == "Filter") { 
                             let objectsInFilter = feature.properties.objectsInFilter;
                             for (let objectInFilter of objectsInFilter) {
-                                let object = feature.properties.objectsInFilter[objectInFilter].properties.object;
-                                let data = feature.properties.objectsInFilter[objectInFilter].properties.data;
+                                let object = objectInFilter.properties.object;
+                                let data = objectInFilter.properties.data;
                                 if (object in standard_placed_object_icons) {
                                     if (standard) {
                                         icon = standard_placed_object_icons[object];
