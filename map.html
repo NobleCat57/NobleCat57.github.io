@@ -1215,6 +1215,7 @@
                         var attribute = "";
                         var icon = "72_unknown";
                         // Normal code for objects not part of a filter
+                        // Features embedded inside of filter features are still read and parsed, since they are fully fledged features of their own, just in a different location
                         if (object != "Filter") {
                             if (object in standard_placed_object_icons) {
                                 if (standard) {
@@ -1281,7 +1282,7 @@
                                         object_filter = "";
                                     }
                                 } else {
-                                    console.log("Not showing " + object + " Due to Availability");
+                                    console.log("Hiding " + object + " Due to Availability");
                                     icon = "null_icon";
                                     object_filter = "";
                                 }
@@ -1335,7 +1336,7 @@
                                             <img class="icon-attribute" src="./resources/icons/${attribute}.png"/>
                                             <div class="object-tooltip">${tooltip}</div>
                                             </div>`;
-                            } else {
+                            } else if (icon != "null_icon") {
                                 objecthtml += `<div class="object-entry${object_filter}">
                                             <img class="object-image" src="./resources/icons/${icon}.png"/>
                                             <div class="object-tooltip">${tooltip}</div>
