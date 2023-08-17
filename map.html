@@ -1344,14 +1344,14 @@
                                 console.log("Showing Objects in " + object + " Due to Availability");
                                 let objectsInFilter = feature.properties.objectsInFilter
                                 // Objects Within a Filter
-                                for (let object of objectsInFilter) {
+                                for (let feature of feature.properties.objectsInFilter) {
                                     let object_filter = " object-filter";
                                     let visibleFilter = true;
                                     let tooltip = "";
                                     let attribute = "";
                                     let icon = "72_unknown";
-                                    object = object.properties.object;
-                                    let data = object.properties.data;
+                                    object = feature.properties.object;
+                                    let data = feature.properties.data;
                                     if (object in standard_placed_object_icons) {
                                         if (standard) {
                                             icon = standard_placed_object_icons[object];
