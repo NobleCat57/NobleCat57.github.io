@@ -1225,7 +1225,7 @@
                                 }
                             } else if (object in token_icons) {
                                 var availableToPlayers = feature.properties.data.availableToPlayers;
-                                if (!(difficulty in (feature.properties.data.availableToPlayers.toLowerCase()))) {
+                                if (!(difficulty in (feature.properties.data.availableToPlayers))) {
                                     if (collectable) {
                                         // WhiteToken (Broadcasts)
                                         if (object == "WhiteToken") {
