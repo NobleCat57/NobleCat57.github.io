@@ -1213,6 +1213,7 @@
                         var tooltip = "";
                         var attribute = "";
                         var icon = "72_unknown";
+                        var Difficulty = difficulty.substring(0,1).toUpperCase() + difficulty.substring(1);
                         // Normal code for objects not part of a filter
                         // Features embedded inside of filter features are still read and parsed, since they are fully fledged features of their own, just in a different location
                         if (object != "Filter") {
@@ -1225,10 +1226,7 @@
                                 }
                             } else if (object in token_icons) {
                                 let hiddenSlugcats = feature.properties.data.availableToPlayers;
-                                for (var cat in hiddenSlugcats) {
-                                    cat = cat.toLowerCase();
-                                }
-                                if (!(difficulty in (hiddenSlugcats))) {
+                                if (!(Difficulty in (hiddenSlugcats))) {
                                     if (collectable) {
                                         // WhiteToken (Broadcasts)
                                         if (object == "WhiteToken") {
