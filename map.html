@@ -1228,11 +1228,10 @@
                                 var availableToPlayers = feature.properties.data.availableToPlayers;
                                 for (let slugcat in availableToPlayers) {
                                     if (slugcat.toLowerCase() == difficulty) {
-                                        visibleFilter = false;
+                                        var visibleFilter = false;
                                     }
                                 }
                                 if (visibleFilter) {
-                                    console.log("Showing " + object + " Due to Availability");
                                     if (collectable) {
                                         // WhiteToken (Broadcasts)
                                         if (object == "WhiteToken") {
@@ -1243,6 +1242,7 @@
                                                     tooltip = data.tokenString;
                                                     if (data.tokenString in broadcast_icons) {
                                                         icon = broadcast_icons[data.tokenString];
+                                                        console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + availableToPlayers);
                                                     } else {
                                                         console.log("missing broadcast icon for " + data.tokenString);
                                                     }
@@ -1257,19 +1257,27 @@
                                             icon = token_icons[object];
                                             if (data.tokenString != "") {
                                                 tooltip = data.tokenString;
-                                                // RedToken's just use region acronyms and GoldToken's use that plus subregion strings for multiple tokens in one region (CC (gutter) and SB (filter))
-                                                if (object != "RedToken" && object != "GoldToken") {
-                                                    if (data.tokenString in icon_by_name) {
+                                                console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + availableToPlayers);
+                                                /* RedToken's just use region acronyms and GoldToken's use that plus subregion strings for multiple tokens in one region:
+                                                (CC (gutter) and SB (filter), plus that one DevToken in MS with the "Default" tokenString */
+                                                if (object == "BlueToken" || object == "GreenToken") {
+                                                    if (data.tokenString in icon_by_name && (data.tokenString != "CicadaA" && data.tokenString != "BigNeedleWorm" && data.tokenString != "DataPearl")) {
                                                         attribute = icon_by_name[data.tokenString];
                                                     } else if (data.tokenString in standard_placed_object_icons) {
                                                         attribute = standard_placed_object_icons[data.tokenString];
+                                                    } else if (data.tokenString == "CicadaA") {
+                                                        attribute = "Squidcadas_icon";
+                                                        tooltip = "Cicada A & B";
+                                                    } else if (data.tokenString == "BigNeedleWorm") {
+                                                        attribute = "NoodleFlies_icon";
+                                                        tooltip = "Big & Small NeedleWorm";
                                                     } else if (data.tokenString == "DataPearl") {
                                                         attribute = "Pearl_misc_icon";
                                                     } else {
                                                         console.log("missing token item icon for " + data.tokenString);
                                                     }
                                                 } else {
-                                                    console.log("no need for an attribute icon for red or gold tokens: " + data.tokenString);
+                                                    console.log("no need for an attribute icon for red, gold, or dev tokens: " + data.tokenString);
                                                 }
                                             } else {
                                                 console.log("empty tokenString for " + object);
@@ -1282,7 +1290,7 @@
                                         object_filter = "";
                                     }
                                 } else {
-                                    console.log("Hiding " + object + " Due to Availability");
+                                    console.log("Hiding " + object + " Due to Availability: " + availableToPlayers);
                                     icon = "null_icon";
                                     object_filter = "";
                                 }
