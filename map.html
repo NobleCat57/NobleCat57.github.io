@@ -1334,15 +1334,15 @@
                             }
                         // Filter Objects
                         } else if (object == "Filter") {
-                            var availableToPlayers = feature.properties.data.availableToPlayers;
+                            let availableToPlayers = feature.properties.data.availableToPlayers;
                             for (let slugcat in availableToPlayers) {
                                 if (slugcat.toLowerCase() == difficulty) {
                                     visibleFilter = false;
                                 }
                             }
                             if (visibleFilter) {
-                                console.log("Showing Objects in " + objectInFilter + " Due to Availability");
-                                var objectsInFilter = feature.properties.objectsInFilter
+                                console.log("Showing Objects in " + object + " Due to Availability");
+                                let objectsInFilter = feature.properties.objectsInFilter
                                 // Objects Within a Filter
                                 for (let objectInFilter of objectsInFilter) {
                                     if (objectInFilter in standard_placed_object_icons) {
@@ -1353,8 +1353,8 @@
                                             object_filter = "";
                                         }
                                     } else if (objectInFilter in token_icons) {
-                                        var availableToPlayers = feature.properties.dataInFilter.availableToPlayers;
-                                        var visibleInFilter = true;
+                                        let availableToPlayers = feature.properties.data.availableToPlayers;
+                                        let visibleInFilter = true;
                                         for (let slugcat in availableToPlayers) {
                                             if (slugcat.toLowerCase() == difficulty) {
                                                 visibleInFilter = false;
