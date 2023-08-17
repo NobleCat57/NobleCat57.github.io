@@ -1224,7 +1224,10 @@
                                     object_filter = "";
                                 }
                             } else if (object in token_icons) {
-                                let hiddenSlugcats = (feature.properties.data.availableToPlayers).toLowerCase();
+                                let hiddenSlugcats = feature.properties.data.availableToPlayers;
+                                for (var cat in hiddenSlugcats) {
+                                    cat = cat.toLowerCase();
+                                }
                                 if (!(difficulty in (hiddenSlugcats))) {
                                     if (collectable) {
                                         // WhiteToken (Broadcasts)
