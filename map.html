@@ -1224,12 +1224,12 @@
                                     object_filter = "";
                                 }
                             } else if (object in token_icons) {
-                                let hiddenSlugcats = feature.properties.data.availableToPlayers.join(" , ").toLowerCase();
+                                let hiddenSlugcats = feature.properties.data.availableToPlayers.join(", ").toLowerCase();
                                 if (!hiddenSlugcats.includes(difficulty)) {
                                     if (collectable) {
                                         // WhiteToken (Broadcasts)
                                         if (object == "WhiteToken") {
-                                            if (difficulty != "spear") { 
+                                            if (difficulty != "spear") {
                                                 icon = "null_icon";
                                             } else if (data.tokenString != null) {
                                                 if (data.tokenString != "") {
@@ -1246,7 +1246,7 @@
                                             } else {
                                                 console.log("null tokenString for " + object);
                                             }
-                                        // RedToken, GoldToken, DevToken, GreenToken, and BlueToken
+                                            // RedToken, GoldToken, DevToken, GreenToken, and BlueToken
                                         } else if (object != "WhiteToken" && data.tokenString != null) {
                                             icon = token_icons[object];
                                             if (data.tokenString != "") {
@@ -1343,6 +1343,140 @@
                                             <img class="object-image" src="./resources/icons/${icon}.png"/>
                                             <div class="object-tooltip">${tooltip}</div>
                                             </div>`;
+                            }
+                        } else if (object == "Filter") { 
+                            let objectsInFilter = feature.properties.objectsInFilter;
+                            for (let objectInFilter of objectsInFilter) {
+                                let object = feature.properties.objectsInFilter[objectsInFilter.index(objectInFilter)].properties.object;
+                                let data = feature.properties.objectsInFilter[objectsInFilter.index(objectInFilter)].properties.data;
+                                if (object in standard_placed_object_icons) {
+                                    if (standard) {
+                                        icon = standard_placed_object_icons[object];
+                                    } else {
+                                        icon = "null_icon";
+                                        object_filter = "";
+                                    }
+                                } else if (object in token_icons) {
+                                    let hiddenSlugcats = feature.properties.data.availableToPlayers.join(", ").toLowerCase();
+                                    if (!hiddenSlugcats.includes(difficulty)) {
+                                        if (collectable) {
+                                            // WhiteToken (Broadcasts)
+                                            if (object == "WhiteToken") {
+                                                if (difficulty != "spear") {
+                                                    icon = "null_icon";
+                                                } else if (data.tokenString != null) {
+                                                    if (data.tokenString != "") {
+                                                        tooltip = data.tokenString;
+                                                        if (data.tokenString in broadcast_icons) {
+                                                            icon = broadcast_icons[data.tokenString];
+                                                            console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + hiddenSlugcats + " | current difficulty: " + difficulty);
+                                                        } else {
+                                                            console.log("missing broadcast icon for " + data.tokenString);
+                                                        }
+                                                    } else {
+                                                        console.log("empty tokenString for " + object);
+                                                    }
+                                                } else {
+                                                    console.log("null tokenString for " + object);
+                                                }
+                                                // RedToken, GoldToken, DevToken, GreenToken, and BlueToken
+                                            } else if (object != "WhiteToken" && data.tokenString != null) {
+                                                icon = token_icons[object];
+                                                if (data.tokenString != "") {
+                                                    tooltip = data.tokenString;
+                                                    console.log("Showing " + object + " - " + data.tokenString + " Due to Availability: " + hiddenSlugcats + " current difficulty: " + difficulty);
+                                                    /* RedToken's just use region acronyms and GoldToken's use that plus subregion strings for multiple tokens in one region:
+                                                    (CC (gutter) and SB (filter), plus that one DevToken in MS with the "Default" tokenString */
+                                                    if (object == "BlueToken" || object == "GreenToken") {
+                                                        if (data.tokenString in icon_by_name && (data.tokenString != "CicadaA" && data.tokenString != "BigNeedleWorm" && data.tokenString != "DataPearl")) {
+                                                            attribute = icon_by_name[data.tokenString];
+                                                        } else if (data.tokenString in standard_placed_object_icons) {
+                                                            attribute = standard_placed_object_icons[data.tokenString];
+                                                        } else if (data.tokenString == "CicadaA") {
+                                                            attribute = "Squidcadas_icon";
+                                                            tooltip = "Cicada A & B";
+                                                        } else if (data.tokenString == "BigNeedleWorm") {
+                                                            attribute = "NoodleFlies_icon";
+                                                            tooltip = "Big & Small NeedleWorm";
+                                                        } else if (data.tokenString == "DataPearl") {
+                                                            attribute = "Pearl_misc_icon";
+                                                        } else {
+                                                            console.log("missing token item icon for " + data.tokenString);
+                                                        }
+                                                    } else {
+                                                        console.log("no need for an attribute icon for red, gold, or dev tokens: " + data.tokenString);
+                                                    }
+                                                } else {
+                                                    console.log("empty tokenString for " + object);
+                                                }
+                                            } else {
+                                                console.log("null tokenString for " + object);
+                                            }
+                                        } else {
+                                            icon = "null_icon";
+                                            object_filter = "";
+                                        }
+                                    } else {
+                                        console.log("Hiding " + object + " Due to Availability: " + hiddenSlugcats + " current difficulty: " + difficulty);
+                                        icon = "null_icon";
+                                        object_filter = "";
+                                    }
+                                } else if (object in pearl_icons) {
+                                    if (collectable) {
+                                        icon = pearl_icons[object];
+                                        if (data.pearlType != null) {
+                                            /* Generic Pearls are abundant and we don't need 15 thousand "Misc" strings, 
+                                            and broadcast pearls are plenty identifiable with their pink icons and specific placements */
+                                            if (data.pearlType != "" && data.pearlType != "Misc" && data.pearlType != "BroadcastMisc") {
+                                                tooltip = data.pearlType;
+                                                if (data.pearlType in pearl_icons) {
+                                                    icon = pearl_icons[data.pearlType];
+                                                } else {
+                                                    console.log("missing pearlType icon for " + data.pearlType);
+                                                }
+                                            } else {
+                                                console.log("empty pearlType for " + object);
+                                            }
+                                        } else {
+                                            console.log("null pearlType for " + object);
+                                        }
+                                    } else {
+                                        icon = "null_icon";
+                                        object_filter = "";
+                                    }
+                                } else if (object in decorative_placed_object_icons) {
+                                    if (decorative) {
+                                        icon = decorative_placed_object_icons[object];
+                                    } else {
+                                        icon = "null_icon";
+                                        object_filter = "";
+                                    }
+                                } else if (object in mechanical_placed_object_icons) {
+                                    if (mechanical) {
+                                        icon = mechanical_placed_object_icons[object];
+                                    } else {
+                                        icon = "null_icon";
+                                        object_filter = "";
+                                    }
+                                } else {
+                                    console.log("missing icon for " + object);
+                                    icon = "null_icon";
+                                    object_filter = "";
+                                    objecthtml += ``;
+                                }
+
+                                if (attribute != "") {
+                                    objecthtml += `<div class="object-entry${object_filter}">
+                                                <img class="object-image" src="./resources/icons/${icon}.png"/>
+                                                <img class="icon-attribute" src="./resources/icons/${attribute}.png"/>
+                                                <div class="object-tooltip">${tooltip}</div>
+                                                </div>`;
+                                } else if (icon != "null_icon") {
+                                    objecthtml += `<div class="object-entry${object_filter}">
+                                                <img class="object-image" src="./resources/icons/${icon}.png"/>
+                                                <div class="object-tooltip">${tooltip}</div>
+                                                </div>`;
+                                }
                             }
                         }
 
