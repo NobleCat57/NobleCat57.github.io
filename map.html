@@ -1346,7 +1346,7 @@
                                             </div>`;
                             }
                         } else if (object == "Filter") { 
-                            console.log("Filter Feature: " + feature);
+                            console.log(feature);
                             let objectsInFilter = feature.properties.objectsInFilter;
                             let hiddenSlugcats = feature.properties.data.availableToPlayers.join(", ").toLowerCase();
                             if (!hiddenSlugcats.includes(difficulty)) {
@@ -1357,13 +1357,13 @@
                                             <img class="object-image" src="./resources/icons/${icon}.png"/>
                                             <div class="object-tooltip">${tooltip}</div>
                                             </div>`;
-                                console.log("objectsInFilter: " + objectsInFilter);
+                                console.log(objectsInFilter);
                                 for (let objectInFilter of objectsInFilter) {
                                     let object = feature.properties.object;
                                     let data = feature.properties.data;
-                                    console.log("objectInFilter: " + objectInFilter);
-                                    console.log("object: " + object);
-                                    console.log("data: " + data);
+                                    console.log(objectInFilter);
+                                    console.log(object);
+                                    console.log(data);
                                 
                                     if (object in standard_placed_object_icons) {
                                         if (standard) {
