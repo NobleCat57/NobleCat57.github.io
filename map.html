@@ -1346,9 +1346,15 @@
                             }
                         } else if (object == "Filter") { 
                             let objectsInFilter = feature.properties.objectsInFilter;
-                            for (let objectInFilter of objectsInFilter) {
-                                let object = objectInFilter.properties.object;
-                                let data = objectInFilter.properties.data;
+                            let hiddenSlugcats = feature.properties.data.availableToPlayers.join(", ").toLowerCase();
+                            if (!hiddenSlugcats.includes(difficulty)) {
+                                for (let objectInFilter of objectsInFilter) {
+                                let object = feature.properties.object;
+                                let data = feature.properties.data;
+                                console.log("objectInFilter: " + objectInFilter);
+                                console.log("object: " + object);
+                                console.log("data: " + data);
+                                
                                 if (object in standard_placed_object_icons) {
                                     if (standard) {
                                         icon = standard_placed_object_icons[object];
@@ -1477,6 +1483,7 @@
                                                 <div class="object-tooltip">${tooltip}</div>
                                                 </div>`;
                                 }
+                            }
                             }
                         }
 
