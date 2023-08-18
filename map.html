@@ -1345,12 +1345,13 @@
                                             </div>`;
                             }
                         } else if (object == "Filter") { 
+                            console.log("Filter Feature: " + feature);
                             let objectsInFilter = feature.properties.objectsInFilter;
                             let hiddenSlugcats = feature.properties.data.availableToPlayers.join(", ").toLowerCase();
                             if (!hiddenSlugcats.includes(difficulty)) {
                                 let icon = "Filter_icon";
                                 let object_filter = " object-filter";
-                                let tooltip = HiddenSlugcats;
+                                let tooltip = hiddenSlugcats;
                                 objecthtml += `<div class="object-entry${object_filter}">
                                             <img class="object-image" src="./resources/icons/${icon}.png"/>
                                             <div class="object-tooltip">${tooltip}</div>
