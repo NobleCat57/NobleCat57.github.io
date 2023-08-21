@@ -1216,7 +1216,7 @@
                         let icon = "72_unknown";
                         // handles objects that are not filtered, and objects that are filtered, which are either exempt from or hidden by such filter
                         if (feature.properties.data.filterToPlayers != null) {
-                            let slugcatFilter = feature.properties.data.filterToPlayers.join(", ").toLowerCase();
+                            let slugcatFilter = feature.properties.filterToPlayers.join(", ").toLowerCase();
                             let objectRoom = feature.properties.room;
                             if (!slugcatFilter.includes(difficulty)) {
                                 console.log(objectRoom + " / " + object + "; is exempt from the current filter");
@@ -1227,7 +1227,7 @@
                             console.log(feature.properties.room + " / " + object + "; doesn't have a filterToPlayers attribute");
                         }
                         // for objects either outside of a filter, or those inside a filter and currently exempt from the rules of said filter
-                        if (feature.properties.data.filterToPlayers == null || (feature.properties.data.filterToPlayers != null && !(feature.properties.data.filterToPlayers.join(", ").toLowerCase()).includes(difficulty))) {
+                        if (feature.properties.data.filterToPlayers == null || (feature.properties.filterToPlayers != null && !(feature.properties.filterToPlayers.join(", ").toLowerCase()).includes(difficulty))) {
                             if (object in standard_placed_object_icons) {
                                 if (standard) {
                                     icon = standard_placed_object_icons[object];
@@ -1307,8 +1307,10 @@
                                     if (data.pearlType != null) {
                                         /* Generic Pearls are abundant and we don't need 15 thousand "Misc" strings, 
                                         and broadcast pearls are plenty identifiable with their pink icons and specific placements */
-                                        if (data.pearlType != "" && data.pearlType != "Misc" && data.pearlType != "BroadcastMisc") {
-                                            tooltip = data.pearlType;
+                                        if (data.pearlType != "") {
+                                            if (data.pearlType != "Misc" && data.pearlType != "BroadcastMisc") {
+                                                tooltip = data.pearlType;
+                                            }
                                             if (data.pearlType in pearl_icons) {
                                                 icon = pearl_icons[data.pearlType];
                                             } else {
