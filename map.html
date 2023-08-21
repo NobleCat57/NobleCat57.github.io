@@ -1346,7 +1346,7 @@
                                             </div>`;
                             }
                         } else if (object == "Filter") { 
-                            console.log(feature);
+                            // console.log(feature);
                             let objectsInFilter = feature.properties.objectsInFilter;
                             let hiddenSlugcats = feature.properties.data.availableToPlayers.join(", ").toLowerCase();
                             if (!hiddenSlugcats.includes(difficulty)) {
@@ -1359,8 +1359,10 @@
                                             </div>`;
                                 console.log(objectsInFilter);
                                 for (let objectInFilter in objectsInFilter) {
-                                    let object = objectInFilter.properties.object;
-                                    let data = objectInFilter.properties.data;
+                                    let object = feature.properties.object;
+                                    let data = feature.properties.data;
+                                    let blahblah = feature.properties.objectsInFilter.objectInFilter
+                                    console.log(blahblah);
                                     console.log(objectInFilter);
                                     // console.log(object);
                                     // console.log(data);
