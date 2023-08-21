@@ -1224,7 +1224,7 @@
                                 console.log(objectRoom + " / " + object + "; is hidden by a filter");
                             }
                         } else {
-                            console.log(objectRoom + " / " + object + "; doesn't have a filterToPlayers attribute");
+                            console.log(feature.properties.room + " / " + object + "; doesn't have a filterToPlayers attribute");
                         }
                         // for objects either outside of a filter, or those inside a filter and currently exempt from the rules of said filter
                         if (feature.properties.data.filterToPlayers == null || (feature.properties.data.filterToPlayers != null && !(feature.properties.data.filterToPlayers.join(", ").toLowerCase()).includes(difficulty))) {
