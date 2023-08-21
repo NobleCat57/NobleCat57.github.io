@@ -920,9 +920,6 @@
                 return;
             }
             region = pregion; // chaos
-            console.log(region);
-            console.log(pregion);
-            console.log(pdifficulty);
 
             var equivalentRegion = pregion;
 
@@ -936,7 +933,7 @@
                 equivalentRegion = "SL";
             } else if (pregion == "SL" && (pdifficulty == "artificer" || pdifficulty == "spear")) {
                 equivalentRegion = "LM";
-            } else if (pregion == "RM" && pdifficulty != "rivulet") {
+            } else if (pregion == "RM" && pdifficulty != "rivulet" && pdifficulty != "saint") {
                 equivalentRegion = "SS";
             } else if (pregion == "SS" && pdifficulty == "rivulet") {
                 equivalentRegion = "RM";
@@ -955,9 +952,10 @@
             } else if (pregion == "HR" && pdifficulty != "saint") {
                 equivalentRegion = "SB";
             }
-
             region = equivalentRegion;
-            console.log(region);
+            if (pregion != equivalentRegion) {
+                console.log("Redirected from " + loadedDifficulty + " / " + loadedRegion + " to " + pdifficulty + " / " + pregion + " to " + region);
+            }
             modded = pmodded;
 
             console.log("Loading: region {" + region + "} on slugcat {" + pdifficulty + "}, modded {" + modded + "}");
