@@ -919,9 +919,7 @@
                 }
                 return;
             }
-            region = pregion; // chaos
-
-            var equivalentRegion = pregion;
+            equivalentRegion = pregion;
 
             if (pregion == "OE" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "gourmand")) {
                 equivalentRegion = "SB";
@@ -952,7 +950,9 @@
             } else if (pregion == "HR" && pdifficulty != "saint") {
                 equivalentRegion = "SB";
             }
+
             region = equivalentRegion;
+
             if (pregion != equivalentRegion) {
                 console.log("Redirected from " + loadedDifficulty + " / " + loadedRegion + " to " + pdifficulty + " / " + pregion + " to " + region);
             }
