@@ -921,64 +921,55 @@
             }
             region = pregion; // chaos
             console.log(region);
-
-            equivalentregions = [
-                ["UG", "DS"], ["DS", "UG"],
-                ["CL", "SH"], ["SH", "CL"],
-                ["SS", "RM"], ["RM", "SS"],
-                ["DM", "MS"], ["MS", "DM"],
-                ["SL", "LM"], ["LM", "SL"]];
-                
             console.log(pregion);
             console.log(pdifficulty);
 
+            var equivalentRegion = pregion;
 
-            if (pregion == "oe" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "gourmand")) {
-                equivalentRegion = "sb";
+            if (pregion == "OE" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "gourmand")) {
+                equivalentRegion = "SB";
             }
-            if (pregion == "lc" && pdifficulty != "artificer") {
-                equivalentRegion = "uw";
+            if (pregion == "LC" && pdifficulty != "artificer") {
+                equivalentRegion = "UW";
             }
-            if (pregion == "ms" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "red" && pdifficulty != "gourmand" && pdifficulty != "rivulet" && pdifficulty != "saint")) {
-                equivalentRegion == "sl";
+            if (pregion == "MS" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "red" && pdifficulty != "gourmand" && pdifficulty != "rivulet" && pdifficulty != "saint")) {
+                equivalentRegion == "SL";
             }
-            if (pregion == "lm" && (pdifficulty != "artificer" && pdifficulty != "spear")) {
-                equivalentRegion = "sl";
+            if (pregion == "LM" && (pdifficulty != "artificer" && pdifficulty != "spear")) {
+                equivalentRegion = "SL";
             }
-            if (pregion == "sl" && (pdifficulty == "artificer" && pdifficulty == "spear")) {
-                equivalentRegion = "lm";
+            if (pregion == "SL" && (pdifficulty == "artificer" || pdifficulty == "spear")) {
+                equivalentRegion = "LM";
             }
-            if (pregion == "rm" && pdifficulty != "rivulet") {
-                equivalentRegion = "ss";
+            if (pregion == "RM" && pdifficulty != "rivulet") {
+                equivalentRegion = "SS";
             }
-            if (pregion == "ss" && pdifficulty == "rivulet") {
-                equivalentRegion = "rm";
+            if (pregion == "SS" && pdifficulty == "rivulet") {
+                equivalentRegion = "RM";
             }
-            if (pregion == "dm" && pdifficulty != "spear") {
-                equivalentRegion = "ms";
+            if (pregion == "DM" && pdifficulty != "spear") {
+                equivalentRegion = "MS";
             }
-            if (pregion == "ms" && pdifficulty == "spear") {
-                equivalentRegion = "dm";
+            if (pregion == "MS" && pdifficulty == "spear") {
+                equivalentRegion = "DM";
             }
-            if (pregion == "ug" && pdifficulty != "saint") {
-                equivalentRegion = "ds";
+            if (pregion == "UG" && pdifficulty != "saint") {
+                equivalentRegion = "DS";
             }
-            if (pregion == "ds" && pdifficulty == "saint") {
-                equivalentRegion = "ug";
+            if (pregion == "DS" && pdifficulty == "saint") {
+                equivalentRegion = "UG";
             }
-            if (pregion == "cl" && pdifficulty != "saint") {
-                equivalentRegion = "sh";
+            if (pregion == "CL" && pdifficulty != "saint") {
+                equivalentRegion = "SH";
             }
-            if ((pregion == "sh" || pregion == "uw" || pregion == "ss") && pdifficulty == "saint") {
-                equivalentRegion = "cl";
+            if ((pregion == "SH" || pregion == "UW" || pregion == "SS") && pdifficulty == "saint") {
+                equivalentRegion = "CL";
             }
-            if (pregion == "hr" && pdifficulty != "saint") {
-                equivalentRegion = "sb";
+            if (pregion == "HR" && pdifficulty != "saint") {
+                equivalentRegion = "SB";
             }
 
-            if (equivalentRegion != null) {
-                region = equivalentRegion;
-            }
+            region = equivalentRegion;
             console.log(region);
             modded = pmodded;
 
