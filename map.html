@@ -1215,7 +1215,7 @@
                         let attribute = "";
                         let icon = "72_unknown";
                         // handles objects that are not filtered, and objects that are filtered, which are either exempt from or hidden by such filter
-                        if (feature.properties.data.filterToPlayers != null) {
+                        if (feature.properties.filterToPlayers != null) {
                             let slugcatFilter = feature.properties.filterToPlayers.join(", ").toLowerCase();
                             let objectRoom = feature.properties.room;
                             if (!slugcatFilter.includes(difficulty)) {
@@ -1227,7 +1227,7 @@
                             console.log(feature.properties.room + " / " + object + "; doesn't have a filterToPlayers attribute");
                         }
                         // for objects either outside of a filter, or those inside a filter and currently exempt from the rules of said filter
-                        if (feature.properties.data.filterToPlayers == null || (feature.properties.filterToPlayers != null && !(feature.properties.filterToPlayers.join(", ").toLowerCase()).includes(difficulty))) {
+                        if (feature.properties.filterToPlayers == null || (feature.properties.filterToPlayers != null && !(feature.properties.filterToPlayers.join(", ").toLowerCase()).includes(difficulty))) {
                             if (object in standard_placed_object_icons) {
                                 if (standard) {
                                     icon = standard_placed_object_icons[object];
