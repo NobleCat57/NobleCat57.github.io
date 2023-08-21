@@ -920,6 +920,66 @@
                 return;
             }
             region = pregion; // chaos
+            console.log(region);
+
+            equivalentregions = [
+                ["UG", "DS"], ["DS", "UG"],
+                ["CL", "SH"], ["SH", "CL"],
+                ["SS", "RM"], ["RM", "SS"],
+                ["DM", "MS"], ["MS", "DM"],
+                ["SL", "LM"], ["LM", "SL"]];
+                
+            console.log(pregion);
+            console.log(pdifficulty);
+
+
+            if (pregion == "oe" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "gourmand")) {
+                equivalentRegion = "sb";
+            }
+            if (pregion == "lc" && pdifficulty != "artificer") {
+                equivalentRegion = "uw";
+            }
+            if (pregion == "ms" && (pdifficulty != "white" && pdifficulty != "yellow" && pdifficulty != "red" && pdifficulty != "gourmand" && pdifficulty != "rivulet" && pdifficulty != "saint")) {
+                equivalentRegion == "sl";
+            }
+            if (pregion == "lm" && (pdifficulty != "artificer" && pdifficulty != "spear")) {
+                equivalentRegion = "sl";
+            }
+            if (pregion == "sl" && (pdifficulty == "artificer" && pdifficulty == "spear")) {
+                equivalentRegion = "lm";
+            }
+            if (pregion == "rm" && pdifficulty != "rivulet") {
+                equivalentRegion = "ss";
+            }
+            if (pregion == "ss" && pdifficulty == "rivulet") {
+                equivalentRegion = "rm";
+            }
+            if (pregion == "dm" && pdifficulty != "spear") {
+                equivalentRegion = "ms";
+            }
+            if (pregion == "ms" && pdifficulty == "spear") {
+                equivalentRegion = "dm";
+            }
+            if (pregion == "ug" && pdifficulty != "saint") {
+                equivalentRegion = "ds";
+            }
+            if (pregion == "ds" && pdifficulty == "saint") {
+                equivalentRegion = "ug";
+            }
+            if (pregion == "cl" && pdifficulty != "saint") {
+                equivalentRegion = "sh";
+            }
+            if ((pregion == "sh" || pregion == "uw" || pregion == "ss") && pdifficulty == "saint") {
+                equivalentRegion = "cl";
+            }
+            if (pregion == "hr" && pdifficulty != "saint") {
+                equivalentRegion = "sb";
+            }
+
+            if (equivalentRegion != null) {
+                region = equivalentRegion;
+            }
+            console.log(region);
             modded = pmodded;
 
             console.log("Loading: region {" + region + "} on slugcat {" + pdifficulty + "}, modded {" + modded + "}");
@@ -1219,12 +1279,12 @@
                             let slugcatFilter = feature.properties.filterToPlayers.join(", ").toLowerCase();
                             let objectRoom = feature.properties.room;
                             if (!slugcatFilter.includes(difficulty)) {
-                                console.log(objectRoom + " / " + object + "; is exempt from the current filter");
+                                console.log(difficulty + " / " + objectRoom + " / " + object + "; is exempt from the current filter");
                             } else {
-                                console.log(objectRoom + " / " + object + "; is hidden by a filter");
+                                console.log(difficulty + " / " + objectRoom + " / " + object + "; is hidden by a filter");
                             }
                         } else {
-                            console.log(feature.properties.room + " / " + object + "; doesn't have a filterToPlayers attribute");
+                            console.log(difficulty + " / " + feature.properties.room + " / " + object + "; doesn't have a filterToPlayers attribute");
                         }
                         // for objects either outside of a filter, or those inside a filter and currently exempt from the rules of said filter
                         if (feature.properties.filterToPlayers == null || (feature.properties.filterToPlayers != null && !(feature.properties.filterToPlayers.join(", ").toLowerCase()).includes(difficulty))) {
@@ -1305,9 +1365,9 @@
                                 if (collectable) {
                                     icon = pearl_icons[object];
                                     if (data.pearlType != null) {
-                                        /* Generic Pearls are abundant and we don't need 15 thousand "Misc" strings, 
-                                        and broadcast pearls are plenty identifiable with their pink icons and specific placements */
                                         if (data.pearlType != "") {
+                                            /* Generic Pearls are abundant and we don't need 15 thousand "Misc" strings,
+                                            and broadcast pearls are plenty identifiable with their pink icons and specific placements */
                                             if (data.pearlType != "Misc" && data.pearlType != "BroadcastMisc") {
                                                 tooltip = data.pearlType;
                                             }
