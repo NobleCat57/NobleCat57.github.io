@@ -1210,7 +1210,7 @@
                         let object_filter = " object-filter";
                         let object = feature.properties.object;
                         let data = feature.properties.data;
-                        console.log(feature);
+                        // console.log(feature);
                         let tooltip = "";
                         let attribute = "";
                         let icon = "72_unknown";
@@ -1358,13 +1358,13 @@
                                             <div class="object-tooltip">${tooltip}</div>
                                             </div>`;
                                 console.log(objectsInFilter);
-                                for (let objectInFilter of objectsInFilter) {
-                                    let object = feature.properties.object;
-                                    let data = feature.properties.data;
+                                for (let objectInFilter in objectsInFilter) {
+                                    let object = objectInFilter.properties.object;
+                                    let data = objectInFilter.properties.data;
                                     console.log(objectInFilter);
-                                    console.log(object);
-                                    console.log(data);
-                                
+                                    // console.log(object);
+                                    // console.log(data);
+
                                     if (object in standard_placed_object_icons) {
                                         if (standard) {
                                             icon = standard_placed_object_icons[object];
@@ -1494,6 +1494,8 @@
                                                     </div>`;
                                     }
                                 }
+                            } else {
+                                console.log("not showing objects in filter since not hidden for current slugcat");
                             }
                         }
 
