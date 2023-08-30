@@ -338,6 +338,37 @@ const broadcast_icons = {
     "Chatlog_Broadcast9": "Broadcast_pre-pebbles_icon",
     "Chatlog_Broadcast8": "Broadcast_pre-pebbles_icon",
 }
+//## Objects we don't display normally, mainly niche things
+const mechanical_placed_object_icons = {
+    //## Superstructure
+    "CoralStem": "Coral_Stem_icon",
+    "CoralStemWithNeurons": "Coral_Stem_With_Neurons_icon",
+    "CoralNeuron": "Coral_Neuron_icon",
+    "CoralCircuit": "Coral_Circuit_icon",
+    "ZapCoil": "Zap_Coil_icon",
+    "GravityDisruptor": "Gravity_Disruptor_icon",
+    "NeuronSpawner": "Neuron_Fly_icon",
+    //## Corruption
+    "Corruption": "Corruption_icon",
+    "CorruptionTube": "Corruption_Tube_icon",
+    "StuckDaddy": "Stuck_Daddy_icon",
+    "RotFlyPaper": "Rot_Fly_Paper_icon",
+    //## Other
+    "CentipedeAttractor": "Centipede_Attractor_icon",
+    "SuperJumpInstruction": "Super_Jump_Instruction_icon",
+    "ProjectedImagePosition": "Projected_Image_Position_icon",
+    "NoSpearStickZone": "No_Spear_Stick_Zone_icon",
+    "ScavTradeInstruction": "Scav_Trade_Instruction_icon",
+    "PlayerPushback": "Player_Pushback_icon",
+    "MultiplayerItem": "Multiplayer_Item_icon",
+    "BrokenShelterWaterLevel": "Broken_Shelter_Water_Level_icon",
+    "ReliableIggyDirection": "Reliable_Iggy_Direction_icon",
+    "NoLeviathanStrandingZone": "No_Leviathan_Stranding_Zone_icon",
+    "Vine": "Vine_icon",
+     //## these mf's
+    "Filter": "Filter_icon",
+    "MSArteryPush": "MS_Artery_Push_icon",
+}
 //## Decorative Objects that don't have any significant gameplay impact
 const decorative_placed_object_icons = { 
     "ProjectedStars": "Projected_Stars_icon",
@@ -378,37 +409,6 @@ const decorative_placed_object_icons = {
     "DayNightSettings": "Day_Night_Settings_icon",
     "SteamPipe": "Steam_Pipe_icon",
     "WallSteamer": "Wall_Steamer_icon",
-}
-//## Objects we don't display normally, mainly niche things
-const mechanical_placed_object_icons = {
-    //## Superstructure
-    "CoralStem": "Coral_Stem_icon",
-    "CoralStemWithNeurons": "Coral_Stem_With_Neurons_icon",
-    "CoralNeuron": "Coral_Neuron_icon",
-    "CoralCircuit": "Coral_Circuit_icon",
-    "ZapCoil": "Zap_Coil_icon",
-    "GravityDisruptor": "Gravity_Disruptor_icon",
-    "NeuronSpawner": "Neuron_Fly_icon",
-    //## Corruption
-    "Corruption": "Corruption_icon",
-    "CorruptionTube": "Corruption_Tube_icon",
-    "StuckDaddy": "Stuck_Daddy_icon",
-    "RotFlyPaper": "Rot_Fly_Paper_icon",
-    //## Other
-    "CentipedeAttractor": "Centipede_Attractor_icon",
-    "SuperJumpInstruction": "Super_Jump_Instruction_icon",
-    "ProjectedImagePosition": "Projected_Image_Position_icon",
-    "NoSpearStickZone": "No_Spear_Stick_Zone_icon",
-    "ScavTradeInstruction": "Scav_Trade_Instruction_icon",
-    "PlayerPushback": "Player_Pushback_icon",
-    "MultiplayerItem": "Multiplayer_Item_icon",
-    "BrokenShelterWaterLevel": "Broken_Shelter_Water_Level_icon",
-    "ReliableIggyDirection": "Reliable_Iggy_Direction_icon",
-    "NoLeviathanStrandingZone": "No_Leviathan_Stranding_Zone_icon",
-    "Vine": "Vine_icon",
-     //## these mf's
-    "Filter": "Filter_icon",
-    "MSArteryPush": "MS_Artery_Push_icon",
 }
 //##End PlacedObjects
 

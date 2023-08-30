@@ -36,7 +36,11 @@
 
         /* stuck to the bottom, custom link colors */
         #main-menu-footer {
+            position: fixed;
             margin-bottom: 0.1em;
+            bottom: 1%;
+            left: 20%;
+            align-content: center;
             text-align: center;
             font-family: 'Segoe UI';
             font-size: 0.8em;
@@ -86,7 +90,7 @@
             margin: 4px;
         }
 
-        /* fancy ass animations for stuff poping in */
+        /* fancy ass animations for stuff popping in */
         #scuglist-modded {
             display: block;
             transition: opacity 0.2s, width 0.4s;
@@ -133,18 +137,25 @@
             position: relative;
         }
 
+        #Slugcat-Selection {
+            height: auto;
+            padding: 5%
+        }
+
         #indexcontents {
+            width: 80%;
+            left: 15%;
+            display: block;
+            position: relative;
             text-align: center;
             font-family: 'Segoe UI';
             font-weight: 500;
             color: #A9A4B2;
             /* menu lightgray */
             background-color: black;
-            margin-left: 15%;
-            margin-right: 15%;
             border-radius: 8px;
             border: 2px solid #A9A4B200;
-            border-color: white;
+            border-color: #4B4653;
         }
 
         .indexgroup {
@@ -153,10 +164,12 @@
             color: #A9A4B2;
             /* menu lightgray */
             background-color: black;
-            margin: 5%;
+            margin: 2%;
+            margin-top: 1%;
+            margin-bottom: 1%;
             border-radius: 8px;
             border: 2px solid #A9A4B200;
-            border-color: white;
+            border-color: #4B4653;
         }
 
             .indexgroup figure {
@@ -164,14 +177,17 @@
                 border-radius: 8px;
                 border: 2px solid #A9A4B200;
                 border-color: white;
+                background: #0c0c0c;
+                margin: 12px;
             }
 
             .indexgroup figcaption {
                 text-align: center;
                 font-family: 'Segoe UI';
-                font-weight: 500;
+                font-weight: 600;
                 color: #A9A4B2;
                 padding: 10px;
+                padding-top: 1px;
             }
 
             .indexgroup content {
@@ -185,9 +201,27 @@
                 flex-wrap: wrap;
             }
 
+            .indexgroup table {
+                border-radius: 8px;
+                border: 2px solid #A9A4B200;
+                border-color: #A9A4B2;
+                align-content: center;
+                text-align: center;
+                margin: 1px;
+            }
+
+            .indexgroup tr {
+            }
+
+            .indexgroup td {
+                border-radius: 8px;
+                border: 2px solid #A9A4B200;
+                border-color: #A9A4B2;
+            }
+
         .index-sidebar {
-            top: 24px;
-            max-height: calc(100vh - 54px);
+            height: 100%;
+            width: 12%;
             display: flex;
             flex-direction: column;
             padding: 8px;
@@ -195,20 +229,41 @@
             color: #cccccc;
             position: fixed !important;
             z-index: 1;
-            overflow: auto
+            overflow: auto;
+            font-family: 'Segoe UI';
+            font-weight: 500;
+            color: #A9A4B2;
+        }
+
+        #sidetitle {
+            margin-top: 80px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        #sidecontent {
+            height: auto;
+        }
+
+        #wikilink {
         }
 
         #sidenav h2 {
-            font-size: 21px;
-            padding-left: 16px;
-            margin: -4px 0 4px 0;
-            width: 204px;
+            font-family: "Rodondo";
+            font-size: 3rem;
+            text-align: center;
+            line-height: 10%;
         }
 
         #sidenav a {
             text-decoration: none;
             display: block;
             padding: 2px 1px 1px 16px;
+            border-radius: 8px;
+            border: 2px solid #A9A4B200;
+            border-color: #4B4653;
+            color: #A9A4B2;
         }
 
             #sidenav a:hover, #sidenav a:focus {
@@ -230,68 +285,73 @@
                 background-color: #ccc;
                 color: #000;
             }
-
     </style>
 
 </head>
 
 <body>
-    <form id="main-menu">
-        <div class="rw-title">Rain World:<br>Downpour</div>
-        <div class="rw-bigtext" style="text-align: center; margin-top:0.5em;">I'm lost as...</div>
-        <div id="scuglist-group">
-            <div id="scuglist-vanilla"></div>
-        </div>
+    <section id="Slugcat-Selection">
+        <form id="main-menu">
+            <div class="rw-title">Rain World:<br>Downpour</div>
+            <div class="rw-bigtext" style="text-align: center; margin-top:0.5em;">I'm lost as...</div>
+            <div id="scuglist-group">
+                <div id="scuglist-vanilla"></div>
+            </div>
 
-        <script>
-            let slugcats = {};
+            <script>
+                let slugcats = {};
 
-            getJsonObject("slugcats.json", function (json) {
-                slugcats = json;
-                var html = "";
-                for (const slugcatName in slugcats) {
-                    var icon = "72_unknown";
-                    if (slugcatName in icon_by_name) {
-                        icon = icon_by_name[slugcatName];
-                    } else {
-                        console.log("missing icon for " + slugcatName);
+                getJsonObject("slugcats.json", function (json) {
+                    slugcats = json;
+                    var html = "";
+                    for (const slugcatName in slugcats) {
+                        var icon = "72_unknown";
+                        if (slugcatName in icon_by_name) {
+                            icon = icon_by_name[slugcatName];
+                        } else {
+                            console.log("missing icon for " + slugcatName);
+                        }
+                        html += `
+    <label class="difficulty-btn">
+                <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}');" autocomplete="off">
+                <img src="./resources/icons/${icon}.png">
+    </label>`;
+                        document.getElementById('scuglist-vanilla').innerHTML = html;
                     }
-                    html += `
-<label class="difficulty-btn">
-            <input type="radio" class="rw-ui" name="difficulties" onclick="selectDifficulty('${slugcatName}');" autocomplete="off">
-            <img src="./resources/icons/${icon}.png">
-</label>`;
-                    document.getElementById('scuglist-vanilla').innerHTML = html;
+                }, true);
+
+                function selectDifficulty(slugName) {
+                    window.location.href = `map.html?slugcat=${slugName}&region=${slugcats[slugName].startingRegion}&room=${slugcats[slugName].startingRoom}`;
                 }
-            }, true);
+            </script>
 
-            function selectDifficulty(slugName) {
-                window.location.href = `map.html?slugcat=${slugName}&region=${slugcats[slugName].startingRegion}&room=${slugcats[slugName].startingRoom}`;
-            }
-        </script>
-
-    </form>
+        </form>
+    </section>
 
     <aside id="sidenav" class="index-sidebar rw-ui">
-        <a href="#indextop">Index</a>
-        <a href="#tilenodes">Tile Nodes</a>
-        <a href="#roomtags">Room Tags</a>
-        <a href="#slugcats">Slugcats</a>
-        <a href="#creatures">Creatures</a>
-        <a href="#lizards">Lizards</a>
-        <a href="#centipedes">Centipedes</a>
-        <a href="#rot">The Rot</a>
-        <a href="#spiders">Spiders</a>
-        <a href="#creatureattributes">Creature Attributes</a>
-        <a href="#placedobjects">Placed Objects</a>
-        <a href="#placedcreatures">Placed Creatures</a>
-        <a href="#edible">Edible</a>
-        <a href="#non-edible">Non-Edible</a>
-        <a href="#decorative">Decorative</a>
-        <a href="#mechanical">Mechanical</a>
+        <a href="https://rainworld.miraheze.org/wiki/Rain_World_Wiki" id="wikilink"><h2>Wiki</h2></a>
+        <div id="sidetitle">Navigation</div>
+        <div id="sidecontent">
+            <a href="#indextop">Index</a>
+            <a href="#tilenodes">Tile Nodes</a>
+            <a href="#roomtags">Room Tags</a>
+            <a href="#slugcats">Slugcats</a>
+            <a href="#creatures">Creatures</a>
+                <a href="#lizards">Lizards</a>
+                <a href="#centipedes">Centipedes</a>
+                <a href="#rot">The Rot</a>
+                <a href="#spiders">Spiders</a>
+            <a href="#creatureattributes">Creature Attributes</a>
+            <a href="#placedobjects">Placed Objects</a>
+                <a href="#placedcreatures">Placed Creatures</a>
+                <a href="#consumable">Consumable</a>
+                <a href="#non-consumable">Non-Consumable</a>
+                <a href="#mechanicalobjects">Mechanical</a>
+                <a href="#decorativeobjects">Decorative</a>
+        </div>
     </aside>
 
-    <div id="indexcontents">
+    <article id="indexcontents">
         <h2 id="indextop">Index</h2>
         <div class="indexgroup">
             <h3 id="random">Random Icons</h3>
@@ -348,6 +408,20 @@
                 <img src="./resources/icons/Garbage_Worm_icon.png" />
                 <figcaption>Garbage Worm</figcaption>
                 <content>Creates a Garbage Worm</content>
+                <table>
+                    <tr>
+                        <td>Max Health</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
+                    </tr>
+                </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Worm_Grass_icon.png" />
@@ -466,6 +540,20 @@
                 <img src="./resources/icons/Slugpup_icon.png" />
                 <figcaption>Slugpup</figcaption>
                 <content>NPC, can spawn for Monk, Survivor, Hunter, and Gourmand after completing Gourmand's food quest or collecting a token as Survivor or Monk</content>
+                <table>
+                    <tr>
+                        <td>Max Health</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1</td>
+                    </tr>
+                </table>
             </figure>
         </div>
         <br>
@@ -479,8 +567,16 @@
                     <content>Hefty but slow. Has the ability to charge a dash towards prey</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>2.5</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -490,8 +586,16 @@
                     <content>No special attributes</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -501,8 +605,16 @@
                     <content>Has the ability to climb walls and has a short range tongue to pull objects towards itself</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.5</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -512,8 +624,16 @@
                     <content>Has the ability to climb walls and also camoflauge itself while stationary, with a long range tongue</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1.8</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.9</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -523,8 +643,16 @@
                     <content>Is blind, instead detecting the player by sound</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -534,8 +662,16 @@
                     <content>Always spawn in groups, with the hivemind like ability of communicating detected presence of the player between each other</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1.6</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.8</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -545,8 +681,16 @@
                     <content>Has the ability to climb walls, and high agility with a rapidly deployable leap that propels them through the air, with the distance depending on time charged</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1.8</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.9</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -556,8 +700,16 @@
                     <content>Very High agility, with the ability to rapidly spit globules at prey to push back and slow them. With the Remix option Alpha Red Lizards enabled, they also have a medium range tongue that can grab objects carried by the player, able to break spears that they grab</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -567,8 +719,16 @@
                     <content>Low agility on land and high agility in water, often acting as an ambush predator, sitting motionless at the bottom of a pool of water until prey is detected</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -578,8 +738,16 @@
                     <content>Has the bulkiness of a green lizard, able to charge a pounce through the air at prey, often stumbling along the way, and can spit globules like a red lizard</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>2.5</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -589,8 +757,16 @@
                     <content>Low on the food chain, eating Batflies, with a long tongue it can extend to pull itself toward the grappled target</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>2.4</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>1.2</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -600,8 +776,16 @@
                     <content>Pathetic agility on land with excellent sight and agility underwater. Can be indentified underwater by its glowing head</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1.6</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.8</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -611,8 +795,16 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -625,7 +817,15 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
                             <td>1</td>
                         </tr>
                     </table>
@@ -636,7 +836,15 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
                             <td>1</td>
                         </tr>
                     </table>
@@ -647,8 +855,20 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
-                            <td>0.69-12</td>
+                            <td>Max Health (Youth)</td>
+                            <td>0.69-1.32</td>
+                        </tr>
+                        <tr>
+                            <td>Max Health (Mature)</td>
+                            <td>1.32–2.56</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -658,8 +878,16 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
-                            <td>0.69-12</td>
+                            <td>Max Health</td>
+                            <td>2.56–12</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -669,8 +897,16 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
-                            <td>≈9.195</td>
+                            <td>Max Health</td>
+                            <td>13.3 OR ≈9.195</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -680,8 +916,16 @@
                     <content></content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>≈2.31-3.2</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -691,8 +935,16 @@
                     <content>Insane underwater agility, with near-omnipotent underwater sight. Latches onto prey and shocks them to death, able to kill Leviathans if given the chance</content>
                     <table>
                         <tr>
-                            <td>Health</td>
-                            <td>≈ 1.88-6.53</td>
+                            <td>Max Health</td>
+                            <td>≈1.88-6.53</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -705,8 +957,16 @@
                     <content>Detects by touch only, with a lower agility, with shorter tentacles and a smaller cyst core</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -716,8 +976,16 @@
                     <content>Detects by sound and touch only, with a moderate agility, with moderate length tentacles and a moderate sized cyst core</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>200</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>200</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -727,8 +995,16 @@
                     <content>Detects by sound and touch only, with a lower agility, with extremely long tentacles and a large cyst core</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>400</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -738,8 +1014,16 @@
                     <content>Detects by sound, sight, and touch, the smallest of the rot with fewer and shorter tentacles, and a hunter shaped cyst core</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -752,7 +1036,15 @@
                     <content>Small but numerous. attacking prey by swarming them and killing them if they reach a greater cumulative mass than their prey</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.1</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
                             <td>0.1</td>
                         </tr>
                     </table>
@@ -760,33 +1052,57 @@
                 <figure>
                     <img src="./resources/icons/Big_Spider_icon.png" />
                     <figcaption>Big Spider</figcaption>
-                    <content></content>
+                    <content>A larger spider, shows its fangs before hissing and performing a short pounce at its prey</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.5</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>1</td>
                         </tr>
                     </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Spitter_Spider_icon.png" />
                     <figcaption>Spitter Spider</figcaption>
-                    <content></content>
+                    <content>Not as agile as a normal big spider, but compensates by stalking prey from a distance and shooting toxic needles that build up a debilitating stun on the impacted Creature, before retrieving their immobile prey</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1.1</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Mother_Spider_icon.png" />
                     <figcaption>Mother Spider</figcaption>
-                    <content>Releases a burst of Coalescipedes upon death</content>
+                    <content>The largest of the spiders, skiddish and tries to evade other Creatures, lunging at said Creature if they agitate the spider long enough or otherwise don't back down. Releases a burst of Coalescipedes upon death</content>
                     <table>
                         <tr>
-                            <td>Health</td>
+                            <td>Max Health</td>
                             <td>1.1</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </figure>
@@ -794,32 +1110,56 @@
             <figure>
                 <img src="./resources/icons/White_Squidcada_icon.png" />
                 <figcaption>White Squidcada</figcaption>
-                <content></content>
+                <content>Aerial Creature about the size of the player, hovering and wondering aimlessly within their colonies. May be seen 'fishing' by hovering over water and letting a Leech attach themselves, flying up out of the water to consume it.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.8</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Black_Squidcada_icon.png" />
                 <figcaption>Black Squidcada</figcaption>
-                <content></content>
+                <content>Squidcadas may also be grabbed by the player with both hands to leverage their wings to slow their own descent and cross large gaps</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.8</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Snail_icon.png" />
                 <figcaption>Snail</figcaption>
-                <content></content>
+                <content>Charges up a pop that stuns nearby Creatures when near disliked Creatures. Can be picked up with both hands and thrown to stun nearby Creatures</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
+                        <td>0.4</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.8</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
                         <td>1</td>
                     </tr>
                 </table>
@@ -830,7 +1170,15 @@
                 <content>attaches to prey and attempts to drown them with swarms. Squidcadas actively 'fish' for and eat Leeches</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
                         <td>0.1</td>
                     </tr>
                 </table>
@@ -841,7 +1189,15 @@
                 <content>A Longer Leech with greater mass and agility to pull down its prey</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
                         <td>0.2</td>
                     </tr>
                 </table>
@@ -852,7 +1208,15 @@
                 <content>Instead of seeking to pull down and drown its prey, it instead has the ability to jump and is highly persistent in its latch ability, draining food pips from it the player periodically unless forcefully detatched</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.2</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
                         <td>0.2</td>
                     </tr>
                 </table>
@@ -860,54 +1224,94 @@
             <figure>
                 <img src="./resources/icons/Pole_Plant_icon.png" />
                 <figcaption>Pole Mimic</figcaption>
-                <content></content>
+                <content>Subtly pulses to indicate its true nature, most noticable when entering a room, otherwise pulling Creatures that have grabbed them into their den. Typically found in a vertical oriention starting from the ground, although more rarely starting upside down from a roof or even horizontally.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.9</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.5</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Monster_Kelp_icon.png" />
                 <figcaption>Monster Kelp</figcaption>
-                <content></content>
+                <content>A leafy flexible arm that latches onto moving Creature within reach and pulls them inside their den. Can be bypassed by moving extremely slow past them.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>2.5</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.8</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Scavenger_icon.png" />
                 <figcaption>Scavenger</figcaption>
-                <content></content>
+                <content>Intelligent primate capable of using Rocks and Spears, trade, communication, and forming a beneficial or harmful relationship with the player</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>1.1</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1.3</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1.5</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Elite_Scavenger_icon.png" />
                 <figcaption>Elite Scavenger</figcaption>
-                <content></content>
+                <content>Advanced Scavenger with better weaponry, unique Vulture Masks, able to arc their throws and leap. Found mainly around the time of the Hunter, Artificer, and Spearmaster.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>2.2</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1.3</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>3.5</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Chieftain_Scavenger_icon.png" />
                 <figcaption>Scavenger King</figcaption>
-                <content></content>
+                <content>Cheiftain of all Scavengers, possessing a unique mask, Red Centipede shells as armor, the Mark of Communication, and a citizen id drone</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1.3</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
                         <td>4</td>
                     </tr>
                 </table>
@@ -915,77 +1319,133 @@
             <figure>
                 <img src="./resources/icons/Vulture_icon.png" />
                 <figcaption>Vulture</figcaption>
-                <content></content>
+                <content>Large aerial predator that swoops down from the air, capable of killing most land Creatures</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>8.5</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>3.5</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/King_Vulture_icon.png" />
                 <figcaption>King Vulture</figcaption>
-                <content></content>
+                <content>A more elaborate Vulture with two retractable tusks that it uses as lazer-guided harpoons to grab and kill Creatures.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>12.5</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>6.5</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Miros_Bird_icon.png" />
                 <figcaption>Miros Bird</figcaption>
-                <content></content>
+                <content>Agile metallic scissor like legs and a sharp beak that grabs and kills most land Creatures. Can be temporarily blinded by Flash Bangs.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>2.75</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Miros_Vulture_icon.png" />
                 <figcaption>Miros Vulture</figcaption>
-                <content></content>
+                <content>Rare but highly deadly, with the flying ability of a Vulture and the beak of a Miros Bird. Periodically shoots lazer-guided explosives when hurt.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Grapple_Worm_icon.png" />
                 <figcaption>Grapple Worm</figcaption>
-                <content></content>
+                <content>Utility Creature; held in one arm to grapple onto surfaces and swing across gaps</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.3</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.3</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1.2</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Lantern_Mouse_icon.png" />
                 <figcaption>Lantern Mouse</figcaption>
-                <content></content>
+                <content>Fragile and Skiddish Creature, often seen hanging from a roof suspended by some sort of retractable string tail. Emits light when alive.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.5</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.4</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Rain_Deer_icon.png" />
                 <figcaption>Rain Deer</figcaption>
-                <content></content>
+                <content>Long Legged Deer capable of bypassing the threat of Worm Grass, attracted by and eats given Spore Puffs, upon which they lay close to the ground for the player to hitch a ride on their antlers</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
@@ -995,117 +1455,205 @@
                 <content>high agility, able to evade Spears thrown mid air. Drops the Eggbug Eggs that are attached to its body upon death</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.15</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.3</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>0.7</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Dropwig_icon.png" />
                 <figcaption>Dropwig</figcaption>
-                <content></content>
+                <content>Ambush Predator, climbing to and suspending itself from a roof, lying in wait to pounce Creatures that walk underneath. Often seen using objects as bait by carrying the item and dropping it upon settling onto its perch.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.95</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.6</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Adult_Noodlefly_icon.png" />
                 <figcaption>Adult Noodlefly</figcaption>
-                <content></content>
+                <content>Flying worm with wings. Will extend and stiffen a flaccid needle-like tongue upon itself or its young being threatened, before lunging in attempt to skewer the assailant.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.4</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1.2</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Infant_Noodlefly_icon.png" />
                 <figcaption>Infant Noodlefly</figcaption>
-                <content></content>
+                <content>Smaller Noodlefly without the ability to defend itself. Can be picked up and eaten.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.2</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.4</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Jetfish_icon.png" />
                 <figcaption>Jetfish</figcaption>
-                <content></content>
+                <content>Aquatic Creature that allows for fast traversal through water upon the player grabbing onto it. Has a fondness for Blue Fruit, increasing reputation upon feeding. May harass disliked Creatures and even drown them.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.95</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.9</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Leviathan_icon.png" />
                 <figcaption>Leviathan</figcaption>
-                <content></content>
+                <content>Large mechanical Eel-like Creature that hangs out in large bodies of water and consumes prey with its inescapable mouth</content>
                 <table>
                     <tr>
-                        <td>Health</td>
-                        <td>1000</td>
+                        <td>Max Health</td>
+                        <td>1,000</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1,000</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Overseer_icon.png" />
                 <figcaption>Overseer</figcaption>
-                <content></content>
+                <content>Purposed organism for the Iterators for use of reconnaissance and survelliance outside their Cans. Often seen projecting images and helping guide the player.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.9</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.5</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Firebug_icon.png" />
                 <figcaption>Firebug</figcaption>
-                <content></content>
+                <content>Similiar to the Eggbug, although will viciously latch onto and kill any Creature that attacks its eggs.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>1.4</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>1.3</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>4</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Inspector_icon.png" />
                 <figcaption>Inspector</figcaption>
-                <content></content>
+                <content>Purposed organism contained within an Iterator superstructure, mean't to defend other purposed organisms and attack any hostile foreign threats</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>None</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Yeek_icon.png" />
                 <figcaption>Yeek</figcaption>
-                <content></content>
+                <content>Frog Creature that can perform a large vertical leap, and may be held with both hands for the player to control and use these leaps. Found in OE and in the western most areas of LF & SB as Saint.</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
                         <td>0.5</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.2</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
+                        <td>1</td>
                     </tr>
                 </table>
             </figure>
             <figure>
                 <img src="./resources/icons/Batfly_icon.png" />
                 <figcaption>Batfly</figcaption>
-                <content></content>
+                <content>Weak flying prey that can be killed by a thrown Rock or Skewered by a Spear to retrieve several at once</content>
                 <table>
                     <tr>
-                        <td>Health</td>
+                        <td>Max Health</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Stun Resistance</td>
+                        <td>0.2</td>
+                    </tr>
+                    <tr>
+                        <td>Instant Death Threshold</td>
                         <td>0.15</td>
                     </tr>
                 </table>
@@ -1170,16 +1718,58 @@
                     <img src="./resources/icons/Giant_Jellyfish_icon.png" />
                     <figcaption>Giant Jellyfish</figcaption>
                     <content>Stationary</content>
+                    <table>
+                        <tr>
+                            <td>Max Health</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.6</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
+                        </tr>
+                    </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Stowaway_icon.png" />
                     <figcaption>Stowaway</figcaption>
                     <content>Ambush Predator</content>
+                    <table>
+                        <tr>
+                            <td>Max Health</td>
+                            <td>0.8</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
+                        </tr>
+                    </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Guardian_icon.png" />
                     <figcaption>Guardian</figcaption>
                     <content></content>
+                    <table>
+                        <tr>
+                            <td>Max Health</td>
+                            <td>10,000,000</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>10,000,000</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>None</td>
+                        </tr>
+                    </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/HR_Guard_icon.png" />
@@ -1190,6 +1780,20 @@
                     <img src="./resources/icons/Vulture_Grub_icon.png" />
                     <figcaption>Vulture Grub</figcaption>
                     <content></content>
+                    <table>
+                        <tr>
+                            <td>Max Health</td>
+                            <td>0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>0.6</td>
+                        </tr>
+                    </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Dead_Vulture_Grub_icon.png" />
@@ -1200,16 +1804,35 @@
                     <img src="./resources/icons/Hazer_icon.png" />
                     <figcaption>Hazer</figcaption>
                     <content></content>
+                    <table>
+                        <tr>
+                            <td>Max Health</td>
+                            <td>0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Stun Resistance</td>
+                            <td>0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Instant Death Threshold</td>
+                            <td>0.6</td>
+                        </tr>
+                    </table>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Dead_Hazer_icon.png" />
                     <figcaption>Dead Hazer</figcaption>
                     <content></content>
                 </figure>
+                <figure>
+                    <img src="./resources/icons/Echo_icon.png" />
+                    <figcaption>Ghost Spot / Echo</figcaption>
+                    <content>Defines where an Echo is placed</content>
+                </figure>
             </div>
             <br>
             <div class="indexgroup">
-                <h4 id="edible">Edible</h4>
+                <h4 id="consumable">Consumable</h4>
                 <figure>
                     <img src="./resources/icons/Dandelion_Peach_icon.png" />
                     <figcaption>Dandelion Peach</figcaption>
@@ -1251,24 +1874,10 @@
                     <content></content>
                 </figure>
                 <figure>
-                    <img src="./resources/icons/Colored_Popcorn_Plant_icon.png" />
-                    <figcaption>Popcorn Plant</figcaption>
-                    <content></content>
-                </figure>
-                <figure>
                     <img src="./resources/icons/Bubble_Fruit_icon.png" />
                     <figcaption>Bubble Fruit</figcaption>
                     <content></content>
                 </figure>
-                <figure>
-                    <img src="./resources/icons/Noodlefly_Egg_icon.png" />
-                    <figcaption>Noodlefly Egg</figcaption>
-                    <content></content>
-                </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4 id="non-edible">Non-Edible</h4>
                 <figure>
                     <img src="./resources/icons/Bubble_Weed_icon.png" />
                     <figcaption>Bubble Grass / Bubble Weed</figcaption>
@@ -1319,6 +1928,20 @@
                     <figcaption>Grenade / Scavenger Bomb</figcaption>
                     <content></content>
                 </figure>
+            </div>
+            <br>
+            <div class="indexgroup">
+                <h4 id="non-consumable">Non-Consumable</h4>
+                <figure>
+                    <img src="./resources/icons/Colored_Popcorn_Plant_icon.png" />
+                    <figcaption>Popcorn Plant</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Noodlefly_Egg_icon.png" />
+                    <figcaption>Noodlefly Egg</figcaption>
+                    <content></content>
+                </figure>
                 <figure>
                     <img src="./resources/icons/Spear_icon.png" />
                     <figcaption>Spear</figcaption>
@@ -1328,6 +1951,16 @@
                     <img src="./resources/icons/Explosive_Spear_icon.png" />
                     <figcaption>Explosive Spear</figcaption>
                     <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Vulture_Mask_icon.png" />
+                    <figcaption>Vulture Mask</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Cloak_icon.png" />
+                    <figcaption>Moon's Cloak</figcaption>
+                    <content>Found in MS_FARSIDE as Survivor, Monk, and Hunter, and is worn by Looks to the Moon automatically during Rivulet and Saint</content>
                 </figure>
             </div>
             <br>
@@ -1609,7 +2242,27 @@
             </div>
             <br>
             <div class="indexgroup">
-                <h4 id="superstructure">Superstructure</h4>
+                <h4 id="mechanicalobjects">Mechanical Objects</h4>
+                <figure>
+                    <img src="./resources/icons/Karma_Shrine_icon.png" />
+                    <figcaption>Karma Shrine</figcaption>
+                    <content>A Karma symbol that provides max karma when in front of, emitting particles</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Scavenger_Outpost_icon.png" />
+                    <figcaption>Scavenger Outpost</figcaption>
+                    <content>A painted Rain Deer skull on a pike with Pearls hanging from the antlers</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Trade_Outpost_icon.png" />
+                    <figcaption>Trade Outpost</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Scavenger_Treasury_icon.png" />
+                    <figcaption>Scavenger Treasury</figcaption>
+                    <content>A random trove of Pearls, Lanterns, Grenades, Spears, and Explosive Spears that respawn every cycle</content>
+                </figure>
                 <figure>
                     <img src="./resources/icons/Coral_Stem_icon.png" />
                     <figcaption>Coral Stem</figcaption>
@@ -1631,11 +2284,6 @@
                     <content>A suspended red brittle lattice with several organisms contained within that reconstruct it upon being shattered into pieces upon contact with outside objects, which can be partially climbed on to manuever oneself</content>
                 </figure>
                 <figure>
-                    <img src="./resources/icons/Projected_Stars_icon.png" />
-                    <figcaption>Projected Stars</figcaption>
-                    <content>Array of blue holograms and geometry that are projected within Iterator Superstructures</content>
-                </figure>
-                <figure>
                     <img src="./resources/icons/Zap_Coil_icon.png" />
                     <figcaption>Zap Coil</figcaption>
                     <content>Resizable rectangle of electric coils, that glow blue when active and shock objects that come in contact with it, emitting a loud violent discharge that kills the player and quickly propels objects away</content>
@@ -1650,25 +2298,6 @@
                     <figcaption>Neuron Fly Spawner</figcaption>
                     <content>Spawns Neuron Flies</content>
                 </figure>
-                <figure>
-                    <img src="./resources/icons/Deep_Processing_icon.png" />
-                    <figcaption>Deep Processing</figcaption>
-                    <content>Unknown</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Energy_Swirl_icon.png" />
-                    <figcaption>Energy Swirl</figcaption>
-                    <content>Visual effect seen inside of an active Rarefaction Cell Core</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Lightning_Machine_icon.png" />
-                    <figcaption>Lightning Machine</figcaption>
-                    <content>Harmless intermittent visual strikes of green lightning</content>
-                </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4 id="corruption">Corruption</h4>
                 <figure>
                     <img src="./resources/icons/Corruption_icon.png" />
                     <figcaption>Corruption</figcaption>
@@ -1689,29 +2318,10 @@
                     <figcaption>Rot Fly Paper</figcaption>
                     <content>A harmless and inactive variant of Corruption with several Neuron Flies attached to their tentacles</content>
                 </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4 id="other">Other</h4>
                 <figure>
                     <img src="./resources/icons/Centipede_Attractor_icon.png" />
                     <figcaption>Centipede Attractor</figcaption>
                     <content>Attracts nearby Centipedes towards the area inside of the radius</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/SkyDandelion.png" />
-                    <figcaption>Sky Dandelion</figcaption>
-                    <content>A field of Sky Dandelion particles</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Echo_icon.png" />
-                    <figcaption>Ghost Spot / Echo</figcaption>
-                    <content>Defines where an Echo is placed</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Void_Spawn_Egg_icon.png" />
-                    <figcaption>Void Spawn Egg</figcaption>
-                    <content></content>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Super_Jump_Instruction_icon.png" />
@@ -1727,26 +2337,6 @@
                     <img src="./resources/icons/No_Spear_Stick_Zone_icon.png" />
                     <figcaption>No Spear Stick Zone</figcaption>
                     <content>Prevents Spears from sticking into walls within a defined radius. Also stops Saint's tongue and Tube Worms from grappling onto surfaces after a short period</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Lantern_on_Stick_icon.png" />
-                    <figcaption>Lantern On Stick</figcaption>
-                    <content>A Lantern on a pike, providing illumination, and heat as Saint</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Scavenger_Outpost_icon.png" />
-                    <figcaption>Scavenger Outpost</figcaption>
-                    <content>A painted Rain Deer skull on a pike with Pearls hanging from the antlers</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Trade_Outpost_icon.png" />
-                    <figcaption>Trade Outpost</figcaption>
-                    <content></content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Scavenger_Treasury_icon.png" />
-                    <figcaption>Scavenger Treasury</figcaption>
-                    <content>A random trove of Pearls, Lanterns, Grenades, Spears, and Explosive Spears that respawn every cycle</content>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Scav_Trade_Instruction_icon.png" />
@@ -1774,11 +2364,6 @@
                     <content></content>
                 </figure>
                 <figure>
-                    <img src="./resources/icons/Rainbow_icon.png" />
-                    <figcaption>Rainbow</figcaption>
-                    <content></content>
-                </figure>
-                <figure>
                     <img src="./resources/icons/No_Leviathan_Stranding_Zone_icon.png" />
                     <figcaption>No Leviathan Stranding Zone</figcaption>
                     <content></content>
@@ -1789,8 +2374,57 @@
                     <content>A climbable length of rope, found in OE</content>
                 </figure>
                 <figure>
-                    <img src="./resources/icons/Vulture_Mask_icon.png" />
-                    <figcaption>Vulture Mask</figcaption>
+                    <img src="./resources/icons/Filter_icon.png" />
+                    <figcaption>Filter</figcaption>
+                    <content>A resizable circle that hides objects from appearing within its radius for selected Slugcats</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/MS_Artery_Push_icon.png" />
+                    <figcaption>MS Artery Push</figcaption>
+                    <content></content>
+                </figure>
+            </div>
+            <br>
+            <div class="indexgroup">
+                <h4 id="decorativeobjects">Decorative Objects</h4>
+                <figure>
+                    <img src="./resources/icons/Projected_Stars_icon.png" />
+                    <figcaption>Projected Stars</figcaption>
+                    <content>Array of blue holograms and geometry that are projected within Iterator Superstructures</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Deep_Processing_icon.png" />
+                    <figcaption>Deep Processing</figcaption>
+                    <content>Unknown</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Energy_Swirl_icon.png" />
+                    <figcaption>Energy Swirl</figcaption>
+                    <content>Visual effect seen inside of an active Rarefaction Cell Core</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Lightning_Machine_icon.png" />
+                    <figcaption>Lightning Machine</figcaption>
+                    <content>Harmless intermittent visual strikes of green lightning</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/SkyDandelion.png" />
+                    <figcaption>Sky Dandelion</figcaption>
+                    <content>A field of Sky Dandelion particles</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Void_Spawn_Egg_icon.png" />
+                    <figcaption>Void Spawn Egg</figcaption>
+                    <content></content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Lantern_on_Stick_icon.png" />
+                    <figcaption>Lantern On Stick</figcaption>
+                    <content>A Lantern on a pike, providing illumination, and heat as Saint</content>
+                </figure>
+                <figure>
+                    <img src="./resources/icons/Rainbow_icon.png" />
+                    <figcaption>Rainbow</figcaption>
                     <content></content>
                 </figure>
                 <figure>
@@ -1847,25 +2481,6 @@
                     <img src="./resources/icons/OE_sphere_icon.png" />
                     <figcaption>OE Sphere</figcaption>
                     <content>The large purple and brown bulbs with a glowing orange center, seen in many of the rooms of OE within the background</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Cloak_icon.png" />
-                    <figcaption>Moon's Cloak</figcaption>
-                    <content>Found in MS_FARSIDE as Survivor, Monk, and Hunter, and is worn by Looks to the Moon automatically during Rivulet and Saint</content>
-                </figure>
-                <figure>
-                    <img src="./resources/icons/Karma_Shrine_icon.png" />
-                    <figcaption>Karma Shrine</figcaption>
-                    <content>A Karma symbol that provides max karma when in front of, emitting particles</content>
-                </figure>
-            </div>
-            <br>
-            <div class="indexgroup">
-                <h4 id="hiddenobjects">Hidden Objects</h4>
-                <figure>
-                    <img src="./resources/icons/MS_Artery_Push_icon.png" />
-                    <figcaption>MS Artery Push</figcaption>
-                    <content></content>
                 </figure>
                 <figure>
                     <img src="./resources/icons/Super_Structure_Fuses_icon.png" />
@@ -1938,11 +2553,6 @@
                     <content></content>
                 </figure>
                 <figure>
-                    <img src="./resources/icons/Filter_icon.png" />
-                    <figcaption>Filter</figcaption>
-                    <content></content>
-                </figure>
-                <figure>
                     <img src="./resources/icons/Fairy_Particle_Settings_icon.png" />
                     <figcaption>Fairy Particle Settings</figcaption>
                     <content></content>
@@ -1964,10 +2574,11 @@
                 </figure>
             </div>
         </div>
-    </div>
-    <div id="main-menu-footer">
+    </article>
+
+    <footer id="main-menu-footer">
         Code on <a href="https://github.com/rain-world-map/">GitHub</a> | <a href="https://henpemaz.github.io/Rain-World-Interactive-Map/">Original</a> by <a href="https://github.com/henpemaz/">Henpemaz</a> | <a href="https://github.com/Rain-World-Downpour-Map/rain-world-downpour-map.github.io/tree/Release">Front-End Code</a> | Ported to 1.9 by <a href="https://github.com/Dual-Iron/">Dual</a> | Favicon and embed by <a href="https://twitter.com/liszhuk/">lis</a> | <a href="https://store.steampowered.com/app/312520/Rain_World/">Rain World</a> is property of <a href="https://twitter.com/VideocultMedia">Videocult</a>
-    </div>
+    </footer>
 </body>
 
 </html>
